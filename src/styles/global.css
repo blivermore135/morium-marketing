@@ -32,16 +32,23 @@ body {
   font-family: var(--font-body);
 }
 
-/* font-style/font-weight here, not just font-family, because .font-display
-   (Tailwind's generated utility class for --font-display, used explicitly
-   throughout the components) has higher specificity than this bare element
-   selector and would otherwise leave italic/weight unset wherever a
-   component also pairs it with .font-bold. The compound selector below
-   wins specificity over a lone .font-bold, so a heading stays regular-weight
-   italic even when markup still says font-bold — matching Instrument
-   Serif's actual style axis (italic, not bold) instead of a synthesized
-   fake-bold serif. */
-h1, h2, h3, h4, .font-display {
+/* Serif italic only for headline-scale moments (h1, the big h2 section
+   titles, and anything still explicitly marked .font-display) — small
+   headings (card titles, tier names, nav/footer column labels) read poorly
+   as a thin serif at small sizes, so those either never had .font-display
+   or had it removed in favor of .font-body instead. h3/h4 deliberately
+   excluded from this rule for that reason — they fall through to `body`'s
+   font-body default, or to their own explicit .font-body class.
+
+   font-style/font-weight are set here too, not just font-family, because
+   .font-display (Tailwind's generated utility class for --font-display)
+   has higher specificity than a bare h1/h2 selector and would otherwise
+   leave italic/weight unset wherever a component also pairs it with
+   .font-bold. The compound selector below wins specificity over a lone
+   .font-bold, so a headline stays regular-weight italic even when markup
+   still says font-bold — matching Instrument Serif's actual style axis
+   (italic, not bold) instead of a synthesized fake-bold serif. */
+h1, h2, .font-display {
   font-family: var(--font-display);
   font-style: italic;
   font-weight: 400;
