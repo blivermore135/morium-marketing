@@ -6,6 +6,14 @@
 // fine to show since it's already public. No "Home screen install" tab —
 // a PWA install prompt is an interaction, not a static view, so there's no
 // honest screenshot for it; it's covered in the FAQ instead.
+//
+// Screenshots are native 1488x812, cropped to 1470x812 to cut off a
+// scrollbar sliver the capture picked up on the right edge — that's the
+// actual ceiling of what the capture tooling produces here, not a choice.
+// Sizing the frame much past that width would upscale and blur, so
+// "bigger" comes from layout (full
+// width, tall viewport-relative height, no cropped sidebar competing for
+// space) rather than stretching the images themselves.
 const features = [
 	{
 		id: "booking",
@@ -52,57 +60,55 @@ const features = [
 ];
 ---
 
-<section id="features" class="mx-auto max-w-7xl px-6 py-24 lg:px-8">
-	<div class="max-w-2xl">
-		<span class="text-xs font-semibold tracking-wide text-accent-600 uppercase">
-			What you get
-		</span>
-		<h2 class="mt-3 font-display text-3xl font-bold tracking-tight text-ink sm:text-4xl">
-			Everything you need to run the calendar. Nothing you don't.
-		</h2>
-		<p class="mt-3 text-base text-ink/55">
-			One real app, seven jobs. Click through it below.
-		</p>
+<section id="features" class="py-24">
+	<div class="mx-auto max-w-7xl px-6 lg:px-8">
+		<div class="max-w-2xl">
+			<span class="text-xs font-semibold tracking-wide text-accent-600 uppercase">
+				What you get
+			</span>
+			<h2 class="mt-3 font-display text-3xl font-bold tracking-tight text-ink sm:text-4xl">
+				Everything you need to run the calendar. Nothing you don't.
+			</h2>
+		</div>
 	</div>
 
-	<div id="feature-showcase" class="mt-12 grid gap-6 lg:grid-cols-[340px_1fr] lg:gap-10">
-		<div class="flex gap-3 overflow-x-auto pb-2 lg:flex-col lg:gap-2 lg:overflow-visible lg:pb-0" role="tablist">
+	<div id="feature-showcase" class="mx-auto mt-10 max-w-[1800px] px-4 lg:px-8">
+		<div class="flex flex-wrap justify-center gap-2" role="tablist">
 			{features.map((feature, i) => (
 				<button
 					type="button"
 					data-tab={feature.id}
+					data-benefit={feature.benefit}
 					aria-pressed={i === 0 ? "true" : "false"}
 					class:list={[
-						"feature-tab group shrink-0 rounded-xl border px-4 py-3 text-left transition-colors lg:shrink lg:w-full",
-						i === 0 ? "is-active border-accent-500 bg-accent-50" : "border-line bg-paper hover:border-accent-300 hover:bg-mist",
+						"feature-tab rounded-full border px-4 py-2 font-body text-sm font-semibold transition-colors",
+						i === 0 ? "is-active border-accent-500 bg-accent-500 text-ink" : "border-line bg-paper text-ink/65 hover:border-accent-300 hover:text-ink",
 					]}
 				>
-					<span class="flex items-center gap-2 font-body text-sm font-bold text-ink">
-						<span class="feature-tab-dot h-1.5 w-1.5 shrink-0 rounded-full bg-ink/20 transition-colors"></span>
-						{feature.name}
-					</span>
-					<span class="mt-1 hidden text-xs leading-relaxed text-ink/55 lg:block">
-						{feature.benefit}
-					</span>
+					{feature.name}
 				</button>
 			))}
 		</div>
 
-		<div class="relative">
-			<div class="relative rounded-2xl border border-line bg-mist p-3 shadow-[0_30px_60px_-20px_rgba(0,40,45,0.25)]">
+		<p id="feature-showcase-benefit" class="mx-auto mt-4 max-w-xl text-center text-base text-ink/60">
+			{features[0].benefit}
+		</p>
+
+		<div class="relative mt-6">
+			<div class="relative rounded-2xl border border-line bg-mist p-3 shadow-[0_40px_80px_-30px_rgba(0,40,45,0.3)]">
 				<div class="flex items-center gap-1.5 px-2 pb-3 pt-1">
 					<span class="h-2.5 w-2.5 rounded-full bg-ink/15"></span>
 					<span class="h-2.5 w-2.5 rounded-full bg-ink/15"></span>
 					<span class="h-2.5 w-2.5 rounded-full bg-ink/15"></span>
 					<span class="ml-2 text-xs font-medium text-ink/35" id="feature-showcase-label">{features[0].name}</span>
 				</div>
-				<div class="aspect-video w-full overflow-hidden rounded-xl">
+				<div class="feature-showcase-frame relative w-full overflow-hidden rounded-xl">
 					{features.map((feature, i) => (
 						<img
 							src={feature.image}
 							alt={feature.name}
 							data-panel={feature.id}
-							class:list={["h-full w-full object-cover object-top", i === 0 ? "block" : "hidden"]}
+							class:list={["absolute inset-0 h-full w-full object-cover object-top", i === 0 ? "block" : "hidden"]}
 						/>
 					))}
 				</div>
@@ -122,6 +128,7 @@ const features = [
 	const tabs = Array.from(root?.querySelectorAll<HTMLButtonElement>("[data-tab]") ?? []);
 	const panels = Array.from(root?.querySelectorAll<HTMLImageElement>("[data-panel]") ?? []);
 	const label = document.getElementById("feature-showcase-label");
+	const benefit = document.getElementById("feature-showcase-benefit");
 	const hint = document.getElementById("feature-showcase-hint");
 
 	function activate(id: string) {
@@ -129,11 +136,16 @@ const features = [
 			const active = tab.dataset.tab === id;
 			tab.classList.toggle("is-active", active);
 			tab.classList.toggle("border-accent-500", active);
-			tab.classList.toggle("bg-accent-50", active);
+			tab.classList.toggle("bg-accent-500", active);
+			tab.classList.toggle("text-ink", active);
 			tab.classList.toggle("border-line", !active);
 			tab.classList.toggle("bg-paper", !active);
+			tab.classList.toggle("text-ink/65", !active);
 			tab.setAttribute("aria-pressed", String(active));
-			if (active && label) label.textContent = tab.querySelector("span")?.textContent?.trim() ?? "";
+			if (active) {
+				if (label) label.textContent = tab.textContent?.trim() ?? "";
+				if (benefit) benefit.textContent = tab.dataset.benefit ?? "";
+			}
 		});
 		panels.forEach((panel) => {
 			panel.classList.toggle("hidden", panel.dataset.panel !== id);
@@ -161,7 +173,26 @@ const features = [
 </script>
 
 <style>
-	.feature-tab.is-active .feature-tab-dot {
-		background-color: var(--color-accent-500);
+	/* Native screenshots are 1488x812 (~1.83:1) — height is viewport-driven
+	   for the "almost full screen" feel the user asked for, width caps out
+	   around native resolution via the section's own max-width so nothing
+	   upscales past source quality and blurs. Scaled down in three steps
+	   rather than one flat vh value, so a tall narrow phone viewport doesn't
+	   end up with a cropped-to-nothing sliver of the screenshot. */
+	.feature-showcase-frame {
+		aspect-ratio: 1470 / 812;
+		max-width: 100%;
+		margin: 0 auto;
+		height: min(42vh, 420px);
+	}
+	@media (min-width: 768px) {
+		.feature-showcase-frame {
+			height: min(62vh, 680px);
+		}
+	}
+	@media (min-width: 1280px) {
+		.feature-showcase-frame {
+			height: min(78vh, 860px);
+		}
 	}
 </style>
