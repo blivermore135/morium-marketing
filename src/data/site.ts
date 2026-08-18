@@ -6,10 +6,10 @@ export const APP_URL = "https://app.morium.one";
 export const SIGNUP_URL = `${APP_URL}/admin/signup`;
 export const LOGIN_URL = `${APP_URL}/admin/login`;
 
-// Not yet a monitored real inbox as of 2026-08-17 — set up mail
-// forwarding/routing for this address before actually launching, or
-// contact/waitlist inquiries land nowhere.
-export const CONTACT_EMAIL = "hello@morium.one";
+// A real, already-monitored inbox (2026-08-17), used instead of an
+// @morium.one address for the same reason — no mail routing/forwarding is
+// set up for that domain yet.
+export const CONTACT_EMAIL = "moriumcomp@gmail.com";
 
 export function contactMailto(subject: string): string {
 	return `mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent(subject)}`;
