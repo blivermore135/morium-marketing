@@ -1,19 +1,54 @@
 ---
 // Real screenshots (mid-2026) — the admin ones are from a throwaway seeded
 // demo org ("Prestige Auto Detailing"), never Bob's Detailing's actual
-// customer data; the booking-page one is Bob's Detailing's real public
-// quote form, which is fine to show since it's already public. Home screen
-// install has no real screenshot — a PWA install prompt isn't a static view
-// to capture, so it keeps the placeholder.
+// customer data (seed script deleted the org right after capture); the
+// booking-page one is Bob's Detailing's real public quote form, which is
+// fine to show since it's already public. No "Home screen install" tab —
+// a PWA install prompt is an interaction, not a static view, so there's no
+// honest screenshot for it; it's covered in the FAQ instead.
 const features = [
-	{ name: "Online booking page", benefit: "Customers book you directly — no back-and-forth texting.", image: "/images/ss-quote-form.jpg" },
-	{ name: "Bookings dashboard", benefit: "See what's pending, confirmed, and done at a glance.", image: "/images/ss-bookings.jpg" },
-	{ name: "Calendar view", benefit: "Your whole week, laid out before you start it.", image: "/images/ss-calendar.jpg" },
-	{ name: "Customer records", benefit: "Every vehicle, every visit, every dollar — remembered for you.", image: "/images/ss-customers.jpg" },
-	{ name: "Revenue reporting", benefit: "Know your best month, your best service, your busiest day.", image: "/images/ss-revenue.jpg" },
-	{ name: "Automatic review requests", benefit: "Every completed job asks for a Google review, without you lifting a finger.", image: "/images/ss-reviews.jpg" },
-	{ name: "Rebooking reminders", benefit: "Past customers get nudged back before they forget you.", image: "/images/ss-rebooking.jpg" },
-	{ name: "Home screen install", benefit: "Feels like an app on your phone — no App Store required.", image: null },
+	{
+		id: "booking",
+		name: "Online booking page",
+		benefit: "Customers book you directly — no back-and-forth texting.",
+		image: "/images/showcase-booking.jpg",
+	},
+	{
+		id: "dashboard",
+		name: "Bookings dashboard",
+		benefit: "See what's pending, confirmed, and done at a glance.",
+		image: "/images/showcase-dashboard.jpg",
+	},
+	{
+		id: "calendar",
+		name: "Calendar view",
+		benefit: "Your whole week, laid out before you start it.",
+		image: "/images/showcase-calendar.jpg",
+	},
+	{
+		id: "customers",
+		name: "Customer records",
+		benefit: "Every vehicle, every visit, every dollar — remembered for you.",
+		image: "/images/showcase-customers.jpg",
+	},
+	{
+		id: "revenue",
+		name: "Revenue reporting",
+		benefit: "Know your best month, your best service, your busiest day.",
+		image: "/images/showcase-revenue.jpg",
+	},
+	{
+		id: "reviews",
+		name: "Automatic review requests",
+		benefit: "Every completed job asks for a Google review, without you lifting a finger.",
+		image: "/images/showcase-reviews.jpg",
+	},
+	{
+		id: "rebooking",
+		name: "Rebooking reminders",
+		benefit: "Past customers get nudged back before they forget you.",
+		image: "/images/showcase-rebooking.jpg",
+	},
 ];
 ---
 
@@ -25,27 +60,108 @@ const features = [
 		<h2 class="mt-3 font-display text-3xl font-bold tracking-tight text-ink sm:text-4xl">
 			Everything you need to run the calendar. Nothing you don't.
 		</h2>
+		<p class="mt-3 text-base text-ink/55">
+			One real app, seven jobs. Click through it below.
+		</p>
 	</div>
 
-	<div class="mt-14 grid gap-x-8 gap-y-14 sm:grid-cols-2 lg:grid-cols-4">
-		{features.map((feature) => (
-			<div>
-				{feature.image ? (
-					<div class="aspect-[4/3] overflow-hidden rounded-xl border border-ink/10">
-						<img src={feature.image} alt={feature.name} class="h-full w-full object-cover object-top" />
-					</div>
-				) : (
-					<div class="flex aspect-[4/3] items-center justify-center rounded-xl border border-dashed border-ink/15 bg-mist">
-						<p class="px-4 text-center text-xs font-medium text-ink/35">
-							[SCREENSHOT: {feature.name.toLowerCase()}]
-						</p>
-					</div>
-				)}
-				<h3 class="mt-4 font-body text-base font-bold text-ink">
-					{feature.name}
-				</h3>
-				<p class="mt-1.5 text-sm leading-relaxed text-ink/60">{feature.benefit}</p>
+	<div id="feature-showcase" class="mt-12 grid gap-6 lg:grid-cols-[340px_1fr] lg:gap-10">
+		<div class="flex gap-3 overflow-x-auto pb-2 lg:flex-col lg:gap-2 lg:overflow-visible lg:pb-0" role="tablist">
+			{features.map((feature, i) => (
+				<button
+					type="button"
+					data-tab={feature.id}
+					aria-pressed={i === 0 ? "true" : "false"}
+					class:list={[
+						"feature-tab group shrink-0 rounded-xl border px-4 py-3 text-left transition-colors lg:shrink lg:w-full",
+						i === 0 ? "is-active border-accent-500 bg-accent-50" : "border-line bg-paper hover:border-accent-300 hover:bg-mist",
+					]}
+				>
+					<span class="flex items-center gap-2 font-body text-sm font-bold text-ink">
+						<span class="feature-tab-dot h-1.5 w-1.5 shrink-0 rounded-full bg-ink/20 transition-colors"></span>
+						{feature.name}
+					</span>
+					<span class="mt-1 hidden text-xs leading-relaxed text-ink/55 lg:block">
+						{feature.benefit}
+					</span>
+				</button>
+			))}
+		</div>
+
+		<div class="relative">
+			<div class="relative rounded-2xl border border-line bg-mist p-3 shadow-[0_30px_60px_-20px_rgba(0,40,45,0.25)]">
+				<div class="flex items-center gap-1.5 px-2 pb-3 pt-1">
+					<span class="h-2.5 w-2.5 rounded-full bg-ink/15"></span>
+					<span class="h-2.5 w-2.5 rounded-full bg-ink/15"></span>
+					<span class="h-2.5 w-2.5 rounded-full bg-ink/15"></span>
+					<span class="ml-2 text-xs font-medium text-ink/35" id="feature-showcase-label">{features[0].name}</span>
+				</div>
+				<div class="aspect-video w-full overflow-hidden rounded-xl">
+					{features.map((feature, i) => (
+						<img
+							src={feature.image}
+							alt={feature.name}
+							data-panel={feature.id}
+							class:list={["h-full w-full object-cover object-top", i === 0 ? "block" : "hidden"]}
+						/>
+					))}
+				</div>
 			</div>
-		))}
+			<span
+				id="feature-showcase-hint"
+				class="pointer-events-none absolute -bottom-3 left-1/2 -translate-x-1/2 rounded-full bg-ink px-3 py-1 text-[11px] font-semibold text-paper shadow-lg transition-opacity lg:hidden"
+			>
+				Tap to explore →
+			</span>
+		</div>
 	</div>
 </section>
+
+<script>
+	const root = document.getElementById("feature-showcase");
+	const tabs = Array.from(root?.querySelectorAll<HTMLButtonElement>("[data-tab]") ?? []);
+	const panels = Array.from(root?.querySelectorAll<HTMLImageElement>("[data-panel]") ?? []);
+	const label = document.getElementById("feature-showcase-label");
+	const hint = document.getElementById("feature-showcase-hint");
+
+	function activate(id: string) {
+		tabs.forEach((tab) => {
+			const active = tab.dataset.tab === id;
+			tab.classList.toggle("is-active", active);
+			tab.classList.toggle("border-accent-500", active);
+			tab.classList.toggle("bg-accent-50", active);
+			tab.classList.toggle("border-line", !active);
+			tab.classList.toggle("bg-paper", !active);
+			tab.setAttribute("aria-pressed", String(active));
+			if (active && label) label.textContent = tab.querySelector("span")?.textContent?.trim() ?? "";
+		});
+		panels.forEach((panel) => {
+			panel.classList.toggle("hidden", panel.dataset.panel !== id);
+			panel.classList.toggle("block", panel.dataset.panel === id);
+		});
+	}
+
+	let autoplay = setInterval(() => {
+		const currentIndex = tabs.findIndex((t) => t.classList.contains("is-active"));
+		const next = tabs[(currentIndex + 1) % tabs.length];
+		if (next?.dataset.tab) activate(next.dataset.tab);
+	}, 3500);
+
+	function stopAutoplay() {
+		clearInterval(autoplay);
+		hint?.style.setProperty("opacity", "0");
+	}
+
+	tabs.forEach((tab) => {
+		tab.addEventListener("click", () => {
+			stopAutoplay();
+			if (tab.dataset.tab) activate(tab.dataset.tab);
+		});
+	});
+</script>
+
+<style>
+	.feature-tab.is-active .feature-tab-dot {
+		background-color: var(--color-accent-500);
+	}
+</style>
