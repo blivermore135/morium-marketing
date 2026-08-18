@@ -1,14 +1,16 @@
 @import "tailwindcss";
 
-@import "@fontsource/space-grotesk/500.css";
-@import "@fontsource/space-grotesk/600.css";
-@import "@fontsource/space-grotesk/700.css";
+@import "@fontsource/instrument-serif/400.css";
+@import "@fontsource/instrument-serif/400-italic.css";
 @import "@fontsource/plus-jakarta-sans/400.css";
 @import "@fontsource/plus-jakarta-sans/500.css";
 @import "@fontsource/plus-jakarta-sans/600.css";
 
 @theme {
-  --font-display: "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
+  /* Instrument Serif only ships weight 400 — headings use italic instead of
+     bold for emphasis (see the h1-h4 rule below), so nothing here ever asks
+     the browser to fake a bold weight it doesn't have. */
+  --font-display: "Instrument Serif", ui-serif, Georgia, serif;
   --font-body: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
 
   --color-ink: #0a1a1f;
@@ -30,6 +32,21 @@ body {
   font-family: var(--font-body);
 }
 
-h1, h2, h3, h4 {
+/* font-style/font-weight here, not just font-family, because .font-display
+   (Tailwind's generated utility class for --font-display, used explicitly
+   throughout the components) has higher specificity than this bare element
+   selector and would otherwise leave italic/weight unset wherever a
+   component also pairs it with .font-bold. The compound selector below
+   wins specificity over a lone .font-bold, so a heading stays regular-weight
+   italic even when markup still says font-bold — matching Instrument
+   Serif's actual style axis (italic, not bold) instead of a synthesized
+   fake-bold serif. */
+h1, h2, h3, h4, .font-display {
   font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 400;
+}
+
+.font-display.font-bold {
+  font-weight: 400;
 }
