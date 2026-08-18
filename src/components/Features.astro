@@ -1,13 +1,19 @@
 ---
+// Real screenshots (mid-2026) — the admin ones are from a throwaway seeded
+// demo org ("Prestige Auto Detailing"), never Bob's Detailing's actual
+// customer data; the booking-page one is Bob's Detailing's real public
+// quote form, which is fine to show since it's already public. Home screen
+// install has no real screenshot — a PWA install prompt isn't a static view
+// to capture, so it keeps the placeholder.
 const features = [
-	{ name: "Online booking page", benefit: "Customers book you directly — no back-and-forth texting." },
-	{ name: "Bookings dashboard", benefit: "See what's pending, confirmed, and done at a glance." },
-	{ name: "Calendar view", benefit: "Your whole week, laid out before you start it." },
-	{ name: "Customer records", benefit: "Every vehicle, every visit, every dollar — remembered for you." },
-	{ name: "Revenue reporting", benefit: "Know your best month, your best service, your busiest day." },
-	{ name: "Automatic review requests", benefit: "Every completed job asks for a Google review, without you lifting a finger." },
-	{ name: "Rebooking reminders", benefit: "Past customers get nudged back before they forget you." },
-	{ name: "Home screen install", benefit: "Feels like an app on your phone — no App Store required." },
+	{ name: "Online booking page", benefit: "Customers book you directly — no back-and-forth texting.", image: "/images/ss-quote-form.jpg" },
+	{ name: "Bookings dashboard", benefit: "See what's pending, confirmed, and done at a glance.", image: "/images/ss-bookings.jpg" },
+	{ name: "Calendar view", benefit: "Your whole week, laid out before you start it.", image: "/images/ss-calendar.jpg" },
+	{ name: "Customer records", benefit: "Every vehicle, every visit, every dollar — remembered for you.", image: "/images/ss-customers.jpg" },
+	{ name: "Revenue reporting", benefit: "Know your best month, your best service, your busiest day.", image: "/images/ss-revenue.jpg" },
+	{ name: "Automatic review requests", benefit: "Every completed job asks for a Google review, without you lifting a finger.", image: "/images/ss-reviews.jpg" },
+	{ name: "Rebooking reminders", benefit: "Past customers get nudged back before they forget you.", image: "/images/ss-rebooking.jpg" },
+	{ name: "Home screen install", benefit: "Feels like an app on your phone — no App Store required.", image: null },
 ];
 ---
 
@@ -24,11 +30,17 @@ const features = [
 	<div class="mt-14 grid gap-x-8 gap-y-14 sm:grid-cols-2 lg:grid-cols-4">
 		{features.map((feature) => (
 			<div>
-				<div class="flex aspect-[4/3] items-center justify-center rounded-xl border border-dashed border-ink/15 bg-mist">
-					<p class="px-4 text-center text-xs font-medium text-ink/35">
-						[SCREENSHOT: {feature.name.toLowerCase()}]
-					</p>
-				</div>
+				{feature.image ? (
+					<div class="aspect-[4/3] overflow-hidden rounded-xl border border-ink/10">
+						<img src={feature.image} alt={feature.name} class="h-full w-full object-cover object-top" />
+					</div>
+				) : (
+					<div class="flex aspect-[4/3] items-center justify-center rounded-xl border border-dashed border-ink/15 bg-mist">
+						<p class="px-4 text-center text-xs font-medium text-ink/35">
+							[SCREENSHOT: {feature.name.toLowerCase()}]
+						</p>
+					</div>
+				)}
 				<h3 class="mt-4 font-body text-base font-bold text-ink">
 					{feature.name}
 				</h3>
