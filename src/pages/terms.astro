@@ -1,0 +1,88 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { CONTACT_EMAIL } from "../data/site";
+---
+
+<Layout title="Terms of Service — Morium" description="The terms for using Morium's booking, CRM, and website add-on.">
+	<div class="mx-auto max-w-3xl px-6 py-20 lg:px-8">
+		<a href="/" class="text-sm font-semibold text-accent-600 hover:text-accent-700">&larr; Back to Morium</a>
+		<h1 class="mt-6 font-display text-4xl font-bold tracking-tight text-ink">Terms of Service</h1>
+		<p class="mt-2 text-sm text-ink/50">Last updated August 17, 2026</p>
+
+		<div class="mt-10 space-y-8 text-base leading-relaxed text-ink/75">
+			<section>
+				<h2 class="font-display text-lg font-bold text-ink">The service</h2>
+				<p class="mt-2">
+					Morium is a booking, CRM, and customer-retention platform for mobile
+					service businesses. Signing up gets you a booking page, a dashboard,
+					and (if you have it turned on) automatic review-request and
+					rebooking emails for your customers.
+				</p>
+			</section>
+
+			<section>
+				<h2 class="font-display text-lg font-bold text-ink">Billing and trials</h2>
+				<p class="mt-2">
+					Plans are billed monthly. Signing up starts a 14-day free trial —
+					we take your card details up front, but you're not charged until the
+					trial ends. Cancel any time before then and you're never billed.
+					After the trial, your card is charged automatically each month until
+					you cancel.
+				</p>
+			</section>
+
+			<section>
+				<h2 class="font-display text-lg font-bold text-ink">The website add-on</h2>
+				<p class="mt-2">
+					If you add the website add-on, the one-time setup fee is
+					non-refundable once we've started work on your site. The monthly
+					website fee bills alongside your plan and stops when you cancel the
+					add-on.
+				</p>
+			</section>
+
+			<section>
+				<h2 class="font-display text-lg font-bold text-ink">Your data</h2>
+				<p class="mt-2">
+					Your customer data is yours. We don't sell it, and you can ask us to
+					delete it at any time — see our <a href="/privacy" class="font-semibold text-accent-600 hover:text-accent-700">Privacy Policy</a>.
+					You're responsible for having the right to store and contact the
+					customers you add.
+				</p>
+			</section>
+
+			<section>
+				<h2 class="font-display text-lg font-bold text-ink">Acceptable use</h2>
+				<p class="mt-2">
+					Don't use Morium to send anything your customers haven't agreed to
+					receive, or for anything illegal. We can suspend accounts that abuse
+					the platform or its automated messaging.
+				</p>
+			</section>
+
+			<section>
+				<h2 class="font-display text-lg font-bold text-ink">Cancellation</h2>
+				<p class="mt-2">
+					Cancel any time from your account settings or by emailing us. You
+					keep access through the end of your current billing period; there
+					are no cancellation fees on the subscription itself.
+				</p>
+			</section>
+
+			<section>
+				<h2 class="font-display text-lg font-bold text-ink">Changes to these terms</h2>
+				<p class="mt-2">
+					If these terms change in a meaningful way, we'll email the address
+					on your account before the change takes effect.
+				</p>
+			</section>
+
+			<section>
+				<h2 class="font-display text-lg font-bold text-ink">Questions</h2>
+				<p class="mt-2">
+					Email <a href={`mailto:${CONTACT_EMAIL}`} class="font-semibold text-accent-600 hover:text-accent-700">{CONTACT_EMAIL}</a>.
+				</p>
+			</section>
+		</div>
+	</div>
+</Layout>

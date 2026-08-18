@@ -1,5 +1,5 @@
 ---
-import { pricingTiers } from "../data/pricing";
+import { pricingTiers, websiteAddOn } from "../data/pricing";
 import { SIGNUP_URL } from "../data/site";
 ---
 
@@ -95,6 +95,12 @@ import { SIGNUP_URL } from "../data/site";
 			);
 		})}
 	</div>
+
+		<p class="mt-10 text-center text-sm text-ink/55">
+			Want a real website too? Add it to any plan for a ${websiteAddOn.setupFee} one-time setup
+			fee plus ${websiteAddOn.monthlyPrice}/mo.
+			<a href="#website" class="font-semibold text-accent-600 hover:text-accent-700">See how it works →</a>
+		</p>
 </section>
 
 <script>

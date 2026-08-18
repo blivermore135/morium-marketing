@@ -1,7 +1,8 @@
 ---
+import { websiteAddOn } from "../data/pricing";
 ---
 
-<section class="mx-auto max-w-7xl px-6 py-24 lg:px-8">
+<section id="website" class="mx-auto max-w-7xl px-6 py-24 lg:px-8">
 	<div class="grid items-center gap-14 rounded-3xl border border-line bg-paper p-8 lg:grid-cols-2 lg:p-14">
 		<div>
 			<span class="text-xs font-semibold tracking-wide text-accent-600 uppercase">
@@ -15,11 +16,14 @@
 				into your calendar. Not a generic template with your logo dropped
 				on it, and not a separate system to keep in sync.
 			</p>
+			<p class="mt-4 font-display text-xl font-bold text-ink">
+				${websiteAddOn.setupFee} setup <span class="text-ink/40 font-body font-normal text-base">+</span> ${websiteAddOn.monthlyPrice}/mo
+			</p>
 			<a
-				href="/websites"
+				href="#pricing"
 				class="mt-7 inline-flex items-center gap-1.5 text-base font-semibold text-accent-600 hover:text-accent-700"
 			>
-				See how the website add-on works →
+				See pricing and get started →
 			</a>
 		</div>
 

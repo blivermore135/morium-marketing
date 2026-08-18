@@ -1,11 +1,15 @@
 ---
 import { SIGNUP_URL, LOGIN_URL } from "../data/site";
 
+// All in-page anchors, not separate routes — this is a one-page site.
+// See the user's request (2026-08-17) to fix every dead link/404: these
+// used to point at /pricing, /detailing, /websites, /about, none of which
+// existed as real pages.
 const navLinks = [
-	{ label: "Pricing", href: "/pricing" },
-	{ label: "Detailing", href: "/detailing" },
-	{ label: "Websites", href: "/websites" },
-	{ label: "About", href: "/about" },
+	{ label: "Pricing", href: "#pricing" },
+	{ label: "Detailing", href: "#features" },
+	{ label: "Websites", href: "#website" },
+	{ label: "About", href: "#about" },
 ];
 ---
 

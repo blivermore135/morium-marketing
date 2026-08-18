@@ -1,5 +1,6 @@
 ---
 import { industries } from "../data/industries";
+import { SIGNUP_URL, waitlistMailto } from "../data/site";
 ---
 
 <section class="bg-mist px-6 py-24 lg:px-8">
@@ -16,7 +17,7 @@ import { industries } from "../data/industries";
 		<div class="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-5">
 			{industries.map((industry) => (
 				<a
-					href={`/${industry.slug}`}
+					href={industry.live ? SIGNUP_URL : waitlistMailto(industry.name)}
 					class="group flex flex-col justify-between rounded-2xl border border-line bg-paper p-6 transition-shadow hover:shadow-lg"
 				>
 					<div>
@@ -37,7 +38,7 @@ import { industries } from "../data/industries";
 						</p>
 					</div>
 					<span class="mt-6 text-sm font-semibold text-accent-600 group-hover:text-accent-700">
-						{industry.live ? "See the demo" : "Join the waitlist"} →
+						{industry.live ? "Get started" : "Join the waitlist"} →
 					</span>
 				</a>
 			))}

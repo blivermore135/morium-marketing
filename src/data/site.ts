@@ -5,3 +5,19 @@
 export const APP_URL = "https://app.morium.one";
 export const SIGNUP_URL = `${APP_URL}/admin/signup`;
 export const LOGIN_URL = `${APP_URL}/admin/login`;
+
+// Not yet a monitored real inbox as of 2026-08-17 — set up mail
+// forwarding/routing for this address before actually launching, or
+// contact/waitlist inquiries land nowhere.
+export const CONTACT_EMAIL = "hello@morium.one";
+
+export function contactMailto(subject: string): string {
+	return `mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent(subject)}`;
+}
+
+// Used for "coming soon" trades that don't have a real waitlist system yet
+// — a mailto is the honest option here (no fake page, no fabricated form)
+// until there's an actual backend to capture interest.
+export function waitlistMailto(tradeName: string): string {
+	return contactMailto(`Waitlist: ${tradeName}`);
+}

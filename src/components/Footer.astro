@@ -1,23 +1,24 @@
 ---
 import { industries } from "../data/industries";
+import { SIGNUP_URL, contactMailto, waitlistMailto } from "../data/site";
 
 const columns = [
 	{
 		heading: "Product",
 		links: [
-			{ label: "Pricing", href: "/pricing" },
-			{ label: "Website add-on", href: "/websites" },
-			{ label: "About", href: "/about" },
+			{ label: "Pricing", href: "#pricing" },
+			{ label: "Website add-on", href: "#website" },
+			{ label: "About", href: "#about" },
 		],
 	},
 	{
 		heading: "Industries",
-		links: industries.map((i) => ({ label: i.name, href: `/${i.slug}` })),
+		links: industries.map((i) => ({ label: i.name, href: i.live ? SIGNUP_URL : waitlistMailto(i.name) })),
 	},
 	{
 		heading: "Company",
 		links: [
-			{ label: "Contact", href: "/contact" },
+			{ label: "Contact", href: contactMailto("Question about Morium") },
 			{ label: "Privacy", href: "/privacy" },
 			{ label: "Terms", href: "/terms" },
 		],

@@ -1,0 +1,71 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { CONTACT_EMAIL } from "../data/site";
+---
+
+<Layout title="Privacy Policy — Morium" description="How Morium collects, uses, and protects your data.">
+	<div class="mx-auto max-w-3xl px-6 py-20 lg:px-8">
+		<a href="/" class="text-sm font-semibold text-accent-600 hover:text-accent-700">&larr; Back to Morium</a>
+		<h1 class="mt-6 font-display text-4xl font-bold tracking-tight text-ink">Privacy Policy</h1>
+		<p class="mt-2 text-sm text-ink/50">Last updated August 17, 2026</p>
+
+		<div class="mt-10 space-y-8 text-base leading-relaxed text-ink/75">
+			<section>
+				<h2 class="font-display text-lg font-bold text-ink">What we collect</h2>
+				<p class="mt-2">
+					When you sign up for Morium, we collect your business name, email, and
+					password. Once you're using the product, you'll enter your own
+					customers' names, phone numbers, emails, vehicles, and booking
+					history — that data belongs to your business, not to us.
+				</p>
+			</section>
+
+			<section>
+				<h2 class="font-display text-lg font-bold text-ink">How we use it</h2>
+				<p class="mt-2">
+					We use your data to run the service you signed up for: showing your
+					bookings dashboard, sending the review-request and rebooking emails
+					you've turned on, and processing your subscription payment. We don't
+					sell your data or your customers' data to anyone, for any reason.
+				</p>
+			</section>
+
+			<section>
+				<h2 class="font-display text-lg font-bold text-ink">Who we share it with</h2>
+				<p class="mt-2">A few specific companies that make Morium work, and nobody else:</p>
+				<ul class="mt-3 list-disc space-y-1.5 pl-5">
+					<li><strong class="text-ink">Stripe</strong> handles your subscription payment. We never see or store your card number.</li>
+					<li><strong class="text-ink">Supabase</strong> hosts the database your business's data lives in.</li>
+					<li><strong class="text-ink">Resend</strong> delivers the automated emails (review requests, rebooking reminders) your business sends.</li>
+				</ul>
+			</section>
+
+			<section>
+				<h2 class="font-display text-lg font-bold text-ink">Emails and opting out</h2>
+				<p class="mt-2">
+					Every automated email your business sends through Morium includes an
+					unsubscribe link. Anyone who clicks it stops receiving marketing
+					emails from your business permanently — that's enforced at the
+					database level, not just hidden in a settings page.
+				</p>
+			</section>
+
+			<section>
+				<h2 class="font-display text-lg font-bold text-ink">Deleting your data</h2>
+				<p class="mt-2">
+					Cancel your subscription and email us at
+					<a href={`mailto:${CONTACT_EMAIL}`} class="font-semibold text-accent-600 hover:text-accent-700">{CONTACT_EMAIL}</a>
+					and we'll delete your business's data, including your customers'
+					records, from our systems.
+				</p>
+			</section>
+
+			<section>
+				<h2 class="font-display text-lg font-bold text-ink">Questions</h2>
+				<p class="mt-2">
+					Email <a href={`mailto:${CONTACT_EMAIL}`} class="font-semibold text-accent-600 hover:text-accent-700">{CONTACT_EMAIL}</a> and a real person will answer.
+				</p>
+			</section>
+		</div>
+	</div>
+</Layout>
