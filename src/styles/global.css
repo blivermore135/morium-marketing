@@ -1,0 +1,35 @@
+@import "tailwindcss";
+
+@import "@fontsource/space-grotesk/500.css";
+@import "@fontsource/space-grotesk/600.css";
+@import "@fontsource/space-grotesk/700.css";
+@import "@fontsource/plus-jakarta-sans/400.css";
+@import "@fontsource/plus-jakarta-sans/500.css";
+@import "@fontsource/plus-jakarta-sans/600.css";
+
+@theme {
+  --font-display: "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
+  --font-body: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
+
+  --color-ink: #0a1a1f;
+  --color-paper: #ffffff;
+  --color-mist: #f4faf9;
+  --color-line: #e3ecea;
+
+  --color-accent-50: #e6fdfc;
+  --color-accent-100: #c0f9f6;
+  --color-accent-300: #5fe8e2;
+  --color-accent-500: #00c2c7;
+  --color-accent-600: #00a3a8;
+  --color-accent-700: #007e83;
+}
+
+body {
+  background-color: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-body);
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
+}

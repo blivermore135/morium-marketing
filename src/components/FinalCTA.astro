@@ -1,0 +1,26 @@
+---
+import { SIGNUP_URL } from "../data/site";
+---
+
+<section class="relative overflow-hidden bg-ink px-6 py-24 text-center text-paper lg:px-8">
+	<div
+		class="pointer-events-none absolute top-1/2 left-1/2 h-[30rem] w-[30rem] -translate-x-1/2 -translate-y-1/2 rounded-full bg-accent-500/20 blur-[110px]"
+		aria-hidden="true"
+	>
+	</div>
+
+	<div class="relative mx-auto max-w-2xl">
+		<h2 class="font-display text-3xl font-bold tracking-tight sm:text-4xl">
+			Stop losing bookings to a text thread.
+		</h2>
+		<p class="mt-4 text-base leading-relaxed text-paper/65">
+			Start your free trial and we'll have your calendar live before the week's out.
+		</p>
+		<a
+			href={SIGNUP_URL}
+			class="mt-8 inline-flex items-center rounded-full bg-accent-500 px-8 py-4 text-base font-semibold text-ink shadow-[0_8px_24px_-6px_rgba(0,194,199,0.55)] transition-transform hover:scale-[1.03]"
+		>
+			Get started
+		</a>
+	</div>
+</section>

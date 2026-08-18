@@ -1,0 +1,127 @@
+---
+import { pricingTiers } from "../data/pricing";
+import { SIGNUP_URL } from "../data/site";
+---
+
+<section id="pricing" class="mx-auto max-w-7xl px-6 py-24 lg:px-8" data-billing="monthly">
+	<div class="mx-auto max-w-2xl text-center">
+		<span class="text-xs font-semibold tracking-wide text-accent-600 uppercase">
+			Pricing
+		</span>
+		<h2 class="mt-3 font-display text-3xl font-bold tracking-tight text-ink sm:text-4xl">
+			Simple pricing. No trial gimmicks.
+		</h2>
+		<p class="mt-4 text-base leading-relaxed text-ink/60">
+			Sign up and you're live in minutes — 14-day free trial, card required
+			but not charged until it ends. Placeholder pricing below, subject to change.
+		</p>
+	</div>
+
+	<div class="mt-10 flex items-center justify-center gap-3">
+		<span class="billing-label text-sm font-semibold text-ink" data-when="monthly">
+			Monthly
+		</span>
+		<button
+			id="billing-toggle"
+			type="button"
+			role="switch"
+			aria-checked="false"
+			aria-label="Toggle yearly billing"
+			class="relative h-7 w-12 rounded-full bg-ink/15 transition-colors"
+		>
+			<span
+				id="billing-knob"
+				class="absolute top-1 left-1 h-5 w-5 rounded-full bg-paper shadow transition-transform"
+			></span>
+		</button>
+		<span class="billing-label text-sm font-semibold text-ink/50" data-when="yearly">
+			Yearly <span class="text-accent-600">— 2 months free</span>
+		</span>
+	</div>
+
+	<div class="mt-12 grid gap-8 lg:grid-cols-3">
+		{pricingTiers.map((tier) => {
+			const yearlyMonthly = Math.round((tier.monthlyPrice * 10) / 12);
+			return (
+				<div
+					class:list={[
+						"relative rounded-2xl border p-8",
+						tier.mostPopular
+							? "border-accent-500 bg-paper shadow-[0_20px_50px_-20px_rgba(0,194,199,0.4)]"
+							: "border-line bg-paper",
+					]}
+				>
+					{tier.mostPopular && (
+						<span class="absolute -top-3 left-8 rounded-full bg-accent-500 px-3 py-1 text-[11px] font-bold tracking-wide text-ink uppercase">
+							Most popular
+						</span>
+					)}
+					<h3 class="font-display text-lg font-bold text-ink">{tier.name}</h3>
+
+					<p class="mt-4">
+						<span class="price-monthly font-display text-4xl font-bold text-ink">
+							${tier.monthlyPrice}
+						</span>
+						<span class="price-yearly hidden font-display text-4xl font-bold text-ink">
+							${yearlyMonthly}
+						</span>
+						<span class="text-sm font-medium text-ink/50">/mo</span>
+					</p>
+					{tier.note && (
+						<p class="mt-1 text-xs font-medium text-ink/45">{tier.note}</p>
+					)}
+
+					<ul class="mt-6 space-y-3">
+						{tier.features.map((feature) => (
+							<li class="flex items-start gap-2.5 text-sm text-ink/70">
+								<span class="mt-1 h-1.5 w-1.5 shrink-0 rounded-full bg-accent-500"></span>
+								{feature}
+							</li>
+						))}
+					</ul>
+
+					<a
+						href={SIGNUP_URL}
+						class:list={[
+							"mt-8 block rounded-full px-6 py-3 text-center text-sm font-semibold transition-transform hover:scale-[1.02]",
+							tier.mostPopular
+								? "bg-accent-500 text-ink"
+								: "border border-ink/15 text-ink",
+						]}
+					>
+						Get started
+					</a>
+				</div>
+			);
+		})}
+	</div>
+</section>
+
+<script>
+	const section = document.getElementById("pricing");
+	const toggle = document.getElementById("billing-toggle");
+	const knob = document.getElementById("billing-knob");
+
+	toggle?.addEventListener("click", () => {
+		const isYearly = section?.dataset.billing === "yearly";
+		const next = isYearly ? "monthly" : "yearly";
+		if (section) section.dataset.billing = next;
+		toggle.setAttribute("aria-checked", String(!isYearly));
+		knob?.classList.toggle("translate-x-5", !isYearly);
+
+		section?.querySelectorAll(".price-monthly").forEach((el) => {
+			el.classList.toggle("hidden", next === "yearly");
+		});
+		section?.querySelectorAll(".price-yearly").forEach((el) => {
+			el.classList.toggle("hidden", next === "monthly");
+		});
+		section?.querySelectorAll('.billing-label[data-when="monthly"]').forEach((el) => {
+			el.classList.toggle("text-ink/50", next === "yearly");
+			el.classList.toggle("text-ink", next === "monthly");
+		});
+		section?.querySelectorAll('.billing-label[data-when="yearly"]').forEach((el) => {
+			el.classList.toggle("text-ink/50", next === "monthly");
+			el.classList.toggle("text-ink", next === "yearly");
+		});
+	});
+</script>

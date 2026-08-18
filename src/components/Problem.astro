@@ -1,0 +1,32 @@
+---
+const items = [
+	{
+		title: "Bookings come in by text and get lost.",
+		body: "A customer texts you at 9pm, you mean to reply, and by the time you do they've booked with someone else.",
+	},
+	{
+		title: "Nobody asks for the review.",
+		body: "You did great work and the customer would've said so — but nobody asked, so the review never happened.",
+	},
+	{
+		title: "Past customers never hear from you again.",
+		body: "Someone you detailed six months ago would probably rebook today. Nothing ever reminds them, or you.",
+	},
+];
+---
+
+<section class="mx-auto max-w-7xl px-6 py-24 lg:px-8">
+	<div class="grid gap-10 lg:grid-cols-3">
+		{items.map((item, i) => (
+			<div class="relative rounded-2xl border border-line bg-mist p-8">
+				<span class="font-display text-4xl font-bold text-accent-500">
+					{String(i + 1).padStart(2, "0")}
+				</span>
+				<h3 class="mt-4 font-display text-xl font-bold text-ink">
+					{item.title}
+				</h3>
+				<p class="mt-3 text-base leading-relaxed text-ink/65">{item.body}</p>
+			</div>
+		))}
+	</div>
+</section>

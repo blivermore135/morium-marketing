@@ -1,0 +1,50 @@
+---
+const faqs = [
+	{
+		q: "What happens after I book a demo?",
+		a: "We hop on a short call, look at how your bookings work today, and set your account up by hand — no self-serve signup form to fumble through.",
+	},
+	{
+		q: "Do I need a card to get started?",
+		a: "No. There's no self-serve checkout — we set your account up together on the call and figure out billing then.",
+	},
+	{
+		q: "Can I cancel?",
+		a: "Yes, month to month on the Starter and Pro plans. The website add-on's build fee is one-time and non-refundable once work has started.",
+	},
+	{
+		q: "Do I need to be technical?",
+		a: "No. If you can use a phone, you can use the dashboard. We set up the booking page and calendar for you.",
+	},
+	{
+		q: "What if I already have a website?",
+		a: "You can use Morium's booking and CRM tools on their own — the website add-on is optional.",
+	},
+	{
+		q: "When are other industries coming?",
+		a: "Detailing is live today. Lawn care, pressure washing, pool service, and mobile mechanics are next — join the waitlist on that trade's page and we'll reach out when it's ready.",
+	},
+];
+---
+
+<section class="mx-auto max-w-3xl px-6 py-24 lg:px-8">
+	<h2 class="font-display text-3xl font-bold tracking-tight text-ink sm:text-4xl">
+		Questions, answered plainly.
+	</h2>
+
+	<div class="mt-10 divide-y divide-line border-t border-b border-line">
+		{faqs.map((faq) => (
+			<details class="group py-5">
+				<summary class="flex cursor-pointer list-none items-center justify-between gap-4 font-display text-base font-bold text-ink">
+					{faq.q}
+					<span class="shrink-0 text-xl text-ink/40 transition-transform group-open:rotate-45">
+						+
+					</span>
+				</summary>
+				<p class="mt-3 max-w-2xl text-sm leading-relaxed text-ink/65">
+					{faq.a}
+				</p>
+			</details>
+		))}
+	</div>
+</section>
