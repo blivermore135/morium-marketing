@@ -54,6 +54,6 @@ export const pricingTiers: PricingTier[] = [
 // it's not its own plan, so it isn't in pricingTiers. Must stay in sync
 // with bobsdetailing's shared/billing.ts WEBSITE_ADDON.
 export const websiteAddOn = {
-	setupFee: 199,
-	monthlyPrice: 39,
+	setupFee: 299,
+	monthlyPrice: 49,
 };
