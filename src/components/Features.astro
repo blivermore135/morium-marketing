@@ -2,24 +2,35 @@
 // Real screenshots (mid-2026) — the admin ones are from a throwaway seeded
 // demo org ("Prestige Auto Detailing"), never Bob's Detailing's actual
 // customer data (seed script deleted the org right after capture); the
-// booking-page one is Bob's Detailing's real public quote form, which is
-// fine to show since it's already public. No "Home screen install" tab —
-// a PWA install prompt is an interaction, not a static view, so there's no
-// honest screenshot for it; it's covered in the FAQ instead.
+// booking-page ones (light + dark) are Bob's Detailing's real public quote
+// form, which is fine to show since it's already public. No "Home screen
+// install" tab — a PWA install prompt is an interaction, not a static view,
+// so there's no honest screenshot for it; it's covered in the FAQ instead.
 //
-// Screenshots are native 1488x812, cropped to 1470x812 to cut off a
-// scrollbar sliver the capture picked up on the right edge — that's the
-// actual ceiling of what the capture tooling produces here, not a choice.
-// Sizing the frame much past that width would upscale and blur, so
-// "bigger" comes from layout (full
-// width, tall viewport-relative height, no cropped sidebar competing for
-// space) rather than stretching the images themselves.
+// Only the booking-page feature has a light/imageLight pair right now (the
+// admin screens were only ever captured in dark mode), so the light/dark
+// toggle only renders for features that actually have both images —
+// faking a second theme for the others would be showing something that
+// doesn't exist.
+//
+// Screenshots are cropped to the frame's 1470:812 aspect ratio (trimming a
+// scrollbar sliver off the right edge) but kept at native capture
+// resolution rather than downscaled to it — the admin ones are 1488x812,
+// the booking-page ones are ~1700x940. Downscaling with a manual resize
+// softened text on the first pass, so the fix was to stop resizing:
+// object-cover crops to fit the frame at display time and the browser's
+// own downscaling beats a manual bicubic pass, with headroom left over for
+// high-DPI screens. "Bigger" comes from layout (full width, tall
+// viewport-relative height, no cropped sidebar competing for space) rather
+// than stretching the images themselves.
 const features = [
 	{
 		id: "booking",
 		name: "Online booking page",
 		benefit: "Customers book you directly — no back-and-forth texting.",
-		image: "/images/showcase-booking.jpg",
+		note: "Also installs as an app for your customers — and if we build you a website, this same page lives right on it too, always synced to the one calendar.",
+		image: "/images/showcase-booking-dark.jpg",
+		imageLight: "/images/showcase-booking-light.jpg",
 	},
 	{
 		id: "dashboard",
@@ -79,6 +90,8 @@ const features = [
 					type="button"
 					data-tab={feature.id}
 					data-benefit={feature.benefit}
+					data-note={feature.note ?? ""}
+					data-has-light={feature.imageLight ? "true" : "false"}
 					aria-pressed={i === 0 ? "true" : "false"}
 					class:list={[
 						"feature-tab rounded-full border px-4 py-2 font-body text-sm font-semibold transition-colors",
@@ -94,6 +107,30 @@ const features = [
 			{features[0].benefit}
 		</p>
 
+		<div
+			id="feature-showcase-mode-toggle"
+			class:list={["mt-5 flex justify-center gap-1.5", features[0].imageLight ? "" : "hidden"]}
+			role="tablist"
+			aria-label="Screenshot theme"
+		>
+			<button
+				type="button"
+				data-mode="light"
+				aria-pressed="false"
+				class="mode-toggle-btn rounded-full border border-line bg-paper px-3 py-1 font-body text-xs font-semibold text-ink/65 transition-colors hover:border-accent-300 hover:text-ink"
+			>
+				☀ Light mode
+			</button>
+			<button
+				type="button"
+				data-mode="dark"
+				aria-pressed="true"
+				class="mode-toggle-btn is-active rounded-full border border-accent-500 bg-accent-500 px-3 py-1 font-body text-xs font-semibold text-ink transition-colors"
+			>
+				☾ Dark mode
+			</button>
+		</div>
+
 		<div class="relative mt-6">
 			<div class="relative rounded-2xl border border-line bg-mist p-3 shadow-[0_40px_80px_-30px_rgba(0,40,45,0.3)]">
 				<div class="flex items-center gap-1.5 px-2 pb-3 pt-1">
@@ -104,12 +141,27 @@ const features = [
 				</div>
 				<div class="feature-showcase-frame relative w-full overflow-hidden rounded-xl">
 					{features.map((feature, i) => (
-						<img
-							src={feature.image}
-							alt={feature.name}
-							data-panel={feature.id}
-							class:list={["absolute inset-0 h-full w-full object-cover object-top", i === 0 ? "block" : "hidden"]}
-						/>
+						<Fragment>
+							<img
+								src={feature.image}
+								alt={feature.name}
+								data-panel={feature.id}
+								data-mode="dark"
+								class:list={[
+									"absolute inset-0 h-full w-full object-cover object-top",
+									i === 0 ? "block" : "hidden",
+								]}
+							/>
+							{feature.imageLight && (
+								<img
+									src={feature.imageLight}
+									alt={`${feature.name} (light mode)`}
+									data-panel={feature.id}
+									data-mode="light"
+									class="absolute inset-0 hidden h-full w-full object-cover object-top"
+								/>
+							)}
+						</Fragment>
 					))}
 				</div>
 			</div>
@@ -120,6 +172,13 @@ const features = [
 				Tap to explore →
 			</span>
 		</div>
+
+		<p
+			id="feature-showcase-note"
+			class:list={["mx-auto mt-6 max-w-xl text-center text-sm text-ink/50", features[0].note ? "" : "hidden"]}
+		>
+			{features[0].note}
+		</p>
 	</div>
 </section>
 
@@ -129,7 +188,23 @@ const features = [
 	const panels = Array.from(root?.querySelectorAll<HTMLImageElement>("[data-panel]") ?? []);
 	const label = document.getElementById("feature-showcase-label");
 	const benefit = document.getElementById("feature-showcase-benefit");
+	const note = document.getElementById("feature-showcase-note");
 	const hint = document.getElementById("feature-showcase-hint");
+	const modeToggle = document.getElementById("feature-showcase-mode-toggle");
+	const modeButtons = Array.from(modeToggle?.querySelectorAll<HTMLButtonElement>("[data-mode]") ?? []);
+
+	let currentMode: "light" | "dark" = "dark";
+
+	function updatePanels(id: string) {
+		const activeTab = tabs.find((t) => t.dataset.tab === id);
+		const hasLight = activeTab?.dataset.hasLight === "true";
+		panels.forEach((panel) => {
+			const isActiveFeature = panel.dataset.panel === id;
+			const show = isActiveFeature && (!hasLight || panel.dataset.mode === currentMode);
+			panel.classList.toggle("hidden", !show);
+			panel.classList.toggle("block", show);
+		});
+	}
 
 	function activate(id: string) {
 		tabs.forEach((tab) => {
@@ -145,12 +220,32 @@ const features = [
 			if (active) {
 				if (label) label.textContent = tab.textContent?.trim() ?? "";
 				if (benefit) benefit.textContent = tab.dataset.benefit ?? "";
+				if (note) {
+					const noteText = tab.dataset.note ?? "";
+					note.textContent = noteText;
+					note.classList.toggle("hidden", noteText === "");
+				}
+				modeToggle?.classList.toggle("hidden", tab.dataset.hasLight !== "true");
 			}
 		});
-		panels.forEach((panel) => {
-			panel.classList.toggle("hidden", panel.dataset.panel !== id);
-			panel.classList.toggle("block", panel.dataset.panel === id);
+		updatePanels(id);
+	}
+
+	function setMode(mode: "light" | "dark") {
+		currentMode = mode;
+		modeButtons.forEach((btn) => {
+			const active = btn.dataset.mode === mode;
+			btn.classList.toggle("is-active", active);
+			btn.classList.toggle("border-accent-500", active);
+			btn.classList.toggle("bg-accent-500", active);
+			btn.classList.toggle("text-ink", active);
+			btn.classList.toggle("border-line", !active);
+			btn.classList.toggle("bg-paper", !active);
+			btn.classList.toggle("text-ink/65", !active);
+			btn.setAttribute("aria-pressed", String(active));
 		});
+		const activeTab = tabs.find((t) => t.classList.contains("is-active"));
+		if (activeTab?.dataset.tab) updatePanels(activeTab.dataset.tab);
 	}
 
 	let autoplay = setInterval(() => {
@@ -168,6 +263,13 @@ const features = [
 		tab.addEventListener("click", () => {
 			stopAutoplay();
 			if (tab.dataset.tab) activate(tab.dataset.tab);
+		});
+	});
+
+	modeButtons.forEach((btn) => {
+		btn.addEventListener("click", () => {
+			stopAutoplay();
+			if (btn.dataset.mode === "light" || btn.dataset.mode === "dark") setMode(btn.dataset.mode);
 		});
 	});
 </script>
