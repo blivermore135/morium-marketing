@@ -2,75 +2,134 @@
 // Real screenshots (mid-2026) — the admin ones are from a throwaway seeded
 // demo org ("Prestige Auto Detailing"), never Bob's Detailing's actual
 // customer data (seed script deleted the org right after capture); the
-// booking-page ones (light + dark) are Bob's Detailing's real public quote
-// form, which is fine to show since it's already public. No "Home screen
-// install" tab — a PWA install prompt is an interaction, not a static view,
-// so there's no honest screenshot for it; it's covered in the FAQ instead.
+// booking-page ones are Bob's Detailing's real public quote form, which is
+// fine to show since it's already public.
 //
-// booking/dashboard/calendar/revenue all have a light/imageLight pair;
-// customers and the two follow-up features (reviews, rebooking) only have
-// one capture each right now, so the light/dark toggle only renders for
-// features that actually have both images — faking a second theme for the
-// others would be showing something that doesn't exist.
+// Tile names match the real admin tab labels (Overview/Bookings/Calendar/
+// Customers/Follow-Ups) as closely as sounds good, so the tab bar drawn
+// inside each screenshot lines up with what it's actually called — see the
+// nav-hotspot overlay below. "Online Booking Page" is the exception since
+// there's no admin tab for it (it's the customer-facing page, not an admin
+// view).
+//
+// Order is deliberate: Follow-Ups leads because automatic review requests +
+// rebooking nudges (with fully editable wording) is the thing most generic
+// booking/scheduling tools don't do — Online Booking Page goes last because
+// "customers can book online" is table stakes everywhere now, not a reason
+// to pick this over anything else.
+//
+// Some tiles have more than one `state` — e.g. Bookings has the "Add a
+// Booking Manually" panel open vs. closed, Follow-Ups has the Google-review
+// vs. next-detail view — each clickable directly on the screenshot (a small
+// hotspot over the real button/dropdown) so exploring the demo feels closer
+// to using the actual app. Every state that has both themes captured gets
+// the light/dark toggle; states with only one capture just don't show the
+// toggle for that state.
 //
 // Screenshots are cropped to the frame's 1470:812 aspect ratio (trimming a
 // scrollbar sliver off the right edge) but kept at native capture
-// resolution rather than downscaled to it — the admin ones are 1488x812,
-// the booking-page ones are ~1700x940. Downscaling with a manual resize
-// softened text on the first pass, so the fix was to stop resizing:
-// object-cover crops to fit the frame at display time and the browser's
-// own downscaling beats a manual bicubic pass, with headroom left over for
-// high-DPI screens. "Bigger" comes from layout (full width, tall
-// viewport-relative height, no cropped sidebar competing for space) rather
-// than stretching the images themselves.
+// resolution rather than downscaled to it — object-cover crops to fit the
+// frame at display time and the browser's own downscaling beats a manual
+// resize pass, with headroom left over for high-DPI screens.
 const features = [
 	{
-		id: "booking",
-		name: "Online booking page",
-		benefit: "Customers book you directly — no back-and-forth texting.",
-		note: "Also installs as an app for your customers — and if we build you a website, this same page lives right on it too, always synced to the one calendar.",
-		image: "/images/showcase-booking-dark.jpg",
-		imageLight: "/images/showcase-booking-light.jpg",
-	},
-	{
-		id: "dashboard",
-		name: "Bookings dashboard",
-		benefit: "See what's pending, confirmed, and done at a glance.",
-		image: "/images/showcase-dashboard-dark.jpg",
-		imageLight: "/images/showcase-dashboard-light.jpg",
-	},
-	{
-		id: "calendar",
-		name: "Calendar view",
-		benefit: "Your whole week, laid out before you start it.",
-		image: "/images/showcase-calendar-dark.jpg",
-		imageLight: "/images/showcase-calendar-light.jpg",
-	},
-	{
-		id: "customers",
-		name: "Customer records",
-		benefit: "Every vehicle, every visit, every dollar — remembered for you.",
-		image: "/images/showcase-customers-light.jpg",
+		id: "followups",
+		name: "Follow-Ups",
+		benefit: "Google reviews and rebooking nudges go out on their own — write the message once, then forget about it.",
+		admin: true,
+		states: [
+			{
+				id: "google",
+				image: "/images/showcase-followups-google-dark.jpg",
+				imageLight: "/images/showcase-followups-google-light.jpg",
+			},
+			{
+				id: "detail",
+				image: "/images/showcase-followups-detail-dark.jpg",
+				imageLight: "/images/showcase-followups-detail-light.jpg",
+			},
+		],
+		stateHotspot: { top: "18%", left: "33%", width: "20%", height: "6%" },
+		stateHintLabel: "Click the dropdown →",
+		comingSoon: {
+			label: "🤖 AI Calling & Messaging",
+			hint: "Coming soon — the same automation, but a real call or text instead of just email.",
+		},
 	},
 	{
 		id: "revenue",
-		name: "Revenue reporting",
+		name: "Overview",
 		benefit: "Know your best month, your best service, your busiest day.",
-		image: "/images/showcase-revenue-dark.jpg",
-		imageLight: "/images/showcase-revenue-light.jpg",
+		admin: true,
+		states: [
+			{ id: "default", image: "/images/showcase-revenue-dark.jpg", imageLight: "/images/showcase-revenue-light.jpg" },
+		],
 	},
 	{
-		id: "reviews",
-		name: "Automatic review requests",
-		benefit: "Every completed job asks for a Google review, without you lifting a finger.",
-		image: "/images/showcase-reviews.jpg",
+		id: "customers",
+		name: "Customers",
+		benefit: "Every vehicle, every visit, every dollar — remembered for you.",
+		admin: true,
+		states: [
+			{
+				id: "default",
+				image: "/images/showcase-customers-dark.jpg",
+				imageLight: "/images/showcase-customers-light.jpg",
+			},
+		],
 	},
 	{
-		id: "rebooking",
-		name: "Rebooking reminders",
-		benefit: "Past customers get nudged back before they forget you.",
-		image: "/images/showcase-rebooking.jpg",
+		id: "calendar",
+		name: "Calendar",
+		benefit: "Your whole week, laid out before you start it.",
+		admin: true,
+		states: [
+			{ id: "default", image: "/images/showcase-calendar-dark.jpg", imageLight: "/images/showcase-calendar-light.jpg" },
+		],
 	},
+	{
+		id: "dashboard",
+		name: "Bookings",
+		benefit: "See what's pending, confirmed, and done at a glance.",
+		admin: true,
+		states: [
+			{ id: "expanded", image: "/images/showcase-dashboard-dark.jpg", imageLight: "/images/showcase-dashboard-light.jpg" },
+			{
+				id: "collapsed",
+				image: "/images/showcase-dashboard-collapsed-dark.jpg",
+				imageLight: "/images/showcase-dashboard-collapsed-light.jpg",
+			},
+		],
+		stateHotspot: { top: "17.5%", left: "33%", width: "13%", height: "5%" },
+		stateHintLabel: "Click me →",
+	},
+	{
+		id: "booking",
+		name: "Online Booking Page",
+		benefit: "Customers book you directly — no back-and-forth texting.",
+		note: "Also installs as an app for your customers — and if we build you a website, this same page lives right on it too, always synced to the one calendar.",
+		admin: false,
+		states: [
+			{ id: "default", image: "/images/showcase-booking-dark.jpg", imageLight: "/images/showcase-booking-light.jpg" },
+		],
+	},
+];
+
+// Shared position of the admin nav bar baked into every admin screenshot —
+// same header component, same spot in every capture. Approximate (eyeballed
+// off the source images, padded for an easy click target, not pixel-exact).
+// Only the tabs with a matching tile above get wired to actually switch;
+// Invoices/Memberships/Settings show a "coming soon" hint instead since
+// there's no screenshot for them yet.
+const navHotspots = [
+	{ label: "Overview", featureId: "revenue", left: "27%", width: "5.5%" },
+	{ label: "Bookings", featureId: "dashboard", left: "32.5%", width: "6%" },
+	{ label: "Calendar", featureId: "calendar", left: "38.5%", width: "5.5%" },
+	{ label: "Customers", featureId: "customers", left: "44.8%", width: "5%" },
+	{ label: "Follow-Ups", featureId: "followups", left: "49.8%", width: "5.4%" },
+	{ label: "Invoices", featureId: null, left: "55.2%", width: "3.6%" },
+	{ label: "Memberships", featureId: null, left: "58.8%", width: "6%" },
+	{ label: "Settings", featureId: null, left: "64.8%", width: "5%" },
 ];
 ---
 
@@ -94,7 +153,7 @@ const features = [
 					data-tab={feature.id}
 					data-benefit={feature.benefit}
 					data-note={feature.note ?? ""}
-					data-has-light={feature.imageLight ? "true" : "false"}
+					data-admin={feature.admin ? "true" : "false"}
 					aria-pressed={i === 0 ? "true" : "false"}
 					class:list={[
 						"feature-tab rounded-full border px-4 py-2 font-body text-sm font-semibold transition-colors",
@@ -112,7 +171,7 @@ const features = [
 
 		<div
 			id="feature-showcase-mode-toggle"
-			class:list={["mt-5 flex justify-center gap-1.5", features[0].imageLight ? "" : "hidden"]}
+			class="mt-5 hidden justify-center gap-1.5"
 			role="tablist"
 			aria-label="Screenshot theme"
 		>
@@ -143,29 +202,70 @@ const features = [
 					<span class="ml-2 text-xs font-medium text-ink/35" id="feature-showcase-label">{features[0].name}</span>
 				</div>
 				<div class="feature-showcase-frame relative w-full overflow-hidden rounded-xl">
-					{features.map((feature, i) => (
-						<Fragment>
-							<img
-								src={feature.image}
-								alt={feature.name}
-								data-panel={feature.id}
-								data-mode="dark"
-								class:list={[
-									"absolute inset-0 h-full w-full object-cover object-top",
-									i === 0 ? "block" : "hidden",
-								]}
-							/>
-							{feature.imageLight && (
+					{features.map((feature) =>
+						feature.states.map((state, si) => (
+							<Fragment>
 								<img
-									src={feature.imageLight}
-									alt={`${feature.name} (light mode)`}
+									src={state.image}
+									alt={`${feature.name}${state.id !== "default" ? ` — ${state.id}` : ""}`}
 									data-panel={feature.id}
-									data-mode="light"
-									class="absolute inset-0 hidden h-full w-full object-cover object-top"
+									data-state={state.id}
+									data-mode="dark"
+									class:list={[
+										"absolute inset-0 h-full w-full object-cover object-top",
+										feature.id === features[0].id && si === 0 ? "block" : "hidden",
+									]}
 								/>
-							)}
-						</Fragment>
-					))}
+								{state.imageLight && (
+									<img
+										src={state.imageLight}
+										alt={`${feature.name}${state.id !== "default" ? ` — ${state.id}` : ""} (light mode)`}
+										data-panel={feature.id}
+										data-state={state.id}
+										data-mode="light"
+										class="absolute inset-0 hidden h-full w-full object-cover object-top"
+									/>
+								)}
+							</Fragment>
+						))
+					)}
+
+					{/* In-image clickable hotspot for tiles with more than one state (Bookings open/closed, Follow-Ups Google/Detail) */}
+					{features.map((feature) =>
+						feature.states.length > 1 && feature.stateHotspot && (
+							<button
+								type="button"
+								data-state-hotspot={feature.id}
+								class="feature-state-hotspot absolute hidden rounded-md border-2 border-dashed border-white/0 transition-colors hover:border-white/70 focus-visible:border-white/70"
+								style={`top:${feature.stateHotspot.top};left:${feature.stateHotspot.left};width:${feature.stateHotspot.width};height:${feature.stateHotspot.height};`}
+								aria-label={`Toggle ${feature.name} view`}
+							>
+								<span class="state-hotspot-badge pointer-events-none whitespace-nowrap rounded-full bg-accent-500 px-2.5 py-1 text-[11px] font-semibold text-ink shadow-lg">
+									{feature.stateHintLabel}
+								</span>
+							</button>
+						)
+					)}
+
+					{/* Nav-bar hotspots — clicking the tab names drawn inside the admin screenshots themselves switches tiles too, only live while an admin-view tile is showing */}
+					<div id="feature-nav-hotspots" class="pointer-events-none absolute inset-0 hidden">
+						{navHotspots.map((h) => (
+							<button
+								type="button"
+								data-nav-hotspot={h.featureId ?? ""}
+								data-nav-label={h.label}
+								class="nav-hotspot pointer-events-auto absolute cursor-pointer"
+								style={`top:9%;left:${h.left};width:${h.width};height:6%;`}
+								aria-label={`Go to ${h.label}`}
+							></button>
+						))}
+					</div>
+					<span
+						id="feature-nav-tooltip"
+						class="pointer-events-none absolute hidden -translate-x-1/2 -translate-y-full rounded-md bg-ink px-2.5 py-1 text-[11px] font-semibold text-paper shadow-lg"
+					>
+						Coming soon
+					</span>
 				</div>
 			</div>
 			<span
@@ -173,6 +273,17 @@ const features = [
 				class="pointer-events-none absolute -bottom-3 left-1/2 -translate-x-1/2 rounded-full bg-ink px-3 py-1 text-[11px] font-semibold text-paper shadow-lg transition-opacity lg:hidden"
 			>
 				Tap to explore →
+			</span>
+		</div>
+
+		<div id="feature-showcase-coming-soon" class="mx-auto mt-5 hidden max-w-xl justify-center">
+			<span
+				class="coming-soon-chip relative inline-flex cursor-default items-center gap-1.5 rounded-full border border-dashed border-line px-3 py-1.5 font-body text-xs font-semibold text-ink/45"
+			>
+				<span id="feature-showcase-coming-soon-label"></span>
+				<span class="coming-soon-tooltip pointer-events-none absolute -top-9 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-md bg-ink px-2.5 py-1 text-[11px] font-semibold text-paper opacity-0 shadow-lg transition-opacity">
+					<span id="feature-showcase-coming-soon-hint"></span>
+				</span>
 			</span>
 		</div>
 
@@ -185,31 +296,66 @@ const features = [
 	</div>
 </section>
 
-<script>
+<script define:vars={{ featuresData: features.map((f) => ({ id: f.id, states: f.states.map((s) => s.id), comingSoon: f.comingSoon ?? null })) }}>
 	const root = document.getElementById("feature-showcase");
-	const tabs = Array.from(root?.querySelectorAll<HTMLButtonElement>("[data-tab]") ?? []);
-	const panels = Array.from(root?.querySelectorAll<HTMLImageElement>("[data-panel]") ?? []);
+	const tabs = Array.from(root?.querySelectorAll("[data-tab]") ?? []);
+	const panels = Array.from(root?.querySelectorAll("[data-panel]") ?? []);
 	const label = document.getElementById("feature-showcase-label");
 	const benefit = document.getElementById("feature-showcase-benefit");
 	const note = document.getElementById("feature-showcase-note");
 	const hint = document.getElementById("feature-showcase-hint");
 	const modeToggle = document.getElementById("feature-showcase-mode-toggle");
-	const modeButtons = Array.from(modeToggle?.querySelectorAll<HTMLButtonElement>("[data-mode]") ?? []);
+	const modeButtons = Array.from(modeToggle?.querySelectorAll("[data-mode]") ?? []);
+	const stateHotspots = Array.from(root?.querySelectorAll("[data-state-hotspot]") ?? []);
+	const navHotspotLayer = document.getElementById("feature-nav-hotspots");
+	const navHotspotBtns = Array.from(root?.querySelectorAll("[data-nav-hotspot]") ?? []);
+	const navTooltip = document.getElementById("feature-nav-tooltip");
+	const comingSoonWrap = document.getElementById("feature-showcase-coming-soon");
+	const comingSoonLabel = document.getElementById("feature-showcase-coming-soon-label");
+	const comingSoonHint = document.getElementById("feature-showcase-coming-soon-hint");
 
-	let currentMode: "light" | "dark" = "dark";
+	const featureMap = new Map(featuresData.map((f) => [f.id, f]));
 
-	function updatePanels(id: string) {
-		const activeTab = tabs.find((t) => t.dataset.tab === id);
-		const hasLight = activeTab?.dataset.hasLight === "true";
+	let currentMode = "dark";
+	const currentState = new Map(featuresData.map((f) => [f.id, f.states[0]]));
+
+	function updatePanels(featureId) {
+		const feature = featureMap.get(featureId);
+		const stateId = currentState.get(featureId) ?? feature?.states[0];
 		panels.forEach((panel) => {
-			const isActiveFeature = panel.dataset.panel === id;
-			const show = isActiveFeature && (!hasLight || panel.dataset.mode === currentMode);
+			const isActivePanel = panel.dataset.panel === featureId && panel.dataset.state === stateId;
+			const modeMatches = panel.dataset.mode === currentMode;
+			const hasLightForThisState = panels.some(
+				(p) => p.dataset.panel === featureId && p.dataset.state === stateId && p.dataset.mode === "light"
+			);
+			const show = isActivePanel && (modeMatches || (!hasLightForThisState && panel.dataset.mode === "dark"));
 			panel.classList.toggle("hidden", !show);
 			panel.classList.toggle("block", show);
 		});
+		const hasLight = panels.some(
+			(p) => p.dataset.panel === featureId && p.dataset.state === stateId && p.dataset.mode === "light"
+		);
+		modeToggle?.classList.toggle("hidden", !hasLight);
+		modeToggle?.classList.toggle("flex", hasLight);
+
+		stateHotspots.forEach((el) => {
+			el.classList.toggle("hidden", el.dataset.stateHotspot !== featureId);
+			el.classList.toggle("flex", el.dataset.stateHotspot === featureId);
+		});
+
+		const feature2 = featureMap.get(featureId);
+		if (feature2?.comingSoon && comingSoonWrap && comingSoonLabel && comingSoonHint) {
+			comingSoonLabel.textContent = feature2.comingSoon.label;
+			comingSoonHint.textContent = feature2.comingSoon.hint;
+			comingSoonWrap.classList.remove("hidden");
+			comingSoonWrap.classList.add("flex");
+		} else {
+			comingSoonWrap?.classList.add("hidden");
+			comingSoonWrap?.classList.remove("flex");
+		}
 	}
 
-	function activate(id: string) {
+	function activate(id) {
 		tabs.forEach((tab) => {
 			const active = tab.dataset.tab === id;
 			tab.classList.toggle("is-active", active);
@@ -228,13 +374,16 @@ const features = [
 					note.textContent = noteText;
 					note.classList.toggle("hidden", noteText === "");
 				}
-				modeToggle?.classList.toggle("hidden", tab.dataset.hasLight !== "true");
+				navHotspotLayer?.classList.toggle("hidden", tab.dataset.admin !== "true");
 			}
 		});
+		// Reset to the tile's default state whenever we switch into it
+		const feature = featureMap.get(id);
+		if (feature) currentState.set(id, feature.states[0]);
 		updatePanels(id);
 	}
 
-	function setMode(mode: "light" | "dark") {
+	function setMode(mode) {
 		currentMode = mode;
 		modeButtons.forEach((btn) => {
 			const active = btn.dataset.mode === mode;
@@ -249,6 +398,16 @@ const features = [
 		});
 		const activeTab = tabs.find((t) => t.classList.contains("is-active"));
 		if (activeTab?.dataset.tab) updatePanels(activeTab.dataset.tab);
+	}
+
+	function toggleState(featureId) {
+		const feature = featureMap.get(featureId);
+		if (!feature || feature.states.length < 2) return;
+		const current = currentState.get(featureId) ?? feature.states[0];
+		const idx = feature.states.indexOf(current);
+		const next = feature.states[(idx + 1) % feature.states.length];
+		currentState.set(featureId, next);
+		updatePanels(featureId);
 	}
 
 	let autoplay = setInterval(() => {
@@ -275,15 +434,45 @@ const features = [
 			if (btn.dataset.mode === "light" || btn.dataset.mode === "dark") setMode(btn.dataset.mode);
 		});
 	});
+
+	stateHotspots.forEach((el) => {
+		el.addEventListener("click", () => {
+			stopAutoplay();
+			if (el.dataset.stateHotspot) toggleState(el.dataset.stateHotspot);
+		});
+	});
+
+	navHotspotBtns.forEach((btn) => {
+		btn.addEventListener("click", () => {
+			const targetId = btn.dataset.navHotspot;
+			if (targetId) {
+				stopAutoplay();
+				activate(targetId);
+			} else if (navTooltip) {
+				const rect = btn.getBoundingClientRect();
+				const frameRect = btn.closest(".feature-showcase-frame")?.getBoundingClientRect();
+				if (frameRect) {
+					navTooltip.style.left = `${rect.left - frameRect.left + rect.width / 2}px`;
+					navTooltip.style.top = `${rect.top - frameRect.top}px`;
+					navTooltip.textContent = `${btn.dataset.navLabel} — coming soon`;
+					navTooltip.classList.remove("hidden");
+					setTimeout(() => navTooltip.classList.add("hidden"), 1600);
+				}
+			}
+		});
+	});
+
+	activate(tabs[0]?.dataset.tab ?? "");
 </script>
 
 <style>
-	/* Native screenshots are 1488x812 (~1.83:1) — height is viewport-driven
-	   for the "almost full screen" feel the user asked for, width caps out
-	   around native resolution via the section's own max-width so nothing
-	   upscales past source quality and blurs. Scaled down in three steps
-	   rather than one flat vh value, so a tall narrow phone viewport doesn't
-	   end up with a cropped-to-nothing sliver of the screenshot. */
+	/* Native screenshots are ~1470-1920 wide depending on capture — height is
+	   viewport-driven for the "almost full screen" feel the user asked for,
+	   width caps out around native resolution via the section's own
+	   max-width so nothing upscales past source quality and blurs. Scaled
+	   down in three steps rather than one flat vh value, so a tall narrow
+	   phone viewport doesn't end up with a cropped-to-nothing sliver of the
+	   screenshot. */
 	.feature-showcase-frame {
 		aspect-ratio: 1470 / 812;
 		max-width: 100%;
@@ -299,5 +488,30 @@ const features = [
 		.feature-showcase-frame {
 			height: min(78vh, 860px);
 		}
+	}
+
+	.feature-state-hotspot {
+		display: none;
+	}
+	.feature-state-hotspot.flex {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+	.state-hotspot-badge {
+		animation: state-hotspot-pulse 1.8s ease-in-out infinite;
+	}
+	@keyframes state-hotspot-pulse {
+		0%, 100% { transform: translateX(-50%) translateY(0); }
+		50% { transform: translateX(-50%) translateY(-3px); }
+	}
+
+	.coming-soon-chip:hover .coming-soon-tooltip,
+	.coming-soon-chip:focus-visible .coming-soon-tooltip {
+		opacity: 1;
+	}
+
+	#feature-showcase-coming-soon.flex {
+		display: flex;
 	}
 </style>
