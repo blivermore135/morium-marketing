@@ -7,11 +7,11 @@
 // install" tab — a PWA install prompt is an interaction, not a static view,
 // so there's no honest screenshot for it; it's covered in the FAQ instead.
 //
-// Only the booking-page feature has a light/imageLight pair right now (the
-// admin screens were only ever captured in dark mode), so the light/dark
-// toggle only renders for features that actually have both images —
-// faking a second theme for the others would be showing something that
-// doesn't exist.
+// booking/dashboard/calendar/revenue all have a light/imageLight pair;
+// customers and the two follow-up features (reviews, rebooking) only have
+// one capture each right now, so the light/dark toggle only renders for
+// features that actually have both images — faking a second theme for the
+// others would be showing something that doesn't exist.
 //
 // Screenshots are cropped to the frame's 1470:812 aspect ratio (trimming a
 // scrollbar sliver off the right edge) but kept at native capture
@@ -36,25 +36,28 @@ const features = [
 		id: "dashboard",
 		name: "Bookings dashboard",
 		benefit: "See what's pending, confirmed, and done at a glance.",
-		image: "/images/showcase-dashboard.jpg",
+		image: "/images/showcase-dashboard-dark.jpg",
+		imageLight: "/images/showcase-dashboard-light.jpg",
 	},
 	{
 		id: "calendar",
 		name: "Calendar view",
 		benefit: "Your whole week, laid out before you start it.",
-		image: "/images/showcase-calendar.jpg",
+		image: "/images/showcase-calendar-dark.jpg",
+		imageLight: "/images/showcase-calendar-light.jpg",
 	},
 	{
 		id: "customers",
 		name: "Customer records",
 		benefit: "Every vehicle, every visit, every dollar — remembered for you.",
-		image: "/images/showcase-customers.jpg",
+		image: "/images/showcase-customers-light.jpg",
 	},
 	{
 		id: "revenue",
 		name: "Revenue reporting",
 		benefit: "Know your best month, your best service, your busiest day.",
-		image: "/images/showcase-revenue.jpg",
+		image: "/images/showcase-revenue-dark.jpg",
+		imageLight: "/images/showcase-revenue-light.jpg",
 	},
 	{
 		id: "reviews",
