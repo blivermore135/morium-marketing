@@ -49,8 +49,8 @@ const features = [
 				imageLight: "/images/showcase-followups-detail-light.jpg",
 			},
 		],
-		stateHotspot: { top: "18%", left: "33%", width: "20%", height: "6%" },
-		stateHintLabel: "Click the dropdown →",
+		stateHotspot: { top: "16.3%", left: "36%", width: "17%", height: "5%" },
+		stateHintLabel: "Click the dropdown",
 		comingSoon: {
 			label: "🤖 AI Calling & Messaging",
 			hint: "Coming soon — the same automation, but a real call or text instead of just email.",
@@ -100,8 +100,8 @@ const features = [
 				imageLight: "/images/showcase-dashboard-collapsed-light.jpg",
 			},
 		],
-		stateHotspot: { top: "17.5%", left: "33%", width: "13%", height: "5%" },
-		stateHintLabel: "Click me →",
+		stateHotspot: { top: "16.6%", left: "29%", width: "13.5%", height: "5.3%" },
+		stateHintLabel: "Click me",
 	},
 	{
 		id: "booking",
@@ -236,11 +236,11 @@ const navHotspots = [
 							<button
 								type="button"
 								data-state-hotspot={feature.id}
-								class="feature-state-hotspot absolute hidden rounded-md border-2 border-dashed border-white/0 transition-colors hover:border-white/70 focus-visible:border-white/70"
+								class="feature-state-hotspot absolute hidden cursor-pointer rounded-md"
 								style={`top:${feature.stateHotspot.top};left:${feature.stateHotspot.left};width:${feature.stateHotspot.width};height:${feature.stateHotspot.height};`}
 								aria-label={`Toggle ${feature.name} view`}
 							>
-								<span class="state-hotspot-badge pointer-events-none whitespace-nowrap rounded-full bg-accent-500 px-2.5 py-1 text-[11px] font-semibold text-ink shadow-lg">
+								<span class="state-hotspot-badge pointer-events-none absolute bottom-full left-1/2 mb-2 -translate-x-1/2 whitespace-nowrap rounded-md bg-ink/90 px-2 py-1 text-[10px] font-medium tracking-wide text-paper shadow-md">
 									{feature.stateHintLabel}
 								</span>
 							</button>
@@ -468,42 +468,72 @@ const navHotspots = [
 <style>
 	/* Native screenshots are ~1470-1920 wide depending on capture — height is
 	   viewport-driven for the "almost full screen" feel the user asked for,
-	   width caps out around native resolution via the section's own
-	   max-width so nothing upscales past source quality and blurs. Scaled
-	   down in three steps rather than one flat vh value, so a tall narrow
-	   phone viewport doesn't end up with a cropped-to-nothing sliver of the
-	   screenshot. */
+	   scaled down in three steps rather than one flat vh value, so a tall
+	   narrow phone viewport doesn't end up with a cropped-to-nothing sliver
+	   of the screenshot.
+	   Width is derived from that height (capped at the container) rather
+	   than left to fill it, because `aspect-ratio` alone doesn't constrain
+	   width on a plain block box — width resolves by filling the container
+	   before aspect-ratio gets a say. Left alone, that mismatch let
+	   object-fit: cover silently crop the screenshot by a viewport-dependent
+	   amount, which is what was throwing off the in-image hotspot overlays. */
 	.feature-showcase-frame {
 		aspect-ratio: 1470 / 812;
-		max-width: 100%;
 		margin: 0 auto;
 		height: min(42vh, 420px);
+		width: min(100%, calc(min(42vh, 420px) * 1470 / 812));
 	}
 	@media (min-width: 768px) {
 		.feature-showcase-frame {
 			height: min(62vh, 680px);
+			width: min(100%, calc(min(62vh, 680px) * 1470 / 812));
 		}
 	}
 	@media (min-width: 1280px) {
 		.feature-showcase-frame {
 			height: min(78vh, 860px);
+			width: min(100%, calc(min(78vh, 860px) * 1470 / 812));
 		}
 	}
 
 	.feature-state-hotspot {
 		display: none;
+		box-shadow: 0 0 0 1px rgb(255 255 255 / 0.14);
+		animation: state-hotspot-ring 2.4s ease-in-out infinite;
 	}
 	.feature-state-hotspot.flex {
 		display: flex;
 		align-items: center;
 		justify-content: center;
 	}
-	.state-hotspot-badge {
-		animation: state-hotspot-pulse 1.8s ease-in-out infinite;
+	.feature-state-hotspot:hover,
+	.feature-state-hotspot:focus-visible {
+		box-shadow: 0 0 0 2px rgb(255 255 255 / 0.55);
+		animation-play-state: paused;
 	}
-	@keyframes state-hotspot-pulse {
-		0%, 100% { transform: translateX(-50%) translateY(0); }
-		50% { transform: translateX(-50%) translateY(-3px); }
+	@keyframes state-hotspot-ring {
+		0%, 100% { box-shadow: 0 0 0 1px rgb(255 255 255 / 0.1); }
+		50% { box-shadow: 0 0 0 2px rgb(255 255 255 / 0.3); }
+	}
+	/* Small dark tooltip-style tag above the hotspot, not a bright CTA pill
+	   sitting on top of the real control's own label. */
+	.state-hotspot-badge {
+		animation: state-hotspot-fade 2.4s ease-in-out infinite;
+	}
+	.state-hotspot-badge::after {
+		content: "";
+		position: absolute;
+		top: 100%;
+		left: 50%;
+		width: 0;
+		height: 0;
+		transform: translateX(-50%);
+		border: 5px solid transparent;
+		border-top-color: rgb(10 26 31 / 0.9);
+	}
+	@keyframes state-hotspot-fade {
+		0%, 100% { opacity: 0.7; }
+		50% { opacity: 1; }
 	}
 
 	.coming-soon-chip:hover .coming-soon-tooltip,
