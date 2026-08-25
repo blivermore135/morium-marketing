@@ -18,13 +18,14 @@
 // "customers can book online" is table stakes everywhere now, not a reason
 // to pick this over anything else.
 //
-// Some tiles have more than one `state` — e.g. Bookings has the "Add a
-// Booking Manually" panel open vs. closed, Follow-Ups has the Google-review
-// vs. next-detail view — each clickable directly on the screenshot (a small
-// hotspot over the real button/dropdown) so exploring the demo feels closer
-// to using the actual app. Every state that has both themes captured gets
-// the light/dark toggle; states with only one capture just don't show the
-// toggle for that state.
+// Every tile that has both themes captured gets the light/dark toggle;
+// tiles with only one capture just don't show the toggle.
+//
+// Follow-Ups is the one tile that scrolls: real "Awaiting Your Approval"
+// examples (Nora Castillo, Derek Simmons) at the top, wheel/swipe down over
+// the screenshot to reveal Waiting Period + Recently Sent underneath, same
+// as scrolling the actual admin page would. `scrollImage` on a feature is
+// what opts it into that behavior — no other tile has one.
 //
 // Screenshots are cropped to the frame's 1470:812 aspect ratio (trimming a
 // scrollbar sliver off the right edge) but kept at native capture
@@ -39,18 +40,15 @@ const features = [
 		admin: true,
 		states: [
 			{
-				id: "google",
-				image: "/images/showcase-followups-google-dark.jpg",
-				imageLight: "/images/showcase-followups-google-light.jpg",
-			},
-			{
 				id: "detail",
 				image: "/images/showcase-followups-detail-dark.jpg",
 				imageLight: "/images/showcase-followups-detail-light.jpg",
 			},
 		],
-		stateHotspot: { top: "16.3%", left: "36%", width: "17%", height: "5%" },
-		stateHintLabel: "Click the dropdown",
+		scrollImage: {
+			image: "/images/showcase-followups-detail-scrolled-dark.jpg",
+			imageLight: "/images/showcase-followups-detail-scrolled-light.jpg",
+		},
 		comingSoon: {
 			label: "🤖 AI Calling & Messaging",
 			hint: "Coming soon — the same automation, but a real call or text instead of just email.",
@@ -94,14 +92,7 @@ const features = [
 		admin: true,
 		states: [
 			{ id: "expanded", image: "/images/showcase-dashboard-dark.jpg", imageLight: "/images/showcase-dashboard-light.jpg" },
-			{
-				id: "collapsed",
-				image: "/images/showcase-dashboard-collapsed-dark.jpg",
-				imageLight: "/images/showcase-dashboard-collapsed-light.jpg",
-			},
 		],
-		stateHotspot: { top: "16.6%", left: "29%", width: "13.5%", height: "5.3%" },
-		stateHintLabel: "Click me",
 	},
 	{
 		id: "booking",
@@ -210,6 +201,7 @@ const navHotspots = [
 									alt={`${feature.name}${state.id !== "default" ? ` — ${state.id}` : ""}`}
 									data-panel={feature.id}
 									data-state={state.id}
+									data-scroll="top"
 									data-mode="dark"
 									class:list={[
 										"absolute inset-0 h-full w-full object-cover object-top",
@@ -222,6 +214,7 @@ const navHotspots = [
 										alt={`${feature.name}${state.id !== "default" ? ` — ${state.id}` : ""} (light mode)`}
 										data-panel={feature.id}
 										data-state={state.id}
+										data-scroll="top"
 										data-mode="light"
 										class="absolute inset-0 hidden h-full w-full object-cover object-top"
 									/>
@@ -230,22 +223,43 @@ const navHotspots = [
 						))
 					)}
 
-					{/* In-image clickable hotspot for tiles with more than one state (Bookings open/closed, Follow-Ups Google/Detail) */}
+					{/* The scrolled-down continuation for tiles with a scrollImage (only Follow-Ups) — same
+					    data-panel/data-state as the tile's one state, distinguished by data-scroll="bottom" */}
 					{features.map((feature) =>
-						feature.states.length > 1 && feature.stateHotspot && (
-							<button
-								type="button"
-								data-state-hotspot={feature.id}
-								class="feature-state-hotspot absolute hidden cursor-pointer rounded-md"
-								style={`top:${feature.stateHotspot.top};left:${feature.stateHotspot.left};width:${feature.stateHotspot.width};height:${feature.stateHotspot.height};`}
-								aria-label={`Toggle ${feature.name} view`}
-							>
-								<span class="state-hotspot-badge pointer-events-none absolute bottom-full left-1/2 mb-2 -translate-x-1/2 whitespace-nowrap rounded-md bg-ink/90 px-2 py-1 text-[10px] font-medium tracking-wide text-paper shadow-md">
-									{feature.stateHintLabel}
-								</span>
-							</button>
+						feature.scrollImage && (
+							<Fragment>
+								<img
+									src={feature.scrollImage.image}
+									alt={`${feature.name} — scrolled down`}
+									data-panel={feature.id}
+									data-state={feature.states[0].id}
+									data-scroll="bottom"
+									data-mode="dark"
+									class="absolute inset-0 hidden h-full w-full object-cover object-top"
+								/>
+								{feature.scrollImage.imageLight && (
+									<img
+										src={feature.scrollImage.imageLight}
+										alt={`${feature.name} — scrolled down (light mode)`}
+										data-panel={feature.id}
+										data-state={feature.states[0].id}
+										data-scroll="bottom"
+										data-mode="light"
+										class="absolute inset-0 hidden h-full w-full object-cover object-top"
+									/>
+								)}
+							</Fragment>
 						)
 					)}
+
+					<span
+						id="feature-scroll-hint"
+						class="scroll-hint pointer-events-none absolute inset-x-0 bottom-3 hidden justify-center"
+					>
+						<span class="scroll-hint-badge whitespace-nowrap rounded-full bg-ink/80 px-3 py-1 text-[11px] font-semibold text-paper shadow-lg">
+							Scroll for more ↓
+						</span>
+					</span>
 
 					{/* Nav-bar hotspots — clicking the tab names drawn inside the admin screenshots themselves switches tiles too, only live while an admin-view tile is showing */}
 					<div id="feature-nav-hotspots" class="pointer-events-none absolute inset-0 hidden">
@@ -296,7 +310,7 @@ const navHotspots = [
 	</div>
 </section>
 
-<script define:vars={{ featuresData: features.map((f) => ({ id: f.id, states: f.states.map((s) => s.id), comingSoon: f.comingSoon ?? null })) }}>
+<script define:vars={{ featuresData: features.map((f) => ({ id: f.id, states: f.states.map((s) => s.id), comingSoon: f.comingSoon ?? null, hasScroll: Boolean(f.scrollImage) })) }}>
 	const root = document.getElementById("feature-showcase");
 	const tabs = Array.from(root?.querySelectorAll("[data-tab]") ?? []);
 	const panels = Array.from(root?.querySelectorAll("[data-panel]") ?? []);
@@ -306,7 +320,8 @@ const navHotspots = [
 	const hint = document.getElementById("feature-showcase-hint");
 	const modeToggle = document.getElementById("feature-showcase-mode-toggle");
 	const modeButtons = Array.from(modeToggle?.querySelectorAll("[data-mode]") ?? []);
-	const stateHotspots = Array.from(root?.querySelectorAll("[data-state-hotspot]") ?? []);
+	const scrollHint = document.getElementById("feature-scroll-hint");
+	const frame = document.querySelector(".feature-showcase-frame");
 	const navHotspotLayer = document.getElementById("feature-nav-hotspots");
 	const navHotspotBtns = Array.from(root?.querySelectorAll("[data-nav-hotspot]") ?? []);
 	const navTooltip = document.getElementById("feature-nav-tooltip");
@@ -318,30 +333,42 @@ const navHotspots = [
 
 	let currentMode = "dark";
 	const currentState = new Map(featuresData.map((f) => [f.id, f.states[0]]));
+	const scrollVariant = new Map(featuresData.map((f) => [f.id, "top"]));
 
 	function updatePanels(featureId) {
 		const feature = featureMap.get(featureId);
 		const stateId = currentState.get(featureId) ?? feature?.states[0];
+		const variant = scrollVariant.get(featureId) ?? "top";
 		panels.forEach((panel) => {
-			const isActivePanel = panel.dataset.panel === featureId && panel.dataset.state === stateId;
+			const isActivePanel =
+				panel.dataset.panel === featureId &&
+				panel.dataset.state === stateId &&
+				(panel.dataset.scroll ?? "top") === variant;
 			const modeMatches = panel.dataset.mode === currentMode;
 			const hasLightForThisState = panels.some(
-				(p) => p.dataset.panel === featureId && p.dataset.state === stateId && p.dataset.mode === "light"
+				(p) =>
+					p.dataset.panel === featureId &&
+					p.dataset.state === stateId &&
+					(p.dataset.scroll ?? "top") === variant &&
+					p.dataset.mode === "light"
 			);
 			const show = isActivePanel && (modeMatches || (!hasLightForThisState && panel.dataset.mode === "dark"));
 			panel.classList.toggle("hidden", !show);
 			panel.classList.toggle("block", show);
 		});
 		const hasLight = panels.some(
-			(p) => p.dataset.panel === featureId && p.dataset.state === stateId && p.dataset.mode === "light"
+			(p) =>
+				p.dataset.panel === featureId &&
+				p.dataset.state === stateId &&
+				(p.dataset.scroll ?? "top") === variant &&
+				p.dataset.mode === "light"
 		);
 		modeToggle?.classList.toggle("hidden", !hasLight);
 		modeToggle?.classList.toggle("flex", hasLight);
 
-		stateHotspots.forEach((el) => {
-			el.classList.toggle("hidden", el.dataset.stateHotspot !== featureId);
-			el.classList.toggle("flex", el.dataset.stateHotspot === featureId);
-		});
+		const showScrollHint = Boolean(feature?.hasScroll) && variant === "top";
+		scrollHint?.classList.toggle("hidden", !showScrollHint);
+		scrollHint?.classList.toggle("flex", showScrollHint);
 
 		const feature2 = featureMap.get(featureId);
 		if (feature2?.comingSoon && comingSoonWrap && comingSoonLabel && comingSoonHint) {
@@ -380,6 +407,7 @@ const navHotspots = [
 		// Reset to the tile's default state whenever we switch into it
 		const feature = featureMap.get(id);
 		if (feature) currentState.set(id, feature.states[0]);
+		scrollVariant.set(id, "top");
 		updatePanels(id);
 	}
 
@@ -400,13 +428,11 @@ const navHotspots = [
 		if (activeTab?.dataset.tab) updatePanels(activeTab.dataset.tab);
 	}
 
-	function toggleState(featureId) {
+	function setScrollVariant(featureId, variant) {
 		const feature = featureMap.get(featureId);
-		if (!feature || feature.states.length < 2) return;
-		const current = currentState.get(featureId) ?? feature.states[0];
-		const idx = feature.states.indexOf(current);
-		const next = feature.states[(idx + 1) % feature.states.length];
-		currentState.set(featureId, next);
+		if (!feature?.hasScroll) return;
+		if (scrollVariant.get(featureId) === variant) return;
+		scrollVariant.set(featureId, variant);
 		updatePanels(featureId);
 	}
 
@@ -435,12 +461,71 @@ const navHotspots = [
 		});
 	});
 
-	stateHotspots.forEach((el) => {
-		el.addEventListener("click", () => {
-			stopAutoplay();
-			if (el.dataset.stateHotspot) toggleState(el.dataset.stateHotspot);
-		});
-	});
+	// Wheel/swipe over the frame scrolls between a tile's top and scrolled-down
+	// image (currently only Follow-Ups). Only intercepts the gesture — and
+	// only preventDefault()s the page scroll — at the exact moment it would
+	// actually change something (top→bottom on scroll-down, bottom→top on
+	// scroll-up); everywhere else the wheel/touch event passes through
+	// untouched so visitors are never trapped unable to scroll the page.
+	const SCROLL_THRESHOLD = 12;
+	let scrollLocked = false;
+	function tryScroll(featureId, deltaY) {
+		const feature = featureMap.get(featureId);
+		if (!feature?.hasScroll || scrollLocked) return false;
+		const variant = scrollVariant.get(featureId) ?? "top";
+		if (deltaY > SCROLL_THRESHOLD && variant === "top") {
+			setScrollVariant(featureId, "bottom");
+		} else if (deltaY < -SCROLL_THRESHOLD && variant === "bottom") {
+			setScrollVariant(featureId, "top");
+		} else {
+			return false;
+		}
+		scrollLocked = true;
+		setTimeout(() => {
+			scrollLocked = false;
+		}, 400);
+		return true;
+	}
+
+	if (frame) {
+		frame.addEventListener(
+			"wheel",
+			(e) => {
+				const activeTab = tabs.find((t) => t.classList.contains("is-active"));
+				const featureId = activeTab?.dataset.tab;
+				if (featureId && tryScroll(featureId, e.deltaY)) {
+					stopAutoplay();
+					e.preventDefault();
+				}
+			},
+			{ passive: false }
+		);
+
+		let touchStartY = null;
+		frame.addEventListener(
+			"touchstart",
+			(e) => {
+				touchStartY = e.touches[0]?.clientY ?? null;
+			},
+			{ passive: true }
+		);
+		frame.addEventListener(
+			"touchmove",
+			(e) => {
+				if (touchStartY === null) return;
+				const currentY = e.touches[0]?.clientY ?? touchStartY;
+				const deltaY = touchStartY - currentY;
+				const activeTab = tabs.find((t) => t.classList.contains("is-active"));
+				const featureId = activeTab?.dataset.tab;
+				if (featureId && tryScroll(featureId, deltaY)) {
+					stopAutoplay();
+					e.preventDefault();
+					touchStartY = currentY;
+				}
+			},
+			{ passive: false }
+		);
+	}
 
 	navHotspotBtns.forEach((btn) => {
 		btn.addEventListener("click", () => {
@@ -496,44 +581,21 @@ const navHotspots = [
 		}
 	}
 
-	.feature-state-hotspot {
+	/* Discreet cue that a tile scrolls (Follow-Ups only) — a quiet fading
+	   pill, not a bright CTA, since it's just a hint and the wheel/swipe
+	   handler works whether or not anyone notices it. */
+	.scroll-hint {
 		display: none;
-		box-shadow: 0 0 0 1px rgb(255 255 255 / 0.14);
-		animation: state-hotspot-ring 2.4s ease-in-out infinite;
 	}
-	.feature-state-hotspot.flex {
+	.scroll-hint.flex {
 		display: flex;
-		align-items: center;
-		justify-content: center;
 	}
-	.feature-state-hotspot:hover,
-	.feature-state-hotspot:focus-visible {
-		box-shadow: 0 0 0 2px rgb(255 255 255 / 0.55);
-		animation-play-state: paused;
+	.scroll-hint-badge {
+		animation: scroll-hint-fade 2.4s ease-in-out infinite;
 	}
-	@keyframes state-hotspot-ring {
-		0%, 100% { box-shadow: 0 0 0 1px rgb(255 255 255 / 0.1); }
-		50% { box-shadow: 0 0 0 2px rgb(255 255 255 / 0.3); }
-	}
-	/* Small dark tooltip-style tag above the hotspot, not a bright CTA pill
-	   sitting on top of the real control's own label. */
-	.state-hotspot-badge {
-		animation: state-hotspot-fade 2.4s ease-in-out infinite;
-	}
-	.state-hotspot-badge::after {
-		content: "";
-		position: absolute;
-		top: 100%;
-		left: 50%;
-		width: 0;
-		height: 0;
-		transform: translateX(-50%);
-		border: 5px solid transparent;
-		border-top-color: rgb(10 26 31 / 0.9);
-	}
-	@keyframes state-hotspot-fade {
-		0%, 100% { opacity: 0.7; }
-		50% { opacity: 1; }
+	@keyframes scroll-hint-fade {
+		0%, 100% { opacity: 0.55; transform: translateY(0); }
+		50% { opacity: 0.9; transform: translateY(-3px); }
 	}
 
 	.coming-soon-chip:hover .coming-soon-tooltip,
