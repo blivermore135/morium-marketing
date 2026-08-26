@@ -4,7 +4,9 @@
 // DB row with fictional customers), never Bob's Detailing's actual customer
 // data (seed script deleted the org right after capture); the booking-page
 // ones are Bob's Detailing's real public quote form, which is fine to show
-// since it's already public.
+// since it's already public. Follow-Ups is the one exception — those come
+// straight from the real account's own dev/test bookings (names like
+// "Brock (Gmail Test)"), supplied directly rather than freshly captured.
 //
 // Tile names match the real admin tab labels (Overview/Bookings/Calendar/
 // Customers/Follow-Ups) as closely as sounds good, so the tab bar drawn
@@ -59,7 +61,6 @@ const features = [
 				frames: [
 					{ image: "/images/showcase-followups-google-1-dark.jpg", imageLight: "/images/showcase-followups-google-1-light.jpg" },
 					{ image: "/images/showcase-followups-google-2-dark.jpg", imageLight: "/images/showcase-followups-google-2-light.jpg" },
-					{ image: "/images/showcase-followups-google-3-dark.jpg", imageLight: "/images/showcase-followups-google-3-light.jpg" },
 				],
 			},
 		],
