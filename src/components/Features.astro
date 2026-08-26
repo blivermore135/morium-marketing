@@ -1,9 +1,10 @@
 ---
 // Real screenshots (mid-2026) — the admin ones are from a throwaway seeded
-// demo org ("Prestige Auto Detailing"), never Bob's Detailing's actual
-// customer data (seed script deleted the org right after capture); the
-// booking-page ones are Bob's Detailing's real public quote form, which is
-// fine to show since it's already public.
+// demo org (named "Bob's Detailing" so the header matches, but a separate
+// DB row with fictional customers), never Bob's Detailing's actual customer
+// data (seed script deleted the org right after capture); the booking-page
+// ones are Bob's Detailing's real public quote form, which is fine to show
+// since it's already public.
 //
 // Tile names match the real admin tab labels (Overview/Bookings/Calendar/
 // Customers/Follow-Ups) as closely as sounds good, so the tab bar drawn
@@ -21,11 +22,16 @@
 // Every tile that has both themes captured gets the light/dark toggle;
 // tiles with only one capture just don't show the toggle.
 //
-// Follow-Ups is the one tile that scrolls: real "Awaiting Your Approval"
-// examples (Nora Castillo, Derek Simmons) at the top, wheel/swipe down over
-// the screenshot to reveal Waiting Period + Recently Sent underneath, same
-// as scrolling the actual admin page would. `scrollImage` on a feature is
-// what opts it into that behavior — no other tile has one.
+// Follow-Ups is the one tile that scrolls, and the only one with more than
+// one "kind" — real admin has a Follow-up type picker (Google Review /
+// Next Detail), each with its own Awaiting Your Approval + Waiting Period +
+// Recently Sent. Each kind here is a `states` entry carrying an ordered
+// `frames` array (one screenshot per real scroll position, captured so
+// consecutive frames pick up exactly where the previous one left off — no
+// skipped content, no wasted blank space); wheel/swipe steps through those
+// frames same as scrolling the actual admin page would. A state's `label`
+// is what opts a feature into the kind-switcher pills; states without one
+// (every other tile) just render their single frame with no picker.
 //
 // Screenshots are cropped to the frame's 1470:812 aspect ratio (trimming a
 // scrollbar sliver off the right edge) but kept at native capture
@@ -41,14 +47,22 @@ const features = [
 		states: [
 			{
 				id: "detail",
-				image: "/images/showcase-followups-detail-dark.jpg",
-				imageLight: "/images/showcase-followups-detail-light.jpg",
+				label: "🚗 Next Detail Follow-Ups",
+				frames: [
+					{ image: "/images/showcase-followups-detail-1-dark.jpg", imageLight: "/images/showcase-followups-detail-1-light.jpg" },
+					{ image: "/images/showcase-followups-detail-2-dark.jpg", imageLight: "/images/showcase-followups-detail-2-light.jpg" },
+				],
+			},
+			{
+				id: "google",
+				label: "🌟 Google Review Follow-Ups",
+				frames: [
+					{ image: "/images/showcase-followups-google-1-dark.jpg", imageLight: "/images/showcase-followups-google-1-light.jpg" },
+					{ image: "/images/showcase-followups-google-2-dark.jpg", imageLight: "/images/showcase-followups-google-2-light.jpg" },
+					{ image: "/images/showcase-followups-google-3-dark.jpg", imageLight: "/images/showcase-followups-google-3-light.jpg" },
+				],
 			},
 		],
-		scrollImage: {
-			image: "/images/showcase-followups-detail-scrolled-dark.jpg",
-			imageLight: "/images/showcase-followups-detail-scrolled-light.jpg",
-		},
 		comingSoon: {
 			label: "🤖 AI Calling & Messaging",
 			hint: "Coming soon — the same automation, but a real call or text instead of just email.",
@@ -106,6 +120,15 @@ const features = [
 	},
 ];
 
+// Every tile but Follow-Ups defines its one state as a plain image/imageLight
+// pair rather than a `frames` array — wrap it here so the render loop and
+// client script only ever have to deal with one shape (a list of frames).
+for (const feature of features) {
+	for (const state of feature.states) {
+		if (!state.frames) state.frames = [{ image: state.image, imageLight: state.imageLight }];
+	}
+}
+
 // Shared position of the admin nav bar baked into every admin screenshot —
 // same header component, same spot in every capture. Approximate (eyeballed
 // off the source images, padded for an easy click target, not pixel-exact).
@@ -161,8 +184,36 @@ const navHotspots = [
 		</p>
 
 		<div
-			id="feature-showcase-mode-toggle"
+			id="feature-showcase-kind-toggle"
 			class="mt-5 hidden justify-center gap-1.5"
+			role="tablist"
+			aria-label="Follow-up type"
+		>
+			{features.flatMap((feature) =>
+				feature.states.length > 1
+					? feature.states.map((state, si) => (
+							<button
+								type="button"
+								data-kind-feature={feature.id}
+								data-kind-state={state.id}
+								aria-pressed={si === 0 ? "true" : "false"}
+								class:list={[
+									"kind-toggle-btn rounded-full border px-3 py-1 font-body text-xs font-semibold transition-colors",
+									si === 0
+										? "is-active border-accent-500 bg-accent-500 text-ink"
+										: "border-line bg-paper text-ink/65 hover:border-accent-300 hover:text-ink",
+								]}
+							>
+								{state.label}
+							</button>
+						))
+					: []
+			)}
+		</div>
+
+		<div
+			id="feature-showcase-mode-toggle"
+			class="mt-3 hidden justify-center gap-1.5"
 			role="tablist"
 			aria-label="Screenshot theme"
 		>
@@ -194,61 +245,34 @@ const navHotspots = [
 				</div>
 				<div class="feature-showcase-frame relative w-full overflow-hidden rounded-xl">
 					{features.map((feature) =>
-						feature.states.map((state, si) => (
-							<Fragment>
-								<img
-									src={state.image}
-									alt={`${feature.name}${state.id !== "default" ? ` — ${state.id}` : ""}`}
-									data-panel={feature.id}
-									data-state={state.id}
-									data-scroll="top"
-									data-mode="dark"
-									class:list={[
-										"absolute inset-0 h-full w-full object-cover object-top",
-										feature.id === features[0].id && si === 0 ? "block" : "hidden",
-									]}
-								/>
-								{state.imageLight && (
+						feature.states.map((state, si) =>
+							state.frames.map((frame, fi) => (
+								<Fragment>
 									<img
-										src={state.imageLight}
-										alt={`${feature.name}${state.id !== "default" ? ` — ${state.id}` : ""} (light mode)`}
+										src={frame.image}
+										alt={`${feature.name}${state.id !== "default" ? ` — ${state.id}` : ""}${fi > 0 ? ` (scrolled ${fi})` : ""}`}
 										data-panel={feature.id}
 										data-state={state.id}
-										data-scroll="top"
-										data-mode="light"
-										class="absolute inset-0 hidden h-full w-full object-cover object-top"
+										data-frame={fi}
+										data-mode="dark"
+										class:list={[
+											"absolute inset-0 h-full w-full object-cover object-top",
+											feature.id === features[0].id && si === 0 && fi === 0 ? "block" : "hidden",
+										]}
 									/>
-								)}
-							</Fragment>
-						))
-					)}
-
-					{/* The scrolled-down continuation for tiles with a scrollImage (only Follow-Ups) — same
-					    data-panel/data-state as the tile's one state, distinguished by data-scroll="bottom" */}
-					{features.map((feature) =>
-						feature.scrollImage && (
-							<Fragment>
-								<img
-									src={feature.scrollImage.image}
-									alt={`${feature.name} — scrolled down`}
-									data-panel={feature.id}
-									data-state={feature.states[0].id}
-									data-scroll="bottom"
-									data-mode="dark"
-									class="absolute inset-0 hidden h-full w-full object-cover object-top"
-								/>
-								{feature.scrollImage.imageLight && (
-									<img
-										src={feature.scrollImage.imageLight}
-										alt={`${feature.name} — scrolled down (light mode)`}
-										data-panel={feature.id}
-										data-state={feature.states[0].id}
-										data-scroll="bottom"
-										data-mode="light"
-										class="absolute inset-0 hidden h-full w-full object-cover object-top"
-									/>
-								)}
-							</Fragment>
+									{frame.imageLight && (
+										<img
+											src={frame.imageLight}
+											alt={`${feature.name}${state.id !== "default" ? ` — ${state.id}` : ""}${fi > 0 ? ` (scrolled ${fi})` : ""} (light mode)`}
+											data-panel={feature.id}
+											data-state={state.id}
+											data-frame={fi}
+											data-mode="light"
+											class="absolute inset-0 hidden h-full w-full object-cover object-top"
+										/>
+									)}
+								</Fragment>
+							))
 						)
 					)}
 
@@ -310,7 +334,7 @@ const navHotspots = [
 	</div>
 </section>
 
-<script define:vars={{ featuresData: features.map((f) => ({ id: f.id, states: f.states.map((s) => s.id), comingSoon: f.comingSoon ?? null, hasScroll: Boolean(f.scrollImage) })) }}>
+<script define:vars={{ featuresData: features.map((f) => ({ id: f.id, states: f.states.map((s) => ({ id: s.id, label: s.label ?? null, frameCount: s.frames.length })), comingSoon: f.comingSoon ?? null })) }}>
 	const root = document.getElementById("feature-showcase");
 	const tabs = Array.from(root?.querySelectorAll("[data-tab]") ?? []);
 	const panels = Array.from(root?.querySelectorAll("[data-panel]") ?? []);
@@ -320,6 +344,8 @@ const navHotspots = [
 	const hint = document.getElementById("feature-showcase-hint");
 	const modeToggle = document.getElementById("feature-showcase-mode-toggle");
 	const modeButtons = Array.from(modeToggle?.querySelectorAll("[data-mode]") ?? []);
+	const kindToggle = document.getElementById("feature-showcase-kind-toggle");
+	const kindButtons = Array.from(kindToggle?.querySelectorAll("[data-kind-state]") ?? []);
 	const scrollHint = document.getElementById("feature-scroll-hint");
 	const frame = document.querySelector(".feature-showcase-frame");
 	const navHotspotLayer = document.getElementById("feature-nav-hotspots");
@@ -333,47 +359,63 @@ const navHotspots = [
 
 	let currentMode = "dark";
 	const currentState = new Map(featuresData.map((f) => [f.id, f.states[0]]));
-	const scrollVariant = new Map(featuresData.map((f) => [f.id, "top"]));
+	const scrollFrame = new Map(featuresData.map((f) => [f.id, 0]));
 
 	function updatePanels(featureId) {
 		const feature = featureMap.get(featureId);
-		const stateId = currentState.get(featureId) ?? feature?.states[0];
-		const variant = scrollVariant.get(featureId) ?? "top";
+		const state = currentState.get(featureId) ?? feature?.states[0];
+		const frameIndex = scrollFrame.get(featureId) ?? 0;
 		panels.forEach((panel) => {
 			const isActivePanel =
 				panel.dataset.panel === featureId &&
-				panel.dataset.state === stateId &&
-				(panel.dataset.scroll ?? "top") === variant;
+				panel.dataset.state === state?.id &&
+				Number(panel.dataset.frame) === frameIndex;
 			const modeMatches = panel.dataset.mode === currentMode;
-			const hasLightForThisState = panels.some(
+			const hasLightForThisFrame = panels.some(
 				(p) =>
 					p.dataset.panel === featureId &&
-					p.dataset.state === stateId &&
-					(p.dataset.scroll ?? "top") === variant &&
+					p.dataset.state === state?.id &&
+					Number(p.dataset.frame) === frameIndex &&
 					p.dataset.mode === "light"
 			);
-			const show = isActivePanel && (modeMatches || (!hasLightForThisState && panel.dataset.mode === "dark"));
+			const show = isActivePanel && (modeMatches || (!hasLightForThisFrame && panel.dataset.mode === "dark"));
 			panel.classList.toggle("hidden", !show);
 			panel.classList.toggle("block", show);
 		});
 		const hasLight = panels.some(
 			(p) =>
 				p.dataset.panel === featureId &&
-				p.dataset.state === stateId &&
-				(p.dataset.scroll ?? "top") === variant &&
+				p.dataset.state === state?.id &&
+				Number(p.dataset.frame) === frameIndex &&
 				p.dataset.mode === "light"
 		);
 		modeToggle?.classList.toggle("hidden", !hasLight);
 		modeToggle?.classList.toggle("flex", hasLight);
 
-		const showScrollHint = Boolean(feature?.hasScroll) && variant === "top";
+		const hasKinds = Boolean(feature) && feature.states.length > 1;
+		kindToggle?.classList.toggle("hidden", !hasKinds);
+		kindToggle?.classList.toggle("flex", hasKinds);
+		if (hasKinds) {
+			kindButtons.forEach((btn) => {
+				const active = btn.dataset.kindFeature === featureId && btn.dataset.kindState === state?.id;
+				btn.classList.toggle("is-active", active);
+				btn.classList.toggle("border-accent-500", active);
+				btn.classList.toggle("bg-accent-500", active);
+				btn.classList.toggle("text-ink", active);
+				btn.classList.toggle("border-line", !active);
+				btn.classList.toggle("bg-paper", !active);
+				btn.classList.toggle("text-ink/65", !active);
+				btn.setAttribute("aria-pressed", String(active));
+			});
+		}
+
+		const showScrollHint = (state?.frameCount ?? 1) > 1 && frameIndex === 0;
 		scrollHint?.classList.toggle("hidden", !showScrollHint);
 		scrollHint?.classList.toggle("flex", showScrollHint);
 
-		const feature2 = featureMap.get(featureId);
-		if (feature2?.comingSoon && comingSoonWrap && comingSoonLabel && comingSoonHint) {
-			comingSoonLabel.textContent = feature2.comingSoon.label;
-			comingSoonHint.textContent = feature2.comingSoon.hint;
+		if (feature?.comingSoon && comingSoonWrap && comingSoonLabel && comingSoonHint) {
+			comingSoonLabel.textContent = feature.comingSoon.label;
+			comingSoonHint.textContent = feature.comingSoon.hint;
 			comingSoonWrap.classList.remove("hidden");
 			comingSoonWrap.classList.add("flex");
 		} else {
@@ -404,10 +446,10 @@ const navHotspots = [
 				navHotspotLayer?.classList.toggle("hidden", tab.dataset.admin !== "true");
 			}
 		});
-		// Reset to the tile's default state whenever we switch into it
+		// Reset to the tile's default kind/scroll position whenever we switch into it
 		const feature = featureMap.get(id);
 		if (feature) currentState.set(id, feature.states[0]);
-		scrollVariant.set(id, "top");
+		scrollFrame.set(id, 0);
 		updatePanels(id);
 	}
 
@@ -428,11 +470,12 @@ const navHotspots = [
 		if (activeTab?.dataset.tab) updatePanels(activeTab.dataset.tab);
 	}
 
-	function setScrollVariant(featureId, variant) {
+	function setKind(featureId, stateId) {
 		const feature = featureMap.get(featureId);
-		if (!feature?.hasScroll) return;
-		if (scrollVariant.get(featureId) === variant) return;
-		scrollVariant.set(featureId, variant);
+		const state = feature?.states.find((s) => s.id === stateId);
+		if (!state || currentState.get(featureId)?.id === stateId) return;
+		currentState.set(featureId, state);
+		scrollFrame.set(featureId, 0);
 		updatePanels(featureId);
 	}
 
@@ -461,25 +504,36 @@ const navHotspots = [
 		});
 	});
 
-	// Wheel/swipe over the frame scrolls between a tile's top and scrolled-down
-	// image (currently only Follow-Ups). Only intercepts the gesture — and
-	// only preventDefault()s the page scroll — at the exact moment it would
-	// actually change something (top→bottom on scroll-down, bottom→top on
-	// scroll-up); everywhere else the wheel/touch event passes through
-	// untouched so visitors are never trapped unable to scroll the page.
+	kindButtons.forEach((btn) => {
+		btn.addEventListener("click", () => {
+			stopAutoplay();
+			if (btn.dataset.kindFeature && btn.dataset.kindState) setKind(btn.dataset.kindFeature, btn.dataset.kindState);
+		});
+	});
+
+	// Wheel/swipe over the frame steps through a tile's ordered screenshot
+	// frames (currently only Follow-Ups has more than one). Only intercepts
+	// the gesture — and only preventDefault()s the page scroll — at the exact
+	// moment it would actually change something (advancing past the last
+	// frame or back past the first falls through); everywhere else the
+	// wheel/touch event passes through untouched so visitors are never
+	// trapped unable to scroll the page.
 	const SCROLL_THRESHOLD = 12;
 	let scrollLocked = false;
 	function tryScroll(featureId, deltaY) {
 		const feature = featureMap.get(featureId);
-		if (!feature?.hasScroll || scrollLocked) return false;
-		const variant = scrollVariant.get(featureId) ?? "top";
-		if (deltaY > SCROLL_THRESHOLD && variant === "top") {
-			setScrollVariant(featureId, "bottom");
-		} else if (deltaY < -SCROLL_THRESHOLD && variant === "bottom") {
-			setScrollVariant(featureId, "top");
+		const state = currentState.get(featureId) ?? feature?.states[0];
+		const frameCount = state?.frameCount ?? 1;
+		if (frameCount <= 1 || scrollLocked) return false;
+		const index = scrollFrame.get(featureId) ?? 0;
+		if (deltaY > SCROLL_THRESHOLD && index < frameCount - 1) {
+			scrollFrame.set(featureId, index + 1);
+		} else if (deltaY < -SCROLL_THRESHOLD && index > 0) {
+			scrollFrame.set(featureId, index - 1);
 		} else {
 			return false;
 		}
+		updatePanels(featureId);
 		scrollLocked = true;
 		setTimeout(() => {
 			scrollLocked = false;
