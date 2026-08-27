@@ -1,8 +1,9 @@
 // These names/prices must stay in sync with bobsdetailing's
 // shared/billing.ts TIERS — that's the real billing config; this is just
-// the marketing copy for the same three tiers. Priced 2026-08-17 against
-// real competitor pricing (Jobber, Housecall Pro, Mobile Tech RX, Workiz)
-// and confirmed with the user — not placeholders anymore.
+// the marketing copy for the same three tiers. Re-priced 2026-08-20: Solo
+// dropped from $49 to $29/mo to sit at Jobber's real single-user floor
+// instead of above it (Jobber's actual entry price is $29-39/mo). Confirmed
+// with the user — not a placeholder.
 export interface PricingTier {
 	id: "solo" | "team" | "pro";
 	name: string;
@@ -15,8 +16,9 @@ export const pricingTiers: PricingTier[] = [
 	{
 		id: "solo",
 		name: "Solo",
-		monthlyPrice: 49,
+		monthlyPrice: 29,
 		features: [
+			"1 user",
 			"Online booking page",
 			"Bookings dashboard & calendar",
 			"Customer records & job history",

@@ -24,16 +24,25 @@
 // Every tile that has both themes captured gets the light/dark toggle;
 // tiles with only one capture just don't show the toggle.
 //
-// Follow-Ups is the one tile that scrolls, and the only one with more than
-// one "kind" — real admin has a Follow-up type picker (Google Review /
-// Next Detail), each with its own Awaiting Your Approval + Waiting Period +
-// Recently Sent. Each kind here is a `states` entry carrying an ordered
-// `frames` array (one screenshot per real scroll position, captured so
-// consecutive frames pick up exactly where the previous one left off — no
-// skipped content, no wasted blank space); wheel/swipe steps through those
-// frames same as scrolling the actual admin page would. A state's `label`
-// is what opts a feature into the kind-switcher pills; states without one
-// (every other tile) just render their single frame with no picker.
+// Follow-Ups and Overview are the two tiles that scroll; Follow-Ups is the
+// only one with more than one "kind" on top of that — real admin has a
+// Follow-up type picker (Google Review / Next Detail), each with its own
+// Awaiting Your Approval + Waiting Period + Recently Sent. Each kind here is
+// a `states` entry carrying an ordered `frames` array (one screenshot per
+// real scroll position, captured so consecutive frames pick up exactly
+// where the previous one left off — no skipped content, no wasted blank
+// space); wheel/swipe steps through those frames same as scrolling the
+// actual admin page would. A state's `label` is what opts a feature into
+// the kind-switcher pills; states without one (every other tile) just
+// render their single frame with no picker — Overview's `frames` array has
+// no `label`, so it scrolls without showing a kind-switcher.
+//
+// Overview's screenshots (recaptured 2026-08-26, replacing an older
+// single-frame pair) are from a throwaway seeded org, "Livermore Detailing"
+// — 11 fake completed bookings across Mar-Aug 2026 so Revenue by Month/
+// Package had real numbers to show, all deleted from Supabase immediately
+// after capture. Same throwaway-then-deleted convention as every other
+// admin tile except Follow-Ups (see above).
 //
 // Screenshots are cropped to the frame's 1470:812 aspect ratio (trimming a
 // scrollbar sliver off the right edge) but kept at native capture
@@ -75,7 +84,13 @@ const features = [
 		benefit: "Know your best month, your best service, your busiest day.",
 		admin: true,
 		states: [
-			{ id: "default", image: "/images/showcase-revenue-dark.jpg", imageLight: "/images/showcase-revenue-light.jpg" },
+			{
+				id: "default",
+				frames: [
+					{ image: "/images/showcase-revenue-1-dark.jpg", imageLight: "/images/showcase-revenue-1-light.jpg" },
+					{ image: "/images/showcase-revenue-2-dark.jpg", imageLight: "/images/showcase-revenue-2-light.jpg" },
+				],
+			},
 		],
 	},
 	{
