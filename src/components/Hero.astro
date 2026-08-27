@@ -69,22 +69,50 @@ import { SIGNUP_URL } from "../data/site";
 					<span class="h-2.5 w-2.5 rounded-full bg-ink/15"></span>
 					<span class="h-2.5 w-2.5 rounded-full bg-ink/15"></span>
 				</div>
-				<!-- Exact aspect ratio of the source crop (1141:780) so object-cover
+				<!-- Exact aspect ratio of the source crops (1141:780) so object-cover
 				     never has to trim any edge — the whole screenshot, header through
-				     both revenue cards, always shows uncropped. -->
-				<div class="relative aspect-[1141/780] w-full overflow-hidden rounded-xl border border-ink/10">
+				     whichever frame is showing, always displays uncropped. Frame 0 is
+				     the stat tiles + top of Revenue by Month/Package; frame 1 is
+				     scrolled to show the rest of Revenue by Month/Package plus
+				     Busiest Day of the Week — same wheel/swipe pattern as the
+				     Follow-Ups tile in the Features section below. -->
+				<div id="hero-frame" class="relative aspect-[1141/780] w-full overflow-hidden rounded-xl border border-ink/10">
 					<img
 						src="/images/showcase-hero-revenue-dark.jpg"
 						alt="The Morium bookings dashboard, showing revenue by month and by package"
 						data-hero-mode="dark"
+						data-hero-frame="0"
 						class="absolute inset-0 block h-full w-full object-cover object-top"
 					/>
 					<img
 						src="/images/showcase-hero-revenue-light.jpg"
 						alt="The Morium bookings dashboard, showing revenue by month and by package (light mode)"
 						data-hero-mode="light"
+						data-hero-frame="0"
 						class="absolute inset-0 hidden h-full w-full object-cover object-top"
 					/>
+					<img
+						src="/images/showcase-hero-revenue-2-dark.jpg"
+						alt="The Morium bookings dashboard, scrolled to show the rest of revenue by month, revenue by package, and busiest day of the week"
+						data-hero-mode="dark"
+						data-hero-frame="1"
+						class="absolute inset-0 hidden h-full w-full object-cover object-top"
+					/>
+					<img
+						src="/images/showcase-hero-revenue-2-light.jpg"
+						alt="The Morium bookings dashboard, scrolled to show the rest of revenue by month, revenue by package, and busiest day of the week (light mode)"
+						data-hero-mode="light"
+						data-hero-frame="1"
+						class="absolute inset-0 hidden h-full w-full object-cover object-top"
+					/>
+					<span
+						id="hero-scroll-hint"
+						class="hero-scroll-hint pointer-events-none absolute inset-x-0 bottom-3 flex justify-center"
+					>
+						<span class="hero-scroll-hint-badge whitespace-nowrap rounded-full bg-ink/80 px-3 py-1 text-[11px] font-semibold text-paper shadow-lg">
+							Scroll for more ↓
+						</span>
+					</span>
 				</div>
 			</div>
 			<div class="mt-3 flex justify-center gap-1.5" role="tablist" aria-label="Screenshot theme">
@@ -105,20 +133,41 @@ import { SIGNUP_URL } from "../data/site";
 					☾ Dark mode
 				</button>
 			</div>
+			<div class="mt-2 flex justify-center">
+				<button
+					type="button"
+					id="hero-frame-btn"
+					class="rounded-full border border-line bg-paper px-3 py-1 font-body text-xs font-semibold text-ink/65 transition-colors hover:border-accent-300 hover:text-ink"
+				>
+					Show more ↓
+				</button>
+			</div>
 		</div>
 	</div>
 </section>
 
 <script>
+	const heroFrameEl = document.getElementById("hero-frame");
 	const heroImgs = Array.from(document.querySelectorAll<HTMLImageElement>("[data-hero-mode]"));
 	const heroModeBtns = Array.from(document.querySelectorAll<HTMLButtonElement>("[data-hero-mode-btn]"));
+	const heroFrameBtn = document.getElementById("hero-frame-btn");
+	const heroScrollHint = document.getElementById("hero-scroll-hint");
 
-	function setHeroMode(mode: string) {
+	let heroMode = "dark";
+	let heroFrame = 0;
+
+	function updateHero() {
 		heroImgs.forEach((img) => {
-			const show = img.dataset.heroMode === mode;
+			const show = img.dataset.heroMode === heroMode && img.dataset.heroFrame === String(heroFrame);
 			img.classList.toggle("hidden", !show);
 			img.classList.toggle("block", show);
 		});
+		heroScrollHint?.classList.toggle("hidden", heroFrame !== 0);
+		if (heroFrameBtn) heroFrameBtn.textContent = heroFrame === 0 ? "Show more ↓" : "↑ Back to top";
+	}
+
+	function setHeroMode(mode: string) {
+		heroMode = mode;
 		heroModeBtns.forEach((btn) => {
 			const active = btn.dataset.heroModeBtn === mode;
 			btn.classList.toggle("is-active", active);
@@ -130,6 +179,12 @@ import { SIGNUP_URL } from "../data/site";
 			btn.classList.toggle("text-ink/65", !active);
 			btn.setAttribute("aria-pressed", String(active));
 		});
+		updateHero();
+	}
+
+	function setHeroFrame(frame: number) {
+		heroFrame = frame;
+		updateHero();
 	}
 
 	heroModeBtns.forEach((btn) => {
@@ -137,4 +192,71 @@ import { SIGNUP_URL } from "../data/site";
 			if (btn.dataset.heroModeBtn) setHeroMode(btn.dataset.heroModeBtn);
 		});
 	});
+
+	heroFrameBtn?.addEventListener("click", () => setHeroFrame(heroFrame === 0 ? 1 : 0));
+
+	// Wheel/swipe over the screenshot steps between the two frames, same
+	// pattern as the Follow-Ups tile below — only intercepts the gesture (and
+	// only preventDefault()s the page scroll) at the exact moment it would
+	// change something, so visitors scrolling past the hero are never
+	// trapped.
+	const SCROLL_THRESHOLD = 12;
+	let scrollLocked = false;
+	function tryHeroScroll(deltaY: number) {
+		if (scrollLocked) return false;
+		if (deltaY > SCROLL_THRESHOLD && heroFrame < 1) {
+			setHeroFrame(1);
+		} else if (deltaY < -SCROLL_THRESHOLD && heroFrame > 0) {
+			setHeroFrame(0);
+		} else {
+			return false;
+		}
+		scrollLocked = true;
+		setTimeout(() => {
+			scrollLocked = false;
+		}, 400);
+		return true;
+	}
+
+	if (heroFrameEl) {
+		heroFrameEl.addEventListener(
+			"wheel",
+			(e) => {
+				if (tryHeroScroll(e.deltaY)) e.preventDefault();
+			},
+			{ passive: false }
+		);
+
+		let touchStartY: number | null = null;
+		heroFrameEl.addEventListener(
+			"touchstart",
+			(e) => {
+				touchStartY = e.touches[0]?.clientY ?? null;
+			},
+			{ passive: true }
+		);
+		heroFrameEl.addEventListener(
+			"touchmove",
+			(e) => {
+				if (touchStartY === null) return;
+				const currentY = e.touches[0]?.clientY ?? touchStartY;
+				const deltaY = touchStartY - currentY;
+				if (tryHeroScroll(deltaY)) {
+					e.preventDefault();
+					touchStartY = currentY;
+				}
+			},
+			{ passive: false }
+		);
+	}
 </script>
+
+<style>
+	.hero-scroll-hint-badge {
+		animation: hero-scroll-hint-fade 2.4s ease-in-out infinite;
+	}
+	@keyframes hero-scroll-hint-fade {
+		0%, 100% { opacity: 0.55; transform: translateY(0); }
+		50% { opacity: 0.9; transform: translateY(-3px); }
+	}
+</style>
