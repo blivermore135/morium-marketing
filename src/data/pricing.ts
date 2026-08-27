@@ -4,6 +4,8 @@
 // dropped from $49 to $29/mo to sit at Jobber's real single-user floor
 // instead of above it (Jobber's actual entry price is $29-39/mo). Confirmed
 // with the user — not a placeholder.
+// 2026-08-26: removed "Route planning" (Team) and "Multi-location" (Pro) —
+// neither has any implementation in the app, this was real oversell.
 export interface PricingTier {
 	id: "solo" | "team" | "pro";
 	name: string;
@@ -36,7 +38,6 @@ export const pricingTiers: PricingTier[] = [
 			"Everything in Solo",
 			"Up to 3 users",
 			"Photo documentation",
-			"Route planning",
 		],
 	},
 	{
@@ -46,7 +47,6 @@ export const pricingTiers: PricingTier[] = [
 		features: [
 			"Everything in Team",
 			"Up to 10 users",
-			"Multi-location",
 			"Priority support",
 		],
 	},
