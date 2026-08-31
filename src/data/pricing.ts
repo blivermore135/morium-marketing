@@ -38,6 +38,7 @@ export const pricingTiers: PricingTier[] = [
 			"Everything in Solo",
 			"Up to 3 users",
 			"Photo documentation",
+			"Embeddable booking widget for your own site",
 		],
 	},
 	{
