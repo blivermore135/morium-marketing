@@ -6,6 +6,16 @@
 // with the user — not a placeholder.
 // 2026-08-26: removed "Route planning" (Team) and "Multi-location" (Pro) —
 // neither has any implementation in the app, this was real oversell.
+// Re-priced again 2026-09-02, per the user's explicit call: each tier set to
+// two-thirds of the AI-inclusive competitor price for the closest comparable
+// (QuoteIQ, which bundles AI calling/texting into every tier; Jobber's base
+// price plus its $29/mo AI Receptionist add-on). Solo $29->$33, Team
+// $89->$116, Pro $159->$226. This deliberately prices in the AI
+// messaging/calling feature before it's built — see the new "(coming soon)"
+// line on Solo's features below. Do NOT list it as a live feature in
+// bobsdetailing's shared/billing.ts TIERS until it's actually implemented —
+// that file's features array gates real access, and the 2026-08-26 note
+// above is exactly the mistake to avoid repeating.
 export interface PricingTier {
 	id: "solo" | "team" | "pro";
 	name: string;
@@ -18,7 +28,7 @@ export const pricingTiers: PricingTier[] = [
 	{
 		id: "solo",
 		name: "Solo",
-		monthlyPrice: 29,
+		monthlyPrice: 33,
 		features: [
 			"1 user",
 			"Online booking page",
@@ -27,12 +37,13 @@ export const pricingTiers: PricingTier[] = [
 			"Revenue reporting",
 			"Automatic Google review requests",
 			"Rebooking reminders",
+			"AI messaging & call answering (coming soon)",
 		],
 	},
 	{
 		id: "team",
 		name: "Team",
-		monthlyPrice: 89,
+		monthlyPrice: 116,
 		mostPopular: true,
 		features: [
 			"Everything in Solo",
@@ -44,7 +55,7 @@ export const pricingTiers: PricingTier[] = [
 	{
 		id: "pro",
 		name: "Pro",
-		monthlyPrice: 159,
+		monthlyPrice: 226,
 		features: [
 			"Everything in Team",
 			"Up to 10 users",
