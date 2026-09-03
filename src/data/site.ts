@@ -11,11 +11,6 @@ export const LOGIN_URL = `${APP_URL}/admin/login`;
 // set up for that domain yet.
 export const CONTACT_EMAIL = "moriumcomp@gmail.com";
 
-// Same real number as Livermore Auto Detailing (the user's own business,
-// same person) — no separate Morium-branded line exists.
-export const CONTACT_PHONE_DISPLAY = "972-839-7317";
-export const CONTACT_PHONE_HREF = "tel:+19728397317";
-
 // Real, verified live (2026-09-03) — the website-build service is hands-on
 // (real content/branding gathering per customer, see CLAUDE.md's Livermore
 // Auto Detailing build notes), not a self-serve Stripe checkout like the CRM

@@ -1,6 +1,6 @@
 ---
 import { websiteAddOn, pricingTiers, CRM_ADDON_DISCOUNT } from "../data/pricing";
-import { WEBSITE_BOOKING_URL, contactMailto, CONTACT_PHONE_DISPLAY, CONTACT_PHONE_HREF } from "../data/site";
+import { WEBSITE_BOOKING_URL, contactMailto } from "../data/site";
 
 const cheapestCrmDiscounted = Math.round(Math.min(...pricingTiers.map((t) => t.monthlyPrice)) * (1 - CRM_ADDON_DISCOUNT));
 ---
@@ -34,10 +34,8 @@ const cheapestCrmDiscounted = Math.round(Math.min(...pricingTiers.map((t) => t.m
 			</a>
 			<p class="mt-3 text-sm text-ink/55">
 				That books a real conversation — every build starts with actually talking
-				through your business. Prefer to reach out directly? Call or text{" "}
-				<a href={CONTACT_PHONE_HREF} class="font-semibold text-accent-600 hover:text-accent-700">{CONTACT_PHONE_DISPLAY}</a>
-				{" "}or{" "}
-				<a href={contactMailto("Website inquiry")} class="font-semibold text-accent-600 hover:text-accent-700">email us</a>.
+				through your business. Prefer email? Reach out at{" "}
+				<a href={contactMailto("Website inquiry")} class="font-semibold text-accent-600 hover:text-accent-700">moriumcomp@gmail.com</a>.
 			</p>
 		</div>
 
