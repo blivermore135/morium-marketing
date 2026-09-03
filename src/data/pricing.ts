@@ -1,55 +1,82 @@
-// IMPORTANT: this file is currently AHEAD of bobsdetailing's shared/billing.ts
-// TIERS, which is the real Stripe billing config and still charges the old
-// three-tier Solo/Team/Pro pricing ($29/$89/$159). The user asked (2026-09-02)
-// for this flat rate to be shipped on the morium.one marketing site only, not
-// in the real product yet — bobsdetailing was deliberately left untouched.
-// Before real customers can sign up at this price, shared/billing.ts's TIERS
-// needs to become a single flat tier too (and Stripe Checkout's line item,
-// which reads TIERS at request time via inline price_data, updated with it).
+// These names/prices must stay in sync with bobsdetailing's
+// shared/billing.ts TIERS — that's the real billing config; this is just
+// the marketing copy for the same three tiers. Re-priced 2026-08-20: Solo
+// dropped from $49 to $29/mo to sit at Jobber's real single-user floor
+// instead of above it (Jobber's actual entry price is $29-39/mo). Confirmed
+// with the user — not a placeholder.
+// 2026-08-26: removed "Route planning" (Team) and "Multi-location" (Pro) —
+// neither has any implementation in the app, this was real oversell.
+// Re-priced again 2026-09-02, per the user's explicit call: each tier set to
+// two-thirds of the AI-inclusive competitor price for the closest comparable
+// (QuoteIQ, which bundles AI calling/texting into every tier; Jobber's base
+// price plus its $29/mo AI Receptionist add-on). Solo $29->$33, Team
+// $89->$116, Pro $159->$226. This deliberately prices in the AI
+// messaging/calling feature before it's built — see the "(coming soon)"
+// line on Solo's features below. Do NOT list it as a live feature in
+// bobsdetailing's shared/billing.ts TIERS until it's actually implemented —
+// that file's features array gates real access, and the 2026-08-26 note
+// above is exactly the mistake to avoid repeating.
 //
-// History: three tiers (Solo $29/Team $89/Pro $159 -> re-priced 2026-09-02 to
-// $33/$116/$226, two-thirds of AI-inclusive competitor pricing) collapsed
-// into one flat rate the same day, per the user's explicit call, mirroring
-// how OrbisX (flat-rate, unlimited-user, detailing-specific) and Deelo/
-// Zenbooker/Urable all avoid per-seat pricing in this market. Flat price is
-// two-thirds of OrbisX's $100/mo flat rate plus Jobber's $29/mo AI
-// Receptionist add-on (the same AI-inclusive-benchmark method used for the
-// tiered re-price earlier this session): ($100 + $29) * 2/3 = $86.
-//
-// AI messaging/calling is priced in but NOT built yet — listed below as
-// "(coming soon)", not a live feature. Do NOT add it to bobsdetailing's
-// shared/billing.ts Feature type or TIERS.features until it's actually
-// implemented — that file's features array gates real access, and the
-// 2026-08-26 removal of routePlanning/multiLocation from TIERS.features
-// (real oversell, zero implementation) is exactly the mistake to avoid
-// repeating.
-export interface PricingPlan {
+// Same day, briefly collapsed to one flat $86/mo plan, then reverted back to
+// these three tiers per the user's explicit call ("I don't want just one
+// plan") — restored these exact numbers rather than re-deriving new ones,
+// since they were already vetted against real competitor research earlier
+// the same session. IMPORTANT: this file is still AHEAD of bobsdetailing's
+// shared/billing.ts TIERS, which is the real Stripe billing config and still
+// charges the ORIGINAL three-tier pricing ($29/$89/$159), not these numbers
+// — the user explicitly scoped this re-price to morium.one only ("It's not
+// Bob's detailing. It's morium.one."), not the real product yet.
+export interface PricingTier {
+	id: "solo" | "team" | "pro";
 	name: string;
 	monthlyPrice: number;
+	mostPopular?: boolean;
 	features: string[];
 }
 
-export const pricingPlan: PricingPlan = {
-	name: "Morium",
-	monthlyPrice: 86,
-	features: [
-		"Unlimited users",
-		"Online booking page",
-		"Embeddable booking widget for your own site",
-		"Bookings dashboard & calendar",
-		"Customer records & job history",
-		"Photo documentation",
-		"Revenue reporting",
-		"Automatic Google review requests",
-		"Rebooking reminders",
-		"Priority support",
-		"AI messaging & call answering (coming soon)",
-	],
-};
+export const pricingTiers: PricingTier[] = [
+	{
+		id: "solo",
+		name: "Solo",
+		monthlyPrice: 33,
+		features: [
+			"1 user",
+			"Online booking page",
+			"Bookings dashboard & calendar",
+			"Customer records & job history",
+			"Revenue reporting",
+			"Automatic Google review requests",
+			"Rebooking reminders",
+			"AI messaging & call answering (coming soon)",
+		],
+	},
+	{
+		id: "team",
+		name: "Team",
+		monthlyPrice: 116,
+		mostPopular: true,
+		features: [
+			"Everything in Solo",
+			"Up to 3 users",
+			"Photo documentation",
+			"Embeddable booking widget for your own site",
+		],
+	},
+	{
+		id: "pro",
+		name: "Pro",
+		monthlyPrice: 226,
+		features: [
+			"Everything in Team",
+			"Up to 10 users",
+			"Priority support",
+		],
+	},
+];
 
-// The website add-on (see WebsiteAddOn.astro) attaches on top of the plan
-// above — it's not its own plan. Must stay in sync with bobsdetailing's
-// shared/billing.ts WEBSITE_ADDON.
+// The website add-on (see WebsiteAddOn.astro) attaches to any tier above —
+// it's not its own plan, so it isn't in pricingTiers. Must stay in sync
+// with bobsdetailing's shared/billing.ts WEBSITE_ADDON.
 // Re-priced 2026-09-02: $299/$49 -> $499/$69, per the user's explicit call
 // after reviewing what a real build (Livermore Auto Detailing) actually
 // takes — real content gathering, branding match, photo migration, rate-card
