@@ -11,6 +11,18 @@ export const LOGIN_URL = `${APP_URL}/admin/login`;
 // set up for that domain yet.
 export const CONTACT_EMAIL = "moriumcomp@gmail.com";
 
+// Same real number as Livermore Auto Detailing (the user's own business,
+// same person) — no separate Morium-branded line exists.
+export const CONTACT_PHONE_DISPLAY = "972-839-7317";
+export const CONTACT_PHONE_HREF = "tel:+19728397317";
+
+// Real, verified live (2026-09-03) — the website-build service is hands-on
+// (real content/branding gathering per customer, see CLAUDE.md's Livermore
+// Auto Detailing build notes), not a self-serve Stripe checkout like the CRM
+// plans, so its "get started" flow is booking a real conversation, not an
+// instant signup form.
+export const WEBSITE_BOOKING_URL = "https://calendly.com/moriumcomp/30min";
+
 export function contactMailto(subject: string): string {
 	return `mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent(subject)}`;
 }

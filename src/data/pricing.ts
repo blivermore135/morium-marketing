@@ -76,9 +76,15 @@ export const pricingTiers: PricingTier[] = [
 	},
 ];
 
-// The website add-on (see WebsiteAddOn.astro) attaches to any tier above —
-// it's not its own plan, so it isn't in pricingTiers. Must stay in sync
-// with bobsdetailing's shared/billing.ts WEBSITE_ADDON.
+// IMPORTANT, corrected 2026-09-03 per the user's explicit call: despite the
+// name and its old "attaches to any tier above" framing, this is NOT a CRM
+// add-on — it's a standalone product. A customer can buy a website ALONE
+// (this price, no CRM/admin required) or pair it with any CRM tier above at
+// CRM_ADDON_DISCOUNT off (below), or buy CRM alone with no website at all.
+// The three are three separate purchase decisions, not one bundled ladder —
+// see WebsiteAddOn.astro's "Just get started" CTA, which deliberately does
+// NOT point at the CRM pricing/signup flow above; the website build is a
+// real hands-on conversation (Calendly), not instant self-serve checkout.
 // Re-priced 2026-09-02: $299/$49 -> $499/$69, per the user's explicit call
 // after reviewing what a real build (Livermore Auto Detailing) actually
 // takes — real content gathering, branding match, photo migration, rate-card
@@ -93,3 +99,8 @@ export const websiteAddOn = {
 	setupFee: 499,
 	monthlyPrice: 69,
 };
+
+// If a website customer ALSO wants the CRM/admin, they pay the same
+// pricingTiers price everyone else pays, just discounted — not a separate
+// price list, so it can never drift out of sync with the real tiers above.
+export const CRM_ADDON_DISCOUNT = 0.25;

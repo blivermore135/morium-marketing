@@ -1,30 +1,44 @@
 ---
-import { websiteAddOn } from "../data/pricing";
+import { websiteAddOn, pricingTiers, CRM_ADDON_DISCOUNT } from "../data/pricing";
+import { WEBSITE_BOOKING_URL, contactMailto, CONTACT_PHONE_DISPLAY, CONTACT_PHONE_HREF } from "../data/site";
+
+const cheapestCrmDiscounted = Math.round(Math.min(...pricingTiers.map((t) => t.monthlyPrice)) * (1 - CRM_ADDON_DISCOUNT));
 ---
 
 <section id="website" class="mx-auto max-w-7xl px-6 py-24 lg:px-8">
 	<div class="grid items-center gap-14 rounded-3xl border border-line bg-paper p-8 lg:grid-cols-2 lg:p-14">
 		<div>
 			<span class="text-xs font-semibold tracking-wide text-accent-600 uppercase">
-				The add-on nobody else offers
+				A standalone offer — no CRM required
 			</span>
 			<h2 class="mt-3 font-display text-3xl font-bold tracking-tight text-ink sm:text-4xl">
-				We'll build you a real website, too.
+				We'll build you a real website.
 			</h2>
 			<p class="mt-5 text-base leading-relaxed text-ink/65">
-				A gallery, your service areas, and a booking form — wired directly
-				into your calendar. Not a generic template with your logo dropped
-				on it, and not a separate system to keep in sync.
+				A gallery, your service areas, and a booking form. This is its own thing —
+				you don't need the CRM/admin plans above to get a real website built for you.
+				Want the booking-and-customer-management side too? Add any plan above for
+				{CRM_ADDON_DISCOUNT * 100}% off (starting at ${cheapestCrmDiscounted}/mo) since
+				it's already wired into the site we build you.
 			</p>
 			<p class="mt-4 font-body text-xl font-bold text-ink">
 				${websiteAddOn.setupFee} setup <span class="text-ink/40 font-body font-normal text-base">+</span> ${websiteAddOn.monthlyPrice}/mo
 			</p>
 			<a
-				href="#pricing"
+				href={WEBSITE_BOOKING_URL}
+				target="_blank"
+				rel="noopener noreferrer"
 				class="mt-7 inline-flex items-center gap-1.5 text-base font-semibold text-accent-600 hover:text-accent-700"
 			>
-				See pricing and get started →
+				Just get started →
 			</a>
+			<p class="mt-3 text-sm text-ink/55">
+				That books a real conversation — every build starts with actually talking
+				through your business. Prefer to reach out directly? Call or text{" "}
+				<a href={CONTACT_PHONE_HREF} class="font-semibold text-accent-600 hover:text-accent-700">{CONTACT_PHONE_DISPLAY}</a>
+				{" "}or{" "}
+				<a href={contactMailto("Website inquiry")} class="font-semibold text-accent-600 hover:text-accent-700">email us</a>.
+			</p>
 		</div>
 
 		<div class="relative rounded-2xl border border-line bg-mist p-3 shadow-[0_20px_50px_-20px_rgba(0,40,45,0.2)]">
