@@ -50,7 +50,17 @@ export const pricingPlan: PricingPlan = {
 // The website add-on (see WebsiteAddOn.astro) attaches on top of the plan
 // above — it's not its own plan. Must stay in sync with bobsdetailing's
 // shared/billing.ts WEBSITE_ADDON.
+// Re-priced 2026-09-02: $299/$49 -> $499/$69, per the user's explicit call
+// after reviewing what a real build (Livermore Auto Detailing) actually
+// takes — real content gathering, branding match, photo migration, rate-card
+// entry, not a self-serve template toggle. Benchmarked against GoDaddy's own
+// "done for you" tier ($499 one-time) on the low end and QuoteIQ's $34.99/mo
+// self-serve AI website add-on as the nearest direct SaaS-competitor floor;
+// landed above both since this is hands-on-built, not automated, while
+// staying well under the $100-$400/mo full managed-website-service tier
+// since there's no ongoing content management included. Keeps the same
+// "monthly carries the long-run margin" weighting as the original price.
 export const websiteAddOn = {
-	setupFee: 299,
-	monthlyPrice: 49,
+	setupFee: 499,
+	monthlyPrice: 69,
 };
