@@ -18,14 +18,16 @@
 // above is exactly the mistake to avoid repeating.
 //
 // Same day, briefly collapsed to one flat $86/mo plan, then reverted back to
-// these three tiers per the user's explicit call ("I don't want just one
-// plan") — restored these exact numbers rather than re-deriving new ones,
-// since they were already vetted against real competitor research earlier
-// the same session. IMPORTANT: this file is still AHEAD of bobsdetailing's
-// shared/billing.ts TIERS, which is the real Stripe billing config and still
-// charges the ORIGINAL three-tier pricing ($29/$89/$159), not these numbers
-// — the user explicitly scoped this re-price to morium.one only ("It's not
-// Bob's detailing. It's morium.one."), not the real product yet.
+// three tiers per the user's explicit call ("I don't want just one plan").
+// Immediately after that, the user asked for simpler round numbers —
+// Solo $33 (unchanged) / Team $116->$99 / Pro $226->$199 — a deliberate
+// step away from the two-thirds-of-competitor math to clean, easy-to-say
+// price points; not re-derived from new research. IMPORTANT: this file is
+// still AHEAD of bobsdetailing's shared/billing.ts TIERS, which is the real
+// Stripe billing config and still charges the ORIGINAL three-tier pricing
+// ($29/$89/$159), not these numbers — the user explicitly scoped this
+// re-price to morium.one only ("It's not Bob's detailing. It's
+// morium.one."), not the real product yet.
 export interface PricingTier {
 	id: "solo" | "team" | "pro";
 	name: string;
@@ -53,7 +55,7 @@ export const pricingTiers: PricingTier[] = [
 	{
 		id: "team",
 		name: "Team",
-		monthlyPrice: 116,
+		monthlyPrice: 99,
 		mostPopular: true,
 		features: [
 			"Everything in Solo",
@@ -65,7 +67,7 @@ export const pricingTiers: PricingTier[] = [
 	{
 		id: "pro",
 		name: "Pro",
-		monthlyPrice: 226,
+		monthlyPrice: 199,
 		features: [
 			"Everything in Team",
 			"Up to 10 users",
