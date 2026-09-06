@@ -4,6 +4,10 @@ export interface Industry {
 	live: boolean;
 	/** Short line used on the industry card. */
 	blurb: string;
+	/** M-3: the "Don't see your trade?" catch-all card — visually distinct
+	 * (dashed border, no "Coming soon" pill) and its waitlist mailto uses a
+	 * fixed "Waitlist: Other" subject instead of the trade name. */
+	isCatchAll?: boolean;
 }
 
 export const industries: Industry[] = [
@@ -36,5 +40,12 @@ export const industries: Industry[] = [
 		name: "Mobile Mechanics",
 		live: false,
 		blurb: "Vehicle history tied to every visit.",
+	},
+	{
+		slug: "other",
+		name: "Don't see your trade?",
+		live: false,
+		blurb: "Morium is built for any mobile service business. Tell us what you do and we'll set it up for you.",
+		isCatchAll: true,
 	},
 ];

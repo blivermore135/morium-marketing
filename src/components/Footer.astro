@@ -13,7 +13,9 @@ const columns = [
 	},
 	{
 		heading: "Industries",
-		links: industries.map((i) => ({ label: i.name, href: i.live ? SIGNUP_URL : waitlistMailto(i.name) })),
+		links: industries
+			.filter((i) => !i.isCatchAll)
+			.map((i) => ({ label: i.name, href: i.live ? SIGNUP_URL : waitlistMailto(i.name) })),
 	},
 	{
 		heading: "Company",

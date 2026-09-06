@@ -7,6 +7,7 @@ interface Props {
 }
 
 const { title, description } = Astro.props;
+const canonicalUrl = new URL(Astro.url.pathname, Astro.site);
 ---
 
 <html lang="en">
@@ -17,6 +18,35 @@ const { title, description } = Astro.props;
 		<meta name="generator" content={Astro.generator} />
 		<title>{title}</title>
 		<meta name="description" content={description} />
+		<link rel="canonical" href={canonicalUrl} />
+		<meta property="og:type" content="website" />
+		<meta property="og:site_name" content="Morium" />
+		<meta property="og:title" content={title} />
+		<meta property="og:description" content={description} />
+		<meta property="og:url" content={canonicalUrl} />
+		<meta name="twitter:card" content="summary" />
+		<meta name="twitter:title" content={title} />
+		<meta name="twitter:description" content={description} />
+		<script type="application/ld+json" set:html={JSON.stringify({
+			"@context": "https://schema.org",
+			"@type": "SoftwareApplication",
+			name: "Morium",
+			applicationCategory: "BusinessApplication",
+			operatingSystem: "Web",
+			description: "Booking, CRM, and customer-retention software for mobile service businesses — detailing, lawn care, pressure washing, pool service, and mobile mechanics.",
+			url: "https://www.morium.one",
+			offers: {
+				"@type": "Offer",
+				priceCurrency: "USD",
+			},
+		})} />
+		<script type="application/ld+json" set:html={JSON.stringify({
+			"@context": "https://schema.org",
+			"@type": "Organization",
+			name: "Morium",
+			url: "https://www.morium.one",
+			logo: "https://www.morium.one/images/morium-favicon.png",
+		})} />
 	</head>
 	<body class="bg-paper text-ink font-body antialiased">
 		<slot />

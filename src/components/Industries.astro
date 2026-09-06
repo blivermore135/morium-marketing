@@ -1,6 +1,6 @@
 ---
 import { industries } from "../data/industries";
-import { SIGNUP_URL, waitlistMailto } from "../data/site";
+import { SIGNUP_URL, waitlistMailto, contactMailto } from "../data/site";
 ---
 
 <section class="bg-mist px-6 py-24 lg:px-8">
@@ -14,22 +14,32 @@ import { SIGNUP_URL, waitlistMailto } from "../data/site";
 			</h2>
 		</div>
 
-		<div class="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-5">
+		<div class="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
 			{industries.map((industry) => (
 				<a
-					href={industry.live ? SIGNUP_URL : waitlistMailto(industry.name)}
-					class="group flex flex-col justify-between rounded-2xl border border-line bg-paper p-6 transition-shadow hover:shadow-lg"
+					href={
+						industry.live
+							? SIGNUP_URL
+							: industry.isCatchAll
+								? contactMailto("Waitlist: Other")
+								: waitlistMailto(industry.name)
+					}
+					class={`group flex flex-col justify-between rounded-2xl border p-6 transition-shadow hover:shadow-lg ${
+						industry.isCatchAll
+							? "border-2 border-dashed border-accent-300 bg-accent-500/5"
+							: "border-line bg-paper"
+					}`}
 				>
 					<div>
 						{industry.live ? (
 							<span class="inline-flex items-center rounded-full bg-accent-500/15 px-2.5 py-1 text-[11px] font-semibold tracking-wide text-accent-700 uppercase">
 								Live
 							</span>
-						) : (
+						) : !industry.isCatchAll ? (
 							<span class="inline-flex items-center rounded-full bg-ink/5 px-2.5 py-1 text-[11px] font-semibold tracking-wide text-ink/50 uppercase">
 								Coming soon
 							</span>
-						)}
+						) : null}
 						<h3 class="mt-3 font-body text-lg font-bold text-ink">
 							{industry.name}
 						</h3>
@@ -38,7 +48,7 @@ import { SIGNUP_URL, waitlistMailto } from "../data/site";
 						</p>
 					</div>
 					<span class="mt-6 text-sm font-semibold text-accent-600 group-hover:text-accent-700">
-						{industry.live ? "Get started" : "Join the waitlist"} →
+						{industry.live ? "Get started" : industry.isCatchAll ? "Tell us what you do" : "Join the waitlist"} →
 					</span>
 				</a>
 			))}
