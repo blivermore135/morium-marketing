@@ -36,13 +36,20 @@ export interface PricingTier {
 	features: string[];
 }
 
+// 2026-09-11: dropped the "1 user" / "Up to 3 users" / "Up to 10 users"
+// lines — unlimited users on every tier now (see bobsdetailing's
+// shared/billing.ts TIERS/seatLimitFor), matching what's standard among
+// detailing-specific CRMs (Urable, OrbisX both do this, called out as a
+// selling point). Selling seats was a competitive disadvantage and
+// engineering work the product doesn't need; tiers differentiate on
+// features now, not headcount.
 export const pricingTiers: PricingTier[] = [
 	{
 		id: "solo",
 		name: "Solo",
 		monthlyPrice: 33,
 		features: [
-			"1 user",
+			"Unlimited users",
 			"Online booking page",
 			"Bookings dashboard & calendar",
 			"Customer records & job history",
@@ -59,7 +66,6 @@ export const pricingTiers: PricingTier[] = [
 		mostPopular: true,
 		features: [
 			"Everything in Solo",
-			"Up to 3 users",
 			"Photo documentation",
 			"Embeddable booking widget for your own site",
 		],
@@ -70,7 +76,6 @@ export const pricingTiers: PricingTier[] = [
 		monthlyPrice: 199,
 		features: [
 			"Everything in Team",
-			"Up to 10 users",
 			"Priority support",
 		],
 	},
