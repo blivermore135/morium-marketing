@@ -38,7 +38,7 @@ import { SIGNUP_URL } from "../data/site";
 		</span>
 	</div>
 
-	<div class="mt-12 grid gap-8 lg:grid-cols-3">
+	<div class="mx-auto mt-12 grid max-w-3xl gap-8 sm:grid-cols-2">
 		{pricingTiers.map((tier) => {
 			const yearlyMonthly = Math.round((tier.monthlyPrice * 10) / 12);
 			return (

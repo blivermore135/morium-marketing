@@ -43,6 +43,12 @@ export interface PricingTier {
 // selling point). Selling seats was a competitive disadvantage and
 // engineering work the product doesn't need; tiers differentiate on
 // features now, not headcount.
+// Pro dropped 2026-09-13, per the user's explicit call: Team -> Pro was
+// +$100/mo for "priority support" and zero additional product capability —
+// no copy could make that jump sound reasonable. Nobody was subscribed to
+// it (confirmed against bobsdetailing's live subscriptions before removing),
+// so there was nothing to migrate. Team keeps its mostPopular badge —
+// unchanged, just now also the top tier rather than the middle one.
 export const pricingTiers: PricingTier[] = [
 	{
 		id: "solo",
@@ -68,15 +74,6 @@ export const pricingTiers: PricingTier[] = [
 			"Everything in Solo",
 			"Photo documentation",
 			"Embeddable booking widget for your own site",
-		],
-	},
-	{
-		id: "pro",
-		name: "Pro",
-		monthlyPrice: 199,
-		features: [
-			"Everything in Team",
-			"Priority support",
 		],
 	},
 ];
