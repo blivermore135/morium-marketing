@@ -1,12 +1,21 @@
 ---
-// Real screenshots (mid-2026) — the admin ones are from a throwaway seeded
-// demo org (named "Bob's Detailing" so the header matches, but a separate
-// DB row with fictional customers), never Bob's Detailing's actual customer
-// data (seed script deleted the org right after capture); the booking-page
-// ones are Bob's Detailing's real public quote form, which is fine to show
-// since it's already public. Follow-Ups is the one exception — those come
-// straight from the real account's own dev/test bookings (names like
-// "Brock (Gmail Test)"), supplied directly rather than freshly captured.
+// Real screenshots (2026-09-14) — every admin tile is Coastal Auto
+// Detailing, the platform's canonical demo tenant (organizations.
+// is_demo_tenant, restorable via bobsdetailing's scripts/reset-demo-tenant.
+// mjs; login demo@morium.one). Its bookings, customers, and Follow-Ups
+// drafts are Coastal's own seeded demo data — fictional names and
+// @example.com addresses, safe to show — not a throwaway org captured then
+// deleted, and not pulled from a real account's dev/test bookings. This
+// replaces an earlier convention (a "Bob's Detailing" throwaway seed org,
+// a separately-seeded "Livermore Detailing" org for Overview, and Follow-
+// Ups content taken from the real account) that leaked real customer data
+// onto the public site — see the 2026-09-13 security commit that pulled
+// every screenshot to a placeholder, and this commit's own message for the
+// recapture. The booking-page shots are Coastal's real public quote form
+// (/quote on its own subdomain), captured via bobsdetailing's local-only
+// `?org=` dev-preview (src/middleware.js) since Coastal's subdomain itself
+// doesn't resolve yet (no wildcard DNS on the current hosting plan) —
+// visually identical to production, since it's the same code and data.
 //
 // Tile names match the real admin tab labels (Overview/Bookings/Calendar/
 // Customers/Follow-Ups) as closely as sounds good, so the tab bar drawn
@@ -26,29 +35,31 @@
 //
 // Follow-Ups and Overview are the two tiles that scroll; Follow-Ups is the
 // only one with more than one "kind" on top of that — real admin has a
-// Follow-up type picker (Google Review / Next Detail), each with its own
-// Awaiting Your Approval + Waiting Period + Recently Sent. Each kind here is
-// a `states` entry carrying an ordered `frames` array (one screenshot per
-// real scroll position, captured so consecutive frames pick up exactly
-// where the previous one left off — no skipped content, no wasted blank
-// space); wheel/swipe steps through those frames same as scrolling the
-// actual admin page would. A state's `label` is what opts a feature into
-// the kind-switcher pills; states without one (every other tile) just
-// render their single frame with no picker — Overview's `frames` array has
-// no `label`, so it scrolls without showing a kind-switcher.
+// "Follow-up type" dropdown (All / Google Review / Next Detail), each
+// showing its own Follow-Up Timing settings plus a "Ready to Send Now"
+// queue of drafted messages. Each kind here is a `states` entry carrying an
+// ordered `frames` array (one screenshot per real scroll position, captured
+// so consecutive frames pick up exactly where the previous one left off —
+// no skipped content, no wasted blank space); wheel/swipe steps through
+// those frames same as scrolling the actual admin page would. A state's
+// `label` is what opts a feature into the kind-switcher pills; states
+// without one (every other tile) just render their single frame with no
+// picker — Overview's `frames` array has no `label`, so it scrolls without
+// showing a kind-switcher.
 //
-// Overview's screenshots (recaptured 2026-08-26, replacing an older
-// single-frame pair) are from a throwaway seeded org, "Livermore Detailing"
-// — 11 fake completed bookings across Mar-Aug 2026 so Revenue by Month/
-// Package had real numbers to show, all deleted from Supabase immediately
-// after capture. Same throwaway-then-deleted convention as every other
-// admin tile except Follow-Ups (see above).
+// Overview's two frames are Coastal's stat tiles + both Revenue charts
+// (frame 1), then scrolled further to the rest of those charts plus
+// Busiest Day of the Week (frame 2) — deliberately starting below the
+// "Your Booking Link" card, which for Coastal permanently reads "isn't
+// live yet" (the same DNS limitation mentioned above), not a composition
+// worth leading a marketing shot with.
 //
-// Screenshots are cropped to the frame's 1470:812 aspect ratio (trimming a
-// scrollbar sliver off the right edge) but kept at native capture
-// resolution rather than downscaled to it — object-cover crops to fit the
-// frame at display time and the browser's own downscaling beats a manual
-// resize pass, with headroom left over for high-DPI screens.
+// Screenshots are cropped to the frame's 1470:812 aspect ratio (a top-
+// anchored "cover" crop, matching the object-cover/object-top the img tags
+// render with) but kept at native capture resolution rather than
+// downscaled to it — object-cover crops to fit the frame at display time
+// and the browser's own downscaling beats a manual resize pass, with
+// headroom left over for high-DPI screens.
 const features = [
 	{
 		id: "followups",
