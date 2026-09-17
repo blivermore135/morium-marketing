@@ -57,3 +57,13 @@ h1, h2, .font-display {
 .font-display.font-bold {
   font-weight: 400;
 }
+
+/* Astro's <ClientRouter /> (Layout.astro) crossfades between pages using the
+   native View Transition API; pin the duration so it stays snappy instead of
+   whatever a given browser's default happens to be. Reduced-motion is
+   already handled by Astro's own viewtransitions.css, which zeroes out
+   these animations under `prefers-reduced-motion`. */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 200ms;
+}
