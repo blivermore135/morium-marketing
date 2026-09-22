@@ -24,11 +24,10 @@
 // there's no admin tab for it (it's the customer-facing page, not an admin
 // view).
 //
-// Order is deliberate: Follow-Ups leads because automatic review requests +
-// rebooking nudges (with fully editable wording) is the thing most generic
-// booking/scheduling tools don't do — Online Booking Page goes last because
-// "customers can book online" is table stakes everywhere now, not a reason
-// to pick this over anything else.
+// Order matches the real admin tab bar (Overview, Follow-Ups, Bookings,
+// Calendar, Customers) so this list reads the same way the product actually
+// works — Online Booking Page goes last since there's no admin tab for it
+// (see above).
 //
 // Every tile that has both themes captured gets the light/dark toggle;
 // tiles with only one capture just don't show the toggle.
@@ -62,6 +61,21 @@
 // headroom left over for high-DPI screens.
 const features = [
 	{
+		id: "revenue",
+		name: "Overview",
+		benefit: "Know your best month, your best service, your busiest day.",
+		admin: true,
+		states: [
+			{
+				id: "default",
+				frames: [
+					{ image: "/images/showcase-revenue-1-dark.jpg", imageLight: "/images/showcase-revenue-1-light.jpg" },
+					{ image: "/images/showcase-revenue-2-dark.jpg", imageLight: "/images/showcase-revenue-2-light.jpg" },
+				],
+			},
+		],
+	},
+	{
 		id: "followups",
 		name: "Follow-Ups",
 		benefit: "Google reviews and rebooking nudges go out on their own — write the message once, then forget about it.",
@@ -90,18 +104,21 @@ const features = [
 		},
 	},
 	{
-		id: "revenue",
-		name: "Overview",
-		benefit: "Know your best month, your best service, your busiest day.",
+		id: "dashboard",
+		name: "Bookings",
+		benefit: "See what's pending, confirmed, and done at a glance.",
 		admin: true,
 		states: [
-			{
-				id: "default",
-				frames: [
-					{ image: "/images/showcase-revenue-1-dark.jpg", imageLight: "/images/showcase-revenue-1-light.jpg" },
-					{ image: "/images/showcase-revenue-2-dark.jpg", imageLight: "/images/showcase-revenue-2-light.jpg" },
-				],
-			},
+			{ id: "expanded", image: "/images/showcase-dashboard-dark.jpg", imageLight: "/images/showcase-dashboard-light.jpg" },
+		],
+	},
+	{
+		id: "calendar",
+		name: "Calendar",
+		benefit: "Your whole week, laid out before you start it.",
+		admin: true,
+		states: [
+			{ id: "default", image: "/images/showcase-calendar-dark.jpg", imageLight: "/images/showcase-calendar-light.jpg" },
 		],
 	},
 	{
@@ -115,24 +132,6 @@ const features = [
 				image: "/images/showcase-customers-dark.jpg",
 				imageLight: "/images/showcase-customers-light.jpg",
 			},
-		],
-	},
-	{
-		id: "calendar",
-		name: "Calendar",
-		benefit: "Your whole week, laid out before you start it.",
-		admin: true,
-		states: [
-			{ id: "default", image: "/images/showcase-calendar-dark.jpg", imageLight: "/images/showcase-calendar-light.jpg" },
-		],
-	},
-	{
-		id: "dashboard",
-		name: "Bookings",
-		benefit: "See what's pending, confirmed, and done at a glance.",
-		admin: true,
-		states: [
-			{ id: "expanded", image: "/images/showcase-dashboard-dark.jpg", imageLight: "/images/showcase-dashboard-light.jpg" },
 		],
 	},
 	{
