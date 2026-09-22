@@ -15,7 +15,7 @@ import { SIGNUP_URL } from "../data/site";
 	>
 	</div>
 
-	<div class="relative mx-auto grid max-w-7xl items-center gap-16 lg:grid-cols-2">
+	<div class="relative mx-auto grid max-w-7xl items-center gap-16 lg:grid-cols-[1fr_1.25fr]">
 		<div>
 			<span
 				class="inline-flex items-center rounded-full border border-accent-300 bg-accent-50 px-4 py-1.5 text-xs font-semibold tracking-wide text-accent-700 uppercase"
@@ -73,14 +73,15 @@ import { SIGNUP_URL } from "../data/site";
 					<span class="h-2.5 w-2.5 rounded-full bg-ink/15"></span>
 					<span class="h-2.5 w-2.5 rounded-full bg-ink/15"></span>
 				</div>
-				<!-- Exact aspect ratio of the source crops (1119:548) so object-cover
-				     never has to trim any edge — the whole screenshot, header through
-				     whichever frame is showing, always displays uncropped. Frame 0 is
-				     the stat tiles + top of Revenue by Month/Package; frame 1 is
-				     scrolled to show the rest of Revenue by Month/Package plus
-				     Busiest Day of the Week — same wheel/swipe pattern as the
-				     Follow-Ups tile in the Features section below. -->
-				<div id="hero-frame" class="relative aspect-[1119/548] w-full overflow-hidden rounded-xl border border-ink/10">
+				<!-- Full, uncropped capture of the admin screenshot at this scroll
+				     position (not a tight content-only crop) — aspect ratio (1600:741)
+				     matches the source exactly so object-cover never has to trim any
+				     edge. Frame 0 is the top of the page (nav, booking link, stat
+				     tiles, and the start of Revenue by Month/Package); frame 1 is
+				     scrolled down to show the rest of those charts plus Busiest Day
+				     of the Week — same wheel/swipe pattern as the Follow-Ups tile in
+				     the Features section below. -->
+				<div id="hero-frame" class="relative aspect-[1600/741] w-full overflow-hidden rounded-xl border border-ink/10">
 					<img
 						src="/images/showcase-hero-revenue-dark.jpg"
 						alt="The Morium bookings dashboard, showing revenue by month and by package"
