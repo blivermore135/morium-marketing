@@ -136,9 +136,9 @@ const features = [
 	},
 	{
 		id: "booking",
-		name: "Online Booking Page",
+		name: "Online Booking Form",
 		benefit: "Customers book you directly — no back-and-forth texting.",
-		note: "Also installs as an app for your customers — and if we build you a website, this same page lives right on it too, always synced to the one calendar.",
+		note: "If we build you a website, this same form lives right on it, synced to the one calendar.",
 		admin: false,
 		states: [
 			{ id: "default", image: "/images/showcase-booking-dark.jpg", imageLight: "/images/showcase-booking-light.jpg" },
@@ -159,17 +159,18 @@ for (const feature of features) {
 // same header component, same spot in every capture. Approximate (eyeballed
 // off the source images, padded for an easy click target, not pixel-exact).
 // Only the tabs with a matching tile above get wired to actually switch;
-// Invoices/Memberships/Settings show a "coming soon" hint instead since
-// there's no screenshot for them yet.
+// Invoices/Memberships/Settings have no screenshot yet, so they aren't
+// clickable — tapping one shows its plain description (`hint`). They used
+// to say "coming soon", which was false: all three are built.
 const navHotspots = [
 	{ label: "Overview", featureId: "revenue", left: "27%", width: "5.5%" },
 	{ label: "Bookings", featureId: "dashboard", left: "32.5%", width: "6%" },
 	{ label: "Calendar", featureId: "calendar", left: "38.5%", width: "5.5%" },
 	{ label: "Customers", featureId: "customers", left: "44.8%", width: "5%" },
 	{ label: "Follow-Ups", featureId: "followups", left: "49.8%", width: "5.4%" },
-	{ label: "Invoices", featureId: null, left: "55.2%", width: "3.6%" },
-	{ label: "Memberships", featureId: null, left: "58.8%", width: "6%" },
-	{ label: "Settings", featureId: null, left: "64.8%", width: "5%" },
+	{ label: "Invoices", featureId: null, hint: "Invoices — card payments through your own Stripe account", left: "55.2%", width: "3.6%" },
+	{ label: "Memberships", featureId: null, hint: "Memberships — recurring plans your customers pay monthly", left: "58.8%", width: "6%" },
+	{ label: "Settings", featureId: null, hint: "Settings — your services, prices, hours, and follow-up messages", left: "64.8%", width: "5%" },
 ];
 ---
 
@@ -318,6 +319,7 @@ const navHotspots = [
 								type="button"
 								data-nav-hotspot={h.featureId ?? ""}
 								data-nav-label={h.label}
+								data-nav-hint={h.hint ?? ""}
 								class="nav-hotspot pointer-events-auto absolute cursor-pointer"
 								style={`top:9%;left:${h.left};width:${h.width};height:6%;`}
 								aria-label={`Go to ${h.label}`}
@@ -619,7 +621,7 @@ const navHotspots = [
 				if (frameRect) {
 					navTooltip.style.left = `${rect.left - frameRect.left + rect.width / 2}px`;
 					navTooltip.style.top = `${rect.top - frameRect.top}px`;
-					navTooltip.textContent = `${btn.dataset.navLabel} — coming soon`;
+					navTooltip.textContent = btn.dataset.navHint || btn.dataset.navLabel || "";
 					navTooltip.classList.remove("hidden");
 					setTimeout(() => navTooltip.classList.add("hidden"), 1600);
 				}

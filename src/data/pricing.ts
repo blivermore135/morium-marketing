@@ -33,6 +33,8 @@ export interface PricingTier {
 	name: string;
 	monthlyPrice: number;
 	mostPopular?: boolean;
+	// false = defined but not for sale on the site (Pricing.astro skips it).
+	listed?: boolean;
 	features: string[];
 }
 
@@ -54,15 +56,26 @@ export const pricingTiers: PricingTier[] = [
 		id: "solo",
 		name: "Solo",
 		monthlyPrice: 33,
+		// 2026-09-27: rewritten to exactly what's built and working today
+		// (verified against the app). Rule: a feature is listed only once it
+		// ships — no "coming soon" items on a plan people pay for (AI calling
+		// lives on the product tour instead). Memberships are built but stay
+		// off until they've been tested end to end.
 		features: [
-			"Unlimited users",
-			"Online booking page",
-			"Bookings dashboard & calendar",
-			"Customer records & job history",
-			"Revenue reporting",
+			"Unlimited users — everyone on your account gets full access",
+			"A booking form you add to your own website",
+			"Bookings dashboard and calendar",
+			"Pricing by vehicle size",
+			"Customer history: every visit, vehicle, and lifetime spend",
+			"Warns you before you create a duplicate customer",
+			"Invoices with card payments — payment links that don't expire",
 			"Automatic Google review requests",
 			"Rebooking reminders",
-			"AI messaging & call answering (coming soon)",
+			"Appointment reminders",
+			"Confirmation, reschedule, and cancellation emails to your customers",
+			"An email to you for every new booking",
+			"Revenue reporting",
+			"Export your bookings and customers",
 		],
 	},
 	{
@@ -72,8 +85,12 @@ export const pricingTiers: PricingTier[] = [
 		// "Embeddable booking widget" line is gone: the embed has been on
 		// every plan since the B1 fix. Rule going forward: a feature is listed
 		// on a tier only once it actually ships.
+		// 2026-09-27: NOT FOR SALE on the site (listed: false) — today it adds
+		// only photo documentation, $46/mo over Solo, and its "Most popular"
+		// badge was a false claim. Comes back when roles + the tech view ship.
+		// Still defined here (and still in the app's checkout) so nothing breaks.
+		listed: false,
 		monthlyPrice: 79,
-		mostPopular: true,
 		features: [
 			"Everything in Solo",
 			"Photo documentation",
