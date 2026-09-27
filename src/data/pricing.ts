@@ -68,12 +68,15 @@ export const pricingTiers: PricingTier[] = [
 	{
 		id: "team",
 		name: "Team",
-		monthlyPrice: 99,
+		// $99 -> $79 (2026-09-26), matching bobsdetailing's TIERS.team. The
+		// "Embeddable booking widget" line is gone: the embed has been on
+		// every plan since the B1 fix. Rule going forward: a feature is listed
+		// on a tier only once it actually ships.
+		monthlyPrice: 79,
 		mostPopular: true,
 		features: [
 			"Everything in Solo",
 			"Photo documentation",
-			"Embeddable booking widget for your own site",
 		],
 	},
 ];
