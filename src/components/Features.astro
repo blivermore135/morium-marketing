@@ -161,7 +161,11 @@ for (const feature of features) {
 // Only the tabs with a matching tile above get wired to actually switch;
 // Invoices/Memberships/Settings have no screenshot yet, so they aren't
 // clickable — tapping one shows its plain description (`hint`). They used
-// to say "coming soon", which was false: all three are built.
+// to say "coming soon", which was false: all three are built. Memberships
+// is the exception now: built, but switched off for every business until
+// it's been tested end to end, so its hint says so instead of selling it.
+// (The tab label itself is baked into the screenshots; it goes away when
+// they're recaptured.)
 const navHotspots = [
 	{ label: "Overview", featureId: "revenue", left: "27%", width: "5.5%" },
 	{ label: "Bookings", featureId: "dashboard", left: "32.5%", width: "6%" },
@@ -169,7 +173,7 @@ const navHotspots = [
 	{ label: "Customers", featureId: "customers", left: "44.8%", width: "5%" },
 	{ label: "Follow-Ups", featureId: "followups", left: "49.8%", width: "5.4%" },
 	{ label: "Invoices", featureId: null, hint: "Invoices — card payments through your own Stripe account", left: "55.2%", width: "3.6%" },
-	{ label: "Memberships", featureId: null, hint: "Memberships — recurring plans your customers pay monthly", left: "58.8%", width: "6%" },
+	{ label: "Memberships", featureId: null, hint: "Memberships — not available yet", left: "58.8%", width: "6%" },
 	{ label: "Settings", featureId: null, hint: "Settings — your services, prices, hours, and follow-up messages", left: "64.8%", width: "5%" },
 ];
 ---
