@@ -54,7 +54,9 @@ export interface PricingTier {
 export const pricingTiers: PricingTier[] = [
 	{
 		id: "solo",
-		name: "Solo",
+		// 2026-09-29 names (per the user): Starter / Crew. The ids stay
+		// "solo" / "team" to match bobsdetailing's internal plan codes.
+		name: "Starter",
 		monthlyPrice: 33,
 		// 2026-09-27: rewritten to exactly what's built and working today
 		// (verified against the app). Rule: a feature is listed only once it
@@ -62,7 +64,7 @@ export const pricingTiers: PricingTier[] = [
 		// lives on the product tour instead). Memberships are built but stay
 		// off until they've been tested end to end.
 		features: [
-			"Unlimited users — everyone on your account gets full access",
+			"Up to 5 users, all with full access",
 			"A booking form you add to your own website",
 			"Bookings dashboard and calendar",
 			"Pricing by vehicle size",
@@ -80,7 +82,7 @@ export const pricingTiers: PricingTier[] = [
 	},
 	{
 		id: "team",
-		name: "Team",
+		name: "Crew",
 		// $99 -> $79 (2026-09-26), matching bobsdetailing's TIERS.team. The
 		// "Embeddable booking widget" line is gone: the embed has been on
 		// every plan since the B1 fix. Rule going forward: a feature is listed
@@ -89,10 +91,15 @@ export const pricingTiers: PricingTier[] = [
 		// only photo documentation, $46/mo over Solo, and its "Most popular"
 		// badge was a false claim. Comes back when roles + the tech view ship.
 		// Still defined here (and still in the app's checkout) so nothing breaks.
+		// 2026-09-29: Crew stays unlisted until every feature below is built
+		// and tested (tech accounts, job assignment + tech view, calendar by
+		// tech, per-tech reports, photo documentation) — listed only once it
+		// ships, same rule as always.
 		listed: false,
 		monthlyPrice: 79,
 		features: [
-			"Everything in Solo",
+			"Everything in Starter",
+			"Unlimited users",
 			"Photo documentation",
 		],
 	},
