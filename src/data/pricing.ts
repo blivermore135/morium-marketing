@@ -64,7 +64,7 @@ export const pricingTiers: PricingTier[] = [
 		// lives on the product tour instead). Memberships are built but stay
 		// off until they've been tested end to end.
 		features: [
-			"Up to 5 users, all with full access",
+			"Up to 5 users — full access, or employee logins that see upcoming jobs but not your revenue or settings",
 			"A booking form you add to your own website",
 			"Bookings dashboard and calendar",
 			"Pricing by vehicle size",
@@ -95,12 +95,17 @@ export const pricingTiers: PricingTier[] = [
 		// and tested (tech accounts, job assignment + tech view, calendar by
 		// tech, per-tech reports, photo documentation) — listed only once it
 		// ships, same rule as always.
-		listed: false,
+		// 2026-09-30: all of it shipped and live-verified in the app (roles
+		// plan parts 1–3, enforced in the database) — for sale again.
+		listed: true,
 		monthlyPrice: 79,
 		features: [
 			"Everything in Starter",
 			"Unlimited users",
-			"Photo documentation",
+			"Assign jobs to specific employees — each sees only their own",
+			"Calendar filtered by employee",
+			"Jobs and revenue per employee",
+			"Before/after photo documentation",
 		],
 	},
 ];
