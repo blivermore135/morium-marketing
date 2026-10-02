@@ -64,7 +64,7 @@ export const pricingTiers: PricingTier[] = [
 		// lives on the product tour instead). Memberships are built but stay
 		// off until they've been tested end to end.
 		features: [
-			"Up to 5 users — full access, or employee logins that see upcoming jobs but not your revenue or settings",
+			"You + up to 5 team members — one Manager with full access, the rest employee logins that see upcoming jobs but not your revenue or settings",
 			"A booking form you add to your own website",
 			"Bookings dashboard and calendar",
 			"Pricing by vehicle size",
