@@ -1,4 +1,27 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://www.morium.one/sitemap.xml
+# AI search and answer crawlers are welcome — being recommended by ChatGPT,
+# Perplexity, Claude and Google's AI features is a goal, so never block these.
+User-agent: GPTBot
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Claude-SearchBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+Sitemap: https://www.morium.one/sitemap-index.xml

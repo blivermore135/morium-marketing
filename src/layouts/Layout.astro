@@ -1,13 +1,72 @@
 ---
 import "../styles/global.css";
 import { ClientRouter } from "astro:transitions";
+import { pricingTiers } from "../data/pricing";
+import { CONTACT_EMAIL } from "../data/site";
 
 interface Props {
 	title: string;
 	description: string;
+	/** Emit the SoftwareApplication (with real prices) schema — home and pricing pages. */
+	softwareSchema?: boolean;
+	/** Extra JSON-LD objects for this page (FAQPage, Article, BreadcrumbList, ...). */
+	jsonLd?: object[];
+	/** Keep a page out of search results (drafts, thin pages). */
+	noindex?: boolean;
 }
 
-const { title, description } = Astro.props;
+const { title, description, softwareSchema = false, jsonLd = [], noindex = false } = Astro.props;
+
+const ORIGIN = "https://www.morium.one";
+
+// One entity description reused everywhere, so the name, what Morium is and
+// who it is for read the same on every page (and in every directory).
+const ENTITY_DESCRIPTION =
+	"Morium is booking, CRM, and invoicing software for solo and small mobile detailers.";
+
+const organizationSchema = {
+	"@context": "https://schema.org",
+	"@type": "Organization",
+	"@id": `${ORIGIN}/#organization`,
+	name: "Morium",
+	url: ORIGIN,
+	logo: `${ORIGIN}/images/morium-favicon.png`,
+	description: ENTITY_DESCRIPTION,
+	founder: { "@type": "Person", name: "Brock Livermore" },
+	contactPoint: { "@type": "ContactPoint", contactType: "customer support", email: CONTACT_EMAIL },
+};
+
+// Prices come from the same data the pricing section renders, and only for
+// plans that are actually for sale, so the schema cannot drift from the page.
+const softwareApplicationSchema = {
+	"@context": "https://schema.org",
+	"@type": "SoftwareApplication",
+	name: "Morium",
+	applicationCategory: "BusinessApplication",
+	operatingSystem: "Web",
+	description: ENTITY_DESCRIPTION,
+	url: ORIGIN,
+	publisher: { "@id": `${ORIGIN}/#organization` },
+	offers: pricingTiers
+		.filter((tier) => tier.listed !== false)
+		.map((tier) => ({
+			"@type": "Offer",
+			name: tier.name,
+			price: tier.monthlyPrice.toFixed(2),
+			priceCurrency: "USD",
+			priceSpecification: {
+				"@type": "UnitPriceSpecification",
+				price: tier.monthlyPrice.toFixed(2),
+				priceCurrency: "USD",
+				billingDuration: 1,
+				billingIncrement: 1,
+				unitCode: "MON",
+			},
+			url: `${ORIGIN}/#pricing`,
+		})),
+};
+
+const schemas = [organizationSchema, ...(softwareSchema ? [softwareApplicationSchema] : []), ...jsonLd];
 const canonicalUrl = new URL(Astro.url.pathname, Astro.site);
 ---
 
@@ -19,6 +78,9 @@ const canonicalUrl = new URL(Astro.url.pathname, Astro.site);
 		<meta name="generator" content={Astro.generator} />
 		<title>{title}</title>
 		<meta name="description" content={description} />
+		{noindex
+			? <meta name="robots" content="noindex, follow" />
+			: <meta name="robots" content="index, follow, max-image-preview:large" />}
 		<link rel="canonical" href={canonicalUrl} />
 		<meta property="og:type" content="website" />
 		<meta property="og:site_name" content="Morium" />
@@ -33,26 +95,9 @@ const canonicalUrl = new URL(Astro.url.pathname, Astro.site);
 		<meta name="twitter:description" content={description} />
 		<meta name="twitter:image" content={new URL("/images/og-image.png", Astro.site)} />
 		<ClientRouter />
-		<script type="application/ld+json" set:html={JSON.stringify({
-			"@context": "https://schema.org",
-			"@type": "SoftwareApplication",
-			name: "Morium",
-			applicationCategory: "BusinessApplication",
-			operatingSystem: "Web",
-			description: "Booking, CRM, and customer-retention software for mobile detailers.",
-			url: "https://www.morium.one",
-			offers: {
-				"@type": "Offer",
-				priceCurrency: "USD",
-			},
-		})} />
-		<script type="application/ld+json" set:html={JSON.stringify({
-			"@context": "https://schema.org",
-			"@type": "Organization",
-			name: "Morium",
-			url: "https://www.morium.one",
-			logo: "https://www.morium.one/images/morium-favicon.png",
-		})} />
+		{schemas.map((schema) => (
+			<script type="application/ld+json" set:html={JSON.stringify(schema)} />
+		))}
 	</head>
 	<body class="bg-paper text-ink font-body antialiased">
 		<slot />

@@ -12,11 +12,24 @@ import Pricing from "../components/Pricing.astro";
 import FAQ from "../components/FAQ.astro";
 import FinalCTA from "../components/FinalCTA.astro";
 import Footer from "../components/Footer.astro";
+import { faqs } from "../data/faqs";
+
+const faqSchema = {
+	"@context": "https://schema.org",
+	"@type": "FAQPage",
+	mainEntity: faqs.map((faq) => ({
+		"@type": "Question",
+		name: faq.q,
+		acceptedAnswer: { "@type": "Answer", text: faq.a },
+	})),
+};
 ---
 
 <Layout
-	title="Morium — Booking, reviews, and rebooking for mobile detailers"
-	description="Morium is a booking, CRM, and customer-retention platform for mobile detailers — bookings, customer history, invoices and card payments, and automatic review requests."
+	title="Mobile Detailing Software: Booking, CRM & Invoicing | Morium"
+	description="Booking, CRM and invoicing software for solo and small mobile detailers. Online booking, card payments, review requests and rebook reminders. From $33/mo."
+	softwareSchema
+	jsonLd={[faqSchema]}
 >
 	<Header />
 	<Hero />
