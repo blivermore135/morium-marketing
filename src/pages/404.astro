@@ -1,0 +1,108 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { APP_URL } from "../data/site";
+---
+
+<Layout
+	title="Page not found | Morium"
+	description="We can't find that page. Head back to the Morium home page."
+	noindex
+>
+	<main class="nf-page">
+		<div class="nf-card">
+			<a href="/" class="nf-logo" aria-label="Morium home">
+				<img src="/images/morium-icon.png" alt="" class="h-8 w-auto" />
+				<span class="font-display">Morium</span>
+			</a>
+			<p class="nf-code">404</p>
+			<h1 class="nf-title">Page not found</h1>
+			<p class="nf-text">We can't find the page you're looking for. It may have moved, or the link may have a typo.</p>
+			<a href="/" class="nf-button">Back to home</a>
+			<p class="nf-login"><a href={`${APP_URL}/admin/login`}>Log in to your dashboard</a></p>
+		</div>
+	</main>
+</Layout>
+
+<style>
+	.nf-page {
+		--nf-bg: #f4faf9;
+		--nf-card: #ffffff;
+		--nf-text: #0a1a1f;
+		--nf-muted: #4b5f64;
+		--nf-line: #e3ecea;
+		--nf-button-bg: #0a1a1f;
+		--nf-button-text: #ffffff;
+		--nf-accent: #007e83;
+		min-height: 100vh;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		padding: 1.5rem 1rem;
+		background: var(--nf-bg);
+		color: var(--nf-text);
+	}
+	@media (prefers-color-scheme: dark) {
+		.nf-page {
+			--nf-bg: #0a1a1f;
+			--nf-card: #10252c;
+			--nf-text: #edf3f4;
+			--nf-muted: #a6bcc1;
+			--nf-line: #1d3a43;
+			--nf-button-bg: #5fe8e2;
+			--nf-button-text: #0a1a1f;
+			--nf-accent: #5fe8e2;
+		}
+	}
+	.nf-card {
+		width: 100%;
+		max-width: 26rem;
+		text-align: center;
+		background: var(--nf-card);
+		border: 1px solid var(--nf-line);
+		border-radius: 1.25rem;
+		padding: 2.25rem 1.5rem;
+	}
+	.nf-logo {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.5rem;
+		font-size: 1.6rem;
+		color: var(--nf-text);
+		text-decoration: none;
+		margin-bottom: 1.5rem;
+	}
+	.nf-code {
+		margin: 0 0 0.25rem;
+		font-size: 0.85rem;
+		font-weight: 600;
+		letter-spacing: 0.14em;
+		color: var(--nf-accent);
+	}
+	.nf-title {
+		margin: 0 0 0.75rem;
+		font-size: 2.25rem;
+		line-height: 1.1;
+	}
+	.nf-text {
+		margin: 0 0 1.75rem;
+		line-height: 1.6;
+		color: var(--nf-muted);
+	}
+	.nf-button {
+		display: inline-block;
+		border-radius: 9999px;
+		background: var(--nf-button-bg);
+		color: var(--nf-button-text);
+		padding: 0.75rem 1.5rem;
+		font-weight: 600;
+		text-decoration: none;
+	}
+	.nf-login {
+		margin: 1.25rem 0 0;
+		font-size: 0.875rem;
+	}
+	.nf-login a {
+		color: var(--nf-muted);
+		text-decoration: underline;
+	}
+</style>
