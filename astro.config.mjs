@@ -1,8 +1,12 @@
 // @ts-check
 import { defineConfig } from 'astro/config';
+import { existsSync, readdirSync } from 'node:fs';
 
 import tailwindcss from '@tailwindcss/vite';
 import sitemap from '@astrojs/sitemap';
+
+// The blog index stays out of the sitemap until the first real post exists (src/content/blog/*.md).
+const blogHasPosts = existsSync('./src/content/blog') && readdirSync('./src/content/blog').some((f) => f.endsWith('.md'));
 
 // https://astro.build/config
 export default defineConfig({
@@ -12,7 +16,11 @@ export default defineConfig({
   site: 'https://www.morium.one',
   // Sitemap is generated at build time (sitemap-index.xml + sitemap-0.xml)
   // so every new page is listed automatically — no hand-edited XML.
-  integrations: [sitemap()],
+  integrations: [
+    sitemap({
+      filter: (page) => blogHasPosts || !new URL(page).pathname.startsWith('/blog'),
+    }),
+  ],
   vite: {
     plugins: [tailwindcss()]
   }

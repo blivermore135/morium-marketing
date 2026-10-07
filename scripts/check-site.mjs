@@ -35,7 +35,7 @@ function walk(dir) {
 
 // Pages
 const featureSlugs = ["google-review-requests", "rebook-reminders", "online-booking", "invoicing-and-payments", "customer-history", "vehicle-size-pricing"];
-const alwaysPages = ["", "pricing", "mobile-detailing-software", "features", ...featureSlugs.map((s) => `features/${s}`), "terms", "privacy", "compare", "compare/morium-vs-urable", "compare/morium-vs-quoteiq", "compare/morium-vs-jobber", "compare/morium-vs-mobile-tech-rx"];
+const alwaysPages = ["", "pricing", "mobile-detailing-software", "features", ...featureSlugs.map((s) => `features/${s}`), "terms", "privacy", "tools/detailing-price-calculator", "blog", "compare", "compare/morium-vs-urable", "compare/morium-vs-quoteiq", "compare/morium-vs-jobber", "compare/morium-vs-mobile-tech-rx"];
 const draftPages = ["about"];
 for (const route of alwaysPages) if (!htmlOf(route)) fail(`missing page: /${route}`);
 for (const route of draftPages) {
@@ -50,6 +50,21 @@ if (!SHOW_DRAFTS) {
     if (/<loc>[^<]*\/about/.test(body)) fail(`${f}: sitemap lists an unpublished page`);
   }
 }
+
+// The blog stays hidden until the first real post exists: no sitemap entry, no link from anywhere, noindex on its index.
+const blogHasPosts = fs.existsSync("src/content/blog") && fs.readdirSync("src/content/blog").some((f) => f.endsWith(".md"));
+const sitemapText = fs.existsSync("dist/sitemap-0.xml") ? read("dist/sitemap-0.xml") : "";
+if (!blogHasPosts) {
+  if (/<loc>[^<]*\/blog\//.test(sitemapText)) fail("sitemap lists the blog before it has a post");
+  const blogIndex = htmlOf("blog") || "";
+  if (!/<meta name="robots" content="noindex/.test(blogIndex)) fail("the empty blog index isn't marked noindex");
+  for (const f of walk("dist").filter((f) => f.endsWith(".html") && !f.includes(path.join("dist", "blog")))) {
+    if (/href="\/blog/.test(read(f))) fail(f + ": links to the blog before it has a post");
+  }
+} else if (!/<loc>[^<]*\/blog\//.test(sitemapText)) {
+  fail("the blog has posts but is missing from the sitemap");
+}
+if (!/<loc>[^<]*\/tools\/detailing-price-calculator\//.test(sitemapText)) fail("the price calculator is missing from the sitemap");
 
 // Every built page: title, description, canonical, one H1
 for (const f of walk("dist").filter((f) => f.endsWith("index.html") || f.endsWith("404.html"))) {

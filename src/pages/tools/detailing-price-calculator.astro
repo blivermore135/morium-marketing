@@ -1,0 +1,654 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import Header from "../../components/Header.astro";
+import Footer from "../../components/Footer.astro";
+import FinalCTA from "../../components/FinalCTA.astro";
+import Breadcrumb from "../../components/Breadcrumb.astro";
+import { SIGNUP_URL } from "../../data/site";
+
+const ORIGIN = "https://www.morium.one";
+const URL_PATH = "/tools/detailing-price-calculator";
+
+const faqs = [
+	{
+		q: "How much should I charge for a car detail?",
+		a: "Start from what you want to earn per hour, then add the time each job takes and the product it uses. This calculator does that math for each vehicle size. Then look at what detailers near you charge. If your number is far from theirs, check your time and product costs before you change your rate.",
+	},
+	{
+		q: "Why charge more for bigger vehicles?",
+		a: "A truck or a three-row SUV takes more time and uses more product than a coupe. If you charge one price for every vehicle, you earn less on the big ones. A price for each size keeps your hourly pay the same on every job.",
+	},
+	{
+		q: "Should I add card fees to my prices?",
+		a: "That is up to you. With the box ticked, the calculator adds enough to cover Stripe's standard card fee (2.9% plus 30 cents) so you keep the amount you asked for even when a customer pays by card. Your own processor may charge a different rate.",
+	},
+	{
+		q: "Where do my numbers go?",
+		a: "Nowhere. The calculator runs in your browser. Nothing you type is sent to us or saved on our servers. Your numbers are kept on your own device so they are still there next time. Clear your browser data to remove them.",
+	},
+	{
+		q: "Are these prices what the market charges?",
+		a: "No. They come only from the numbers you enter. The starting rows are examples to edit, not market prices. Use the result as your floor, the least you should charge to earn what you want.",
+	},
+	{
+		q: "How do I use these prices in Morium?",
+		a: "Morium lets you set a price for each vehicle size on every package, and customers see their exact price when they book. Use the price list as a starting point, then add the prices in Settings. There is no automatic import yet.",
+	},
+];
+
+const webApp = {
+	"@context": "https://schema.org",
+	"@type": "WebApplication",
+	name: "Detailing Price Calculator and Price List Maker",
+	url: `${ORIGIN}${URL_PATH}/`,
+	applicationCategory: "BusinessApplication",
+	operatingSystem: "Any",
+	browserRequirements: "Requires JavaScript",
+	description:
+		"A free calculator that works out detailing prices for each vehicle size from your hourly rate, time, and product costs, and turns them into a price list you can print or save as a picture.",
+	isAccessibleForFree: true,
+	offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
+	publisher: { "@id": `${ORIGIN}/#organization` },
+};
+const faqSchema = {
+	"@context": "https://schema.org",
+	"@type": "FAQPage",
+	mainEntity: faqs.map((f) => ({ "@type": "Question", name: f.q, acceptedAnswer: { "@type": "Answer", text: f.a } })),
+};
+const breadcrumb = {
+	"@context": "https://schema.org",
+	"@type": "BreadcrumbList",
+	itemListElement: [
+		{ "@type": "ListItem", position: 1, name: "Morium", item: `${ORIGIN}/` },
+		{ "@type": "ListItem", position: 2, name: "Detailing price calculator", item: `${ORIGIN}${URL_PATH}/` },
+	],
+};
+
+const input =
+	"w-full rounded-lg border border-line bg-paper px-3 py-2 text-base text-ink focus:border-accent-500 focus:outline-none focus:ring-2 focus:ring-accent-300";
+const label = "block text-sm font-semibold text-ink";
+const hint = "mt-1 text-xs text-ink/55";
+const button =
+	"rounded-full border border-ink/15 bg-paper px-5 py-2.5 text-sm font-semibold text-ink transition-colors hover:border-accent-500";
+---
+
+<Layout
+	title="Free Detailing Price Calculator and Price List Maker | Morium"
+	description="Work out what to charge for each detailing service and vehicle size, then make a price list you can print or save as a picture. Free, no sign-up."
+	jsonLd={[webApp, faqSchema, breadcrumb]}
+>
+	<Header />
+	<main class="mx-auto max-w-5xl px-6 py-16 lg:px-8">
+		<Breadcrumb items={[{ name: "Home", href: "/" }, { name: "Detailing price calculator" }]} />
+		<h1 class="mt-6 max-w-3xl font-display text-4xl leading-tight font-bold tracking-tight text-ink sm:text-5xl">
+			Free detailing price calculator and price list maker
+		</h1>
+		<p class="mt-5 max-w-3xl text-lg leading-relaxed text-ink/70">
+			Tell it what you want to earn per hour, how long each service takes, and what the products cost. It works out a price for every vehicle size, then turns the prices into a price list you can print, save as a picture, or send to customers. It is free, needs no sign-up, and nothing you type leaves your browser.
+		</p>
+
+		<div id="calc" class="mt-12 grid gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.15fr)]">
+			<div class="space-y-10">
+				<section aria-labelledby="step-numbers">
+					<h2 id="step-numbers" class="font-display text-2xl font-bold tracking-tight text-ink">1. Your numbers</h2>
+					<div class="mt-4 grid gap-4 sm:grid-cols-2">
+						<div class="sm:col-span-2">
+							<label class={label} for="f-business">Business name (for your price list)</label>
+							<input id="f-business" type="text" class={input} placeholder="Lee's Mobile Detailing" autocomplete="organization" />
+						</div>
+						<div>
+							<label class={label} for="f-rate">Hourly pay you want ($)</label>
+							<input id="f-rate" type="number" min="0" step="1" inputmode="decimal" class={input} />
+							<p class={hint}>What you want to earn for each hour of work.</p>
+						</div>
+						<div>
+							<label class={label} for="f-travel">Travel cost per job ($)</label>
+							<input id="f-travel" type="number" min="0" step="1" inputmode="decimal" class={input} />
+							<p class={hint}>Fuel and drive time for one job. Use 0 to leave it out.</p>
+						</div>
+						<div>
+							<label class={label} for="f-round">Round prices up to the nearest</label>
+							<select id="f-round" class={input}>
+								<option value="1">$1</option>
+								<option value="5">$5</option>
+								<option value="10">$10</option>
+							</select>
+						</div>
+						<div class="flex items-start gap-3 pt-6">
+							<input id="f-fees" type="checkbox" class="mt-1 h-4 w-4 accent-[#00a3a8]" />
+							<label for="f-fees" class="text-sm text-ink/80">
+								<span class="font-semibold text-ink">Cover card fees</span><br />
+								Adds Stripe's standard 2.9% + 30¢ so you keep the full amount.
+							</label>
+						</div>
+					</div>
+				</section>
+
+				<section aria-labelledby="step-sizes">
+					<h2 id="step-sizes" class="font-display text-2xl font-bold tracking-tight text-ink">2. Vehicle sizes</h2>
+					<p class="mt-2 text-sm text-ink/60">
+						The smallest size is your base. Set how much longer and how much more product the bigger sizes need. 125% means a quarter more.
+					</p>
+					<div id="sizes" class="mt-4 space-y-3"></div>
+				</section>
+
+				<section aria-labelledby="step-services">
+					<h2 id="step-services" class="font-display text-2xl font-bold tracking-tight text-ink">3. Your services</h2>
+					<p class="mt-2 text-sm text-ink/60">
+						For each service, enter the hours it takes and the product it uses on your smallest vehicle. The starting rows are examples. Change them to your own.
+					</p>
+					<div id="services" class="mt-4 space-y-3"></div>
+					<button type="button" id="add-service" class={`${button} mt-4`}>+ Add a service</button>
+					<button type="button" id="reset" class="ml-3 mt-4 text-sm font-semibold text-ink/55 underline hover:text-ink">Start over</button>
+				</section>
+			</div>
+
+			<div class="space-y-6">
+				<section aria-labelledby="step-list">
+					<h2 id="step-list" class="font-display text-2xl font-bold tracking-tight text-ink">Your price list</h2>
+					<div class="mt-4 grid gap-4 sm:grid-cols-2">
+						<div class="sm:col-span-2">
+							<label class={label} for="f-tagline">Phone, website, or a short line (optional)</label>
+							<input id="f-tagline" type="text" class={input} placeholder="555-123-4567 · leesdetailing.com" />
+						</div>
+						<div>
+							<label class={label} for="f-color">Color</label>
+							<input id="f-color" type="color" class="mt-1 h-10 w-full cursor-pointer rounded-lg border border-line bg-paper p-1" value="#00a3a8" />
+						</div>
+						<div>
+							<label class={label} for="f-logo">Logo (optional)</label>
+							<input id="f-logo" type="file" accept="image/png,image/jpeg,image/webp" class="mt-1 block w-full text-sm text-ink/70" />
+						</div>
+					</div>
+
+					<div class="mt-5 overflow-x-auto rounded-2xl border border-line bg-paper shadow-[0_20px_50px_-30px_rgba(0,40,45,0.35)]">
+						<div id="price-list" class="p-6" aria-live="polite"></div>
+					</div>
+
+					<div class="mt-4 flex flex-wrap gap-3">
+						<button type="button" id="btn-print" class={button}>Print or save as PDF</button>
+						<button type="button" id="btn-png" class={button}>Download picture (PNG)</button>
+						<button type="button" id="btn-csv" class={button}>Download spreadsheet (CSV)</button>
+						<button type="button" id="btn-copy" class={button}>Copy as text</button>
+					</div>
+					<p id="status" class="mt-3 min-h-[1.25rem] text-sm text-accent-700" role="status"></p>
+				</section>
+
+				<details class="rounded-2xl border border-line bg-mist p-5">
+					<summary class="cursor-pointer text-sm font-semibold text-ink">Show how each price was worked out</summary>
+					<div class="mt-4 overflow-x-auto">
+						<table class="w-full min-w-[32rem] text-left text-xs" id="math"></table>
+					</div>
+					<p class="mt-3 text-xs text-ink/55">
+						Price = hours x your hourly pay + product + travel, plus card fees if ticked, rounded up. "You earn" is what is left per hour after product, travel, and card fees.
+					</p>
+				</details>
+			</div>
+		</div>
+
+		<section class="mt-20 max-w-3xl">
+			<h2 class="font-display text-3xl font-bold tracking-tight text-ink">How the prices are worked out</h2>
+			<ol class="mt-4 list-decimal space-y-3 pl-5 text-base leading-relaxed text-ink/70">
+				<li><strong>Labor:</strong> the hours a service takes on that vehicle, times the hourly pay you want.</li>
+				<li><strong>Product:</strong> what the soap, polish, and other supplies cost for that job.</li>
+				<li><strong>Travel:</strong> the fuel and drive time for one job, if you count it.</li>
+				<li><strong>Card fees:</strong> optional. The calculator adds enough to cover them so the price you charge is the money you keep.</li>
+				<li><strong>Rounding:</strong> always up, never down, so you never end up below the pay you asked for.</li>
+			</ol>
+			<p class="mt-4 text-base leading-relaxed text-ink/70">
+				Bigger vehicles take longer and use more product, so they get a higher price. That keeps your hourly pay the same on a truck as on a coupe.
+			</p>
+
+			<h2 class="mt-14 font-display text-3xl font-bold tracking-tight text-ink">Using your price list</h2>
+			<ul class="mt-4 list-disc space-y-3 pl-5 text-base leading-relaxed text-ink/70">
+				<li>Print it or save it as a PDF for your van, your table at an event, or an email.</li>
+				<li>Download the picture and post it, or send it in a text.</li>
+				<li>Download the spreadsheet to keep your numbers or edit them in Excel or Google Sheets.</li>
+				<li>Check your prices against what detailers near you charge before you publish them. These prices come only from your own numbers.</li>
+			</ul>
+
+			<h2 class="mt-14 font-display text-3xl font-bold tracking-tight text-ink">Questions</h2>
+			<div class="mt-6 divide-y divide-line border-t border-b border-line">
+				{
+					faqs.map((faq) => (
+						<details class="group py-5">
+							<summary class="flex cursor-pointer list-none items-center justify-between gap-4 font-body text-base font-bold text-ink">
+								{faq.q}
+								<span class="shrink-0 text-xl text-ink/40 transition-transform group-open:rotate-45">+</span>
+							</summary>
+							<p class="mt-3 max-w-2xl text-sm leading-relaxed text-ink/65">{faq.a}</p>
+						</details>
+					))
+				}
+			</div>
+
+			<div class="mt-14 rounded-2xl border border-accent-300 bg-accent-50 p-7">
+				<h2 class="font-body text-lg font-bold text-ink">Want customers to see their price when they book?</h2>
+				<p class="mt-2 text-base leading-relaxed text-ink/70">
+					Morium lets you set a price for each vehicle size on every package, takes bookings online, and writes your review requests and rebook reminders. From $33 a month, with a 14-day free trial.
+				</p>
+				<div class="mt-5 flex flex-wrap items-center gap-4">
+					<a href={SIGNUP_URL} class="rounded-full bg-accent-500 px-6 py-3 text-sm font-semibold text-ink">Start free trial</a>
+					<a href="/features/vehicle-size-pricing" class="text-sm font-semibold text-accent-700 hover:text-accent-600">How vehicle-size pricing works →</a>
+				</div>
+			</div>
+		</section>
+	</main>
+	<FinalCTA />
+	<Footer />
+</Layout>
+
+<style is:global>
+	@media print {
+		body * {
+			visibility: hidden;
+		}
+		#price-list,
+		#price-list * {
+			visibility: visible;
+		}
+		#price-list {
+			position: absolute;
+			left: 0;
+			top: 0;
+			width: 100%;
+			padding: 24px;
+		}
+	}
+</style>
+
+<script>
+	import {
+		clampNumber, defaultServices, defaultSettings, defaultSizes, formatMoney, priceFor, priceTable, toCsv, toPlainText,
+		type ServiceDef, type Settings, type SizeDef,
+	} from "../../lib/priceCalculator";
+
+	interface State {
+		businessName: string;
+		tagline: string;
+		color: string;
+		logo: string | null;
+		settings: Settings;
+		sizes: SizeDef[];
+		services: ServiceDef[];
+	}
+
+	const STORAGE_KEY = "morium-price-calculator-v1";
+	const root = document.getElementById("calc")!;
+	const $ = <T extends HTMLElement>(id: string) => document.getElementById(id) as T;
+
+	const fresh = (): State => ({
+		businessName: "",
+		tagline: "",
+		color: "#00a3a8",
+		logo: null,
+		settings: { ...defaultSettings },
+		sizes: defaultSizes.map((s) => ({ ...s })),
+		services: defaultServices.map((s) => ({ ...s })),
+	});
+
+	function load(): State {
+		const base = fresh();
+		try {
+			const saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || "null");
+			if (saved && typeof saved === "object") {
+				return {
+					...base,
+					...saved,
+					settings: { ...base.settings, ...(saved.settings || {}) },
+					sizes: Array.isArray(saved.sizes) && saved.sizes.length ? saved.sizes : base.sizes,
+					services: Array.isArray(saved.services) && saved.services.length ? saved.services : base.services,
+				};
+			}
+		} catch {
+			/* private window or blocked storage: start fresh */
+		}
+		return base;
+	}
+	function save() {
+		try {
+			const copy = { ...state, logo: state.logo && state.logo.length < 400_000 ? state.logo : null };
+			localStorage.setItem(STORAGE_KEY, JSON.stringify(copy));
+		} catch {
+			/* storage may be unavailable; the tool still works */
+		}
+	}
+
+	let state: State = load();
+	let uid = 0;
+	const newId = () => `r${Date.now().toString(36)}${uid++}`;
+
+	const esc = (text: string) => text.replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]!);
+	const field = "w-full rounded-lg border border-line bg-paper px-3 py-2 text-base text-ink focus:border-accent-500 focus:outline-none focus:ring-2 focus:ring-accent-300";
+
+	// ---- the numbers ----
+	const fBusiness = $<HTMLInputElement>("f-business");
+	const fRate = $<HTMLInputElement>("f-rate");
+	const fTravel = $<HTMLInputElement>("f-travel");
+	const fRound = $<HTMLSelectElement>("f-round");
+	const fFees = $<HTMLInputElement>("f-fees");
+	const fTagline = $<HTMLInputElement>("f-tagline");
+	const fColor = $<HTMLInputElement>("f-color");
+	const fLogo = $<HTMLInputElement>("f-logo");
+
+	function fillInputs() {
+		fBusiness.value = state.businessName;
+		fTagline.value = state.tagline;
+		fColor.value = state.color;
+		fRate.value = String(state.settings.hourlyRate);
+		fTravel.value = String(state.settings.travelCost);
+		fRound.value = String(state.settings.roundTo);
+		fFees.checked = state.settings.coverCardFees;
+	}
+
+	function readInputs() {
+		state.businessName = fBusiness.value;
+		state.tagline = fTagline.value;
+		state.color = fColor.value || "#00a3a8";
+		state.settings = {
+			hourlyRate: clampNumber(fRate.value, 0, 1000),
+			travelCost: clampNumber(fTravel.value, 0, 1000),
+			coverCardFees: fFees.checked,
+			roundTo: ([1, 5, 10].includes(Number(fRound.value)) ? Number(fRound.value) : 5) as 1 | 5 | 10,
+		};
+	}
+
+	// ---- sizes and services (rebuilt only when rows are added or removed, so typing never loses focus) ----
+	function buildSizes() {
+		const wrap = $("sizes");
+		wrap.innerHTML = state.sizes
+			.map(
+				(s, i) => `
+			<div class="grid grid-cols-[1fr_5.5rem_5.5rem] items-end gap-3" data-size="${i}">
+				<div><label class="block text-xs font-semibold text-ink/70" for="size-name-${i}">Size ${i + 1}</label>
+				<input id="size-name-${i}" data-k="name" class="${field}" value="${esc(s.name)}" /></div>
+				<div><label class="block text-xs font-semibold text-ink/70" for="size-time-${i}">Time %</label>
+				<input id="size-time-${i}" data-k="timeFactor" type="number" min="10" max="1000" step="5" class="${field}" value="${Math.round(s.timeFactor * 100)}" ${i === 0 ? "disabled" : ""} /></div>
+				<div><label class="block text-xs font-semibold text-ink/70" for="size-mat-${i}">Product %</label>
+				<input id="size-mat-${i}" data-k="materialsFactor" type="number" min="10" max="1000" step="5" class="${field}" value="${Math.round(s.materialsFactor * 100)}" ${i === 0 ? "disabled" : ""} /></div>
+			</div>`
+			)
+			.join("");
+	}
+
+	function buildServices() {
+		const wrap = $("services");
+		wrap.innerHTML = state.services
+			.map(
+				(s) => `
+			<div class="grid grid-cols-[1fr_4.5rem_5rem_2rem] items-end gap-3" data-service="${s.id}">
+				<div><label class="block text-xs font-semibold text-ink/70" for="svc-name-${s.id}">Service</label>
+				<input id="svc-name-${s.id}" data-k="name" class="${field}" value="${esc(s.name)}" /></div>
+				<div><label class="block text-xs font-semibold text-ink/70" for="svc-hours-${s.id}">Hours</label>
+				<input id="svc-hours-${s.id}" data-k="hours" type="number" min="0.25" step="0.25" inputmode="decimal" class="${field}" value="${s.hours}" /></div>
+				<div><label class="block text-xs font-semibold text-ink/70" for="svc-mat-${s.id}">Product ($)</label>
+				<input id="svc-mat-${s.id}" data-k="materials" type="number" min="0" step="1" inputmode="decimal" class="${field}" value="${s.materials}" /></div>
+				<button type="button" data-remove="${s.id}" class="mb-1 h-8 rounded-full text-lg text-ink/45 hover:text-ink" aria-label="Remove ${esc(s.name || "this service")}">×</button>
+			</div>`
+			)
+			.join("");
+	}
+
+	// ---- results ----
+	function render() {
+		const rows = priceTable(state.services, state.sizes, state.settings);
+		renderPriceList(rows);
+		renderMath(rows);
+		save();
+	}
+
+	function renderPriceList(rows: ReturnType<typeof priceTable>) {
+		const name = state.businessName.trim();
+		const logo = state.logo ? `<img src="${state.logo}" alt="" class="mb-3 max-h-16 w-auto" />` : "";
+		const head = state.sizes.map((s) => `<th class="px-3 py-2 text-right font-semibold">${esc(s.name || "Size")}</th>`).join("");
+		const body = rows
+			.map(
+				({ service, prices }) => `<tr class="border-t border-line"><th scope="row" class="px-3 py-3 text-left font-semibold text-ink">${esc(service.name || "Service")}</th>${prices
+					.map((p) => `<td class="px-3 py-3 text-right tabular-nums text-ink">${formatMoney(p.price)}</td>`)
+					.join("")}</tr>`
+			)
+			.join("");
+		$("price-list").innerHTML = `
+			<div style="border-top:6px solid ${state.color};padding-top:16px">
+				${logo}
+				<div class="font-display text-3xl font-bold tracking-tight text-ink">${esc(name || "Your business name")}</div>
+				<div class="text-sm text-ink/60">${esc(state.tagline) || "Price list"}</div>
+			</div>
+			<table class="mt-5 w-full text-sm">
+				<thead><tr style="background:${state.color};color:#fff"><th class="px-3 py-2 text-left font-semibold">Service</th>${head}</tr></thead>
+				<tbody>${body}</tbody>
+			</table>
+			<p class="mt-4 text-xs text-ink/50">Prices by vehicle size. Ask us about extras and add-ons.</p>`;
+	}
+
+	function renderMath(rows: ReturnType<typeof priceTable>) {
+		const lines = rows.flatMap(({ service, prices }) =>
+			prices.map(
+				(p, i) => `<tr class="border-t border-line"><td class="py-2 pr-3">${esc(service.name || "Service")}</td><td class="py-2 pr-3">${esc(state.sizes[i].name || "Size")}</td><td class="py-2 pr-3 text-right tabular-nums">${p.hours}</td><td class="py-2 pr-3 text-right tabular-nums">${formatMoney(p.materials)}</td><td class="py-2 pr-3 text-right font-semibold tabular-nums">${formatMoney(p.price)}</td><td class="py-2 text-right tabular-nums">${formatMoney(p.earnedPerHour)}/hr</td></tr>`
+			)
+		);
+		$("math").innerHTML = `<thead><tr class="text-ink/60"><th class="pb-2 pr-3 text-left font-semibold">Service</th><th class="pb-2 pr-3 text-left font-semibold">Size</th><th class="pb-2 pr-3 text-right font-semibold">Hours</th><th class="pb-2 pr-3 text-right font-semibold">Product</th><th class="pb-2 pr-3 text-right font-semibold">Price</th><th class="pb-2 text-right font-semibold">You earn</th></tr></thead><tbody>${lines.join("")}</tbody>`;
+	}
+
+	// ---- events ----
+	for (const el of [fBusiness, fRate, fTravel, fRound, fFees, fTagline, fColor]) {
+		el.addEventListener("input", () => {
+			readInputs();
+			render();
+		});
+	}
+
+	fLogo.addEventListener("change", () => {
+		const file = fLogo.files?.[0];
+		if (!file) {
+			state.logo = null;
+			render();
+			return;
+		}
+		if (file.size > 2_000_000) {
+			say("That picture is over 2 MB. Pick a smaller one.");
+			fLogo.value = "";
+			return;
+		}
+		const reader = new FileReader();
+		reader.onload = () => {
+			state.logo = String(reader.result);
+			render();
+		};
+		reader.readAsDataURL(file);
+	});
+
+	$("sizes").addEventListener("input", (e) => {
+		const input = e.target as HTMLInputElement;
+		const row = input.closest<HTMLElement>("[data-size]");
+		if (!row) return;
+		const size = state.sizes[Number(row.dataset.size)];
+		const key = input.dataset.k as "name" | "timeFactor" | "materialsFactor";
+		if (key === "name") size.name = input.value;
+		else size[key] = clampNumber(input.value, 10, 1000) / 100;
+		render();
+	});
+
+	$("services").addEventListener("input", (e) => {
+		const input = e.target as HTMLInputElement;
+		const row = input.closest<HTMLElement>("[data-service]");
+		if (!row) return;
+		const service = state.services.find((s) => s.id === row.dataset.service);
+		if (!service) return;
+		const key = input.dataset.k as "name" | "hours" | "materials";
+		if (key === "name") service.name = input.value;
+		else service[key] = clampNumber(input.value, key === "hours" ? 0.25 : 0, key === "hours" ? 40 : 5000);
+		render();
+	});
+
+	$("services").addEventListener("click", (e) => {
+		const id = (e.target as HTMLElement).closest<HTMLElement>("[data-remove]")?.dataset.remove;
+		if (!id) return;
+		if (state.services.length <= 1) {
+			say("Keep at least one service.");
+			return;
+		}
+		state.services = state.services.filter((s) => s.id !== id);
+		buildServices();
+		render();
+	});
+
+	$("add-service").addEventListener("click", () => {
+		state.services.push({ id: newId(), name: "", hours: 1, materials: 0 });
+		buildServices();
+		render();
+		const names = $("services").querySelectorAll<HTMLInputElement>('input[data-k="name"]');
+		names[names.length - 1]?.focus();
+	});
+
+	$("reset").addEventListener("click", () => {
+		const keepLogo = false;
+		state = fresh();
+		if (!keepLogo) fLogo.value = "";
+		fillInputs();
+		buildSizes();
+		buildServices();
+		render();
+		say("Back to the starting numbers.");
+	});
+
+	// ---- exports ----
+	let sayTimer: ReturnType<typeof setTimeout> | undefined;
+	function say(message: string) {
+		$("status").textContent = message;
+		clearTimeout(sayTimer);
+		sayTimer = setTimeout(() => ($("status").textContent = ""), 4000);
+	}
+	const fileName = (ext: string) => `${(state.businessName.trim() || "detailing").toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "") || "detailing"}-price-list.${ext}`;
+	function download(blob: Blob, name: string) {
+		const url = URL.createObjectURL(blob);
+		const a = document.createElement("a");
+		a.href = url;
+		a.download = name;
+		document.body.appendChild(a);
+		a.click();
+		a.remove();
+		setTimeout(() => URL.revokeObjectURL(url), 1000);
+	}
+
+	$("btn-print").addEventListener("click", () => window.print());
+
+	$("btn-csv").addEventListener("click", () => {
+		const csv = toCsv(priceTable(state.services, state.sizes, state.settings), state.sizes);
+		download(new Blob(["﻿" + csv], { type: "text/csv;charset=utf-8" }), fileName("csv"));
+		say("Spreadsheet downloaded.");
+	});
+
+	$("btn-copy").addEventListener("click", async () => {
+		const text = toPlainText(state.businessName, priceTable(state.services, state.sizes, state.settings), state.sizes);
+		try {
+			await navigator.clipboard.writeText(text);
+			say("Copied. Paste it into a text or a post.");
+		} catch {
+			const box = document.createElement("textarea");
+			box.value = text;
+			document.body.appendChild(box);
+			box.select();
+			const ok = document.execCommand("copy");
+			box.remove();
+			say(ok ? "Copied. Paste it into a text or a post." : "Your browser blocked copying. Use Print or Download instead.");
+		}
+	});
+
+	$("btn-png").addEventListener("click", async () => {
+		const rows = priceTable(state.services, state.sizes, state.settings);
+		const canvas = await drawPriceList(rows);
+		canvas.toBlob((blob) => {
+			if (!blob) return say("Couldn't make the picture. Try Print instead.");
+			download(blob, fileName("png"));
+			say("Picture downloaded.");
+		}, "image/png");
+	});
+
+	function loadImage(src: string): Promise<HTMLImageElement> {
+		return new Promise((resolve, reject) => {
+			const img = new Image();
+			img.onload = () => resolve(img);
+			img.onerror = reject;
+			img.src = src;
+		});
+	}
+
+	async function drawPriceList(rows: ReturnType<typeof priceTable>): Promise<HTMLCanvasElement> {
+		const W = 1200;
+		const pad = 64;
+		const rowH = 76;
+		const headH = 72;
+		const logo = state.logo ? await loadImage(state.logo).catch(() => null) : null;
+		const logoH = logo ? Math.min(100, logo.height) : 0;
+		const top = 40 + (logo ? logoH + 24 : 0);
+		const titleBlock = 130;
+		const H = top + titleBlock + headH + rows.length * rowH + 90;
+
+		const canvas = document.createElement("canvas");
+		canvas.width = W;
+		canvas.height = H;
+		const g = canvas.getContext("2d")!;
+		g.fillStyle = "#ffffff";
+		g.fillRect(0, 0, W, H);
+		g.fillStyle = state.color;
+		g.fillRect(0, 0, W, 14);
+
+		let y = 40;
+		if (logo) {
+			const logoW = (logo.width / logo.height) * logoH;
+			g.drawImage(logo, pad, y, logoW, logoH);
+			y += logoH + 24;
+		}
+		const sans = "system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif";
+		g.fillStyle = "#0a1a1f";
+		g.font = `700 52px ${sans}`;
+		g.textBaseline = "top";
+		g.fillText(state.businessName.trim() || "Your business name", pad, y + 10, W - pad * 2);
+		g.fillStyle = "rgba(10,26,31,0.6)";
+		g.font = `400 26px ${sans}`;
+		g.fillText(state.tagline.trim() || "Price list", pad, y + 78, W - pad * 2);
+
+		const tableTop = top + titleBlock;
+		const firstCol = 420;
+		const colW = (W - pad * 2 - firstCol) / state.sizes.length;
+		g.fillStyle = state.color;
+		g.fillRect(pad, tableTop, W - pad * 2, headH);
+		g.fillStyle = "#ffffff";
+		g.font = `700 26px ${sans}`;
+		g.textBaseline = "middle";
+		g.textAlign = "left";
+		g.fillText("Service", pad + 20, tableTop + headH / 2);
+		g.textAlign = "right";
+		state.sizes.forEach((s, i) => g.fillText(s.name || "Size", pad + firstCol + colW * (i + 1) - 20, tableTop + headH / 2, colW - 30));
+
+		rows.forEach(({ service, prices }, r) => {
+			const rowTop = tableTop + headH + r * rowH;
+			if (r % 2 === 1) {
+				g.fillStyle = "#f4faf9";
+				g.fillRect(pad, rowTop, W - pad * 2, rowH);
+			}
+			g.fillStyle = "#0a1a1f";
+			g.font = `600 30px ${sans}`;
+			g.textAlign = "left";
+			g.fillText(service.name || "Service", pad + 20, rowTop + rowH / 2, firstCol - 30);
+			g.font = `600 32px ${sans}`;
+			g.textAlign = "right";
+			prices.forEach((p, i) => g.fillText(formatMoney(p.price), pad + firstCol + colW * (i + 1) - 20, rowTop + rowH / 2));
+		});
+
+		g.fillStyle = "rgba(10,26,31,0.5)";
+		g.font = `400 22px ${sans}`;
+		g.textAlign = "left";
+		g.textBaseline = "alphabetic";
+		g.fillText("Prices by vehicle size. Ask us about extras and add-ons.", pad, H - 36);
+		return canvas;
+	}
+
+	// ---- start ----
+	fillInputs();
+	buildSizes();
+	buildServices();
+	render();
+	root.dataset.ready = "1";
+</script>

@@ -1,0 +1,48 @@
+---
+// The blog index. With no posts yet it says so, is kept out of search results, and is not in the sitemap or linked
+// from anywhere (astro.config.mjs and the site check enforce that). It becomes a normal indexed page, and appears in
+// the sitemap, as soon as the first post is added to src/content/blog.
+import { getCollection } from "astro:content";
+import Layout from "../../layouts/Layout.astro";
+import Header from "../../components/Header.astro";
+import Footer from "../../components/Footer.astro";
+import FinalCTA from "../../components/FinalCTA.astro";
+import Breadcrumb from "../../components/Breadcrumb.astro";
+
+const posts = (await getCollection("blog")).sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+const empty = posts.length === 0;
+const date = new Intl.DateTimeFormat("en-US", { dateStyle: "long", timeZone: "UTC" });
+---
+
+<Layout
+	title="Detailing Business Guides and Pricing Tips | Morium"
+	description="Guides for mobile detailers, written by someone who details cars every week: pricing, reviews, rebooking, and running the business."
+	noindex={empty}
+>
+	<Header />
+	<main class="mx-auto max-w-3xl px-6 py-16 lg:px-8">
+		<Breadcrumb items={[{ name: "Home", href: "/" }, { name: "Blog" }]} />
+		<h1 class="mt-6 font-display text-4xl font-bold tracking-tight text-ink sm:text-5xl">Guides for mobile detailers</h1>
+		{
+			empty ? (
+				<p class="mt-5 text-lg leading-relaxed text-ink/70">No posts yet. The first ones are on the way.</p>
+			) : (
+				<ul class="mt-10 divide-y divide-line border-t border-b border-line">
+					{posts.map((post) => (
+						<li class="py-6">
+							<a href={`/blog/${post.id}/`} class="font-display text-2xl font-bold tracking-tight text-ink hover:text-accent-700">
+								{post.data.title}
+							</a>
+							<p class="mt-2 text-sm text-ink/50">
+								<time datetime={post.data.date.toISOString()}>{date.format(post.data.date)}</time>
+							</p>
+							<p class="mt-2 text-base leading-relaxed text-ink/70">{post.data.description}</p>
+						</li>
+					))}
+				</ul>
+			)
+		}
+	</main>
+	<FinalCTA />
+	<Footer />
+</Layout>
