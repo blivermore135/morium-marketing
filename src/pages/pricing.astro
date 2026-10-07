@@ -1,0 +1,122 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import FinalCTA from "../components/FinalCTA.astro";
+import Pricing from "../components/Pricing.astro";
+import Breadcrumb from "../components/Breadcrumb.astro";
+import { faqs } from "../data/faqs";
+import { websiteAddOn } from "../data/pricing";
+import { bookingCostRows, AS_OF } from "../data/compare";
+import { published } from "../data/publish";
+import { CANCEL_SENTENCE, SETUP_FEE_SENTENCE } from "../data/site";
+
+const ORIGIN = "https://www.morium.one";
+const pricingFaqs = faqs.filter((f) => ["Do I need a card to get started?", "Can I cancel?"].includes(f.q));
+const faqSchema = {
+	"@context": "https://schema.org",
+	"@type": "FAQPage",
+	mainEntity: pricingFaqs.map((faq) => ({
+		"@type": "Question",
+		name: faq.q,
+		acceptedAnswer: { "@type": "Answer", text: faq.a },
+	})),
+};
+const breadcrumb = {
+	"@context": "https://schema.org",
+	"@type": "BreadcrumbList",
+	itemListElement: [
+		{ "@type": "ListItem", position: 1, name: "Morium", item: `${ORIGIN}/` },
+		{ "@type": "ListItem", position: 2, name: "Pricing", item: `${ORIGIN}/pricing` },
+	],
+};
+---
+
+<Layout
+	title="Pricing: Mobile Detailing Software from $33/mo | Morium"
+	description="Morium costs $33 a month for Starter and $79 a month for Crew. Online booking, invoices, review requests, and rebook reminders are in every plan. 14-day free trial."
+	softwareSchema
+	jsonLd={[breadcrumb, faqSchema]}
+>
+	<Header />
+	<main>
+		<div class="mx-auto max-w-5xl px-6 pt-16 lg:px-8">
+			<Breadcrumb items={[{ name: "Home", href: "/" }, { name: "Pricing" }]} />
+			<h1 class="mt-6 text-center font-display text-4xl font-bold tracking-tight text-ink sm:text-5xl">
+				Simple pricing for mobile detailers
+			</h1>
+			<p class="mx-auto mt-4 max-w-2xl text-center text-lg leading-relaxed text-ink/70">
+				Start at $33 a month. Online booking, invoices, review requests, and rebook reminders are in every plan. There is nothing extra to buy to use them.
+			</p>
+		</div>
+
+		<Pricing asPage />
+
+		<section class="mx-auto max-w-3xl px-6 pb-8 lg:px-8">
+			<h2 class="font-display text-3xl font-bold tracking-tight text-ink">What you pay, and when</h2>
+			<ul class="mt-5 space-y-3 text-base leading-relaxed text-ink/70">
+				<li>Your 14-day free trial is free. You enter a card, and you are not charged until the trial ends.</li>
+				<li>After that it is billed monthly. {CANCEL_SENTENCE}</li>
+				<li>Customers pay through your own Stripe account. Stripe's standard card fees apply, and Morium adds no extra fee.</li>
+			</ul>
+		</section>
+
+		<section class="mx-auto max-w-3xl px-6 py-12 lg:px-8">
+			<h2 class="font-display text-3xl font-bold tracking-tight text-ink">Want a website, too?</h2>
+			<p class="mt-4 text-base leading-relaxed text-ink/70">
+				We build you a real website with a gallery, your service areas, and your booking form. It costs ${websiteAddOn.setupFee} to set up, then ${websiteAddOn.monthlyPrice} a month. {SETUP_FEE_SENTENCE} {CANCEL_SENTENCE}
+			</p>
+			<a href="/#website" class="mt-4 inline-block text-sm font-semibold text-accent-600 hover:text-accent-700">See how the website works →</a>
+		</section>
+
+		{published.compare && (
+			<section class="mx-auto max-w-3xl px-6 py-12 lg:px-8">
+				<h2 class="font-display text-3xl font-bold tracking-tight text-ink">What online booking costs elsewhere</h2>
+				<p class="mt-3 text-sm text-ink/55">
+					The cheapest plan that includes online booking, month to month, read from each company's own page on {AS_OF}.
+				</p>
+				<div class="mt-5 overflow-x-auto rounded-2xl border border-line">
+					<table class="w-full min-w-[30rem] text-left text-sm">
+						<thead class="bg-mist text-ink">
+							<tr>
+								<th class="px-4 py-3 font-semibold">Software</th>
+								<th class="px-4 py-3 font-semibold">Price</th>
+								<th class="px-4 py-3 font-semibold">Plan</th>
+							</tr>
+						</thead>
+						<tbody class="divide-y divide-line">
+							{bookingCostRows.map((row) => (
+								<tr class:list={[row.us && "bg-accent-50"]}>
+									<th scope="row" class="px-4 py-3 font-semibold text-ink">{row.name}</th>
+									<td class="px-4 py-3 text-ink/70">{row.price}</td>
+									<td class="px-4 py-3 text-ink/70">
+										{row.plan}
+										{" "}<a href={row.source} rel="noopener noreferrer nofollow" target="_blank" class="text-accent-600 hover:text-accent-700">source</a>
+									</td>
+								</tr>
+							))}
+						</tbody>
+					</table>
+				</div>
+				<p class="mt-3 text-sm text-ink/55"><a href="/compare" class="font-semibold text-accent-600 hover:text-accent-700">Read the full comparisons →</a></p>
+			</section>
+		)}
+
+		<section class="mx-auto max-w-3xl px-6 pb-20 lg:px-8">
+			<h2 class="font-display text-3xl font-bold tracking-tight text-ink">Pricing questions</h2>
+			<div class="mt-6 divide-y divide-line border-t border-b border-line">
+				{pricingFaqs.map((faq) => (
+					<details class="group py-5">
+						<summary class="flex cursor-pointer list-none items-center justify-between gap-4 font-body text-base font-bold text-ink">
+							{faq.q}
+							<span class="shrink-0 text-xl text-ink/40 transition-transform group-open:rotate-45">+</span>
+						</summary>
+						<p class="mt-3 max-w-2xl text-sm leading-relaxed text-ink/65">{faq.a}</p>
+					</details>
+				))}
+			</div>
+		</section>
+	</main>
+	<FinalCTA />
+	<Footer />
+</Layout>

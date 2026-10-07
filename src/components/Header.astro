@@ -1,15 +1,14 @@
 ---
 import { SIGNUP_URL, LOGIN_URL } from "../data/site";
+import { published } from "../data/publish";
 
-// All in-page anchors, not separate routes — this is a one-page site.
-// See the user's request (2026-08-17) to fix every dead link/404: these
-// used to point at /pricing, /detailing, /websites, /about, none of which
-// existed as real pages.
+// Links work from every page (not just the home page). The compare and about pages are left out until published.
 const navLinks = [
-	{ label: "Pricing", href: "#pricing" },
-	{ label: "Features", href: "#features" },
-	{ label: "Websites", href: "#website" },
-	{ label: "About", href: "#about" },
+	{ label: "Features", href: "/features" },
+	{ label: "Pricing", href: "/pricing" },
+	...(published.compare ? [{ label: "Compare", href: "/compare" }] : []),
+	{ label: "Websites", href: "/#website" },
+	{ label: "About", href: published.about ? "/about" : "/#about" },
 ];
 ---
 

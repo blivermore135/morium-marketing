@@ -1,0 +1,16 @@
+---
+interface Props {
+	src: string;
+	alt: string;
+}
+const { src, alt } = Astro.props;
+---
+
+<div class="rounded-2xl border border-line bg-mist p-3 shadow-[0_30px_60px_-24px_rgba(0,40,45,0.25)]">
+	<div class="flex items-center gap-1.5 px-2 pb-3 pt-1">
+		<span class="h-2.5 w-2.5 rounded-full bg-ink/15"></span>
+		<span class="h-2.5 w-2.5 rounded-full bg-ink/15"></span>
+		<span class="h-2.5 w-2.5 rounded-full bg-ink/15"></span>
+	</div>
+	<img src={src} alt={alt} loading="lazy" class="block w-full rounded-xl border border-ink/10" />
+</div>

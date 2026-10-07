@@ -1,13 +1,13 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import { CONTACT_EMAIL } from "../data/site";
+import { CONTACT_EMAIL, CANCEL_SENTENCE, SETUP_FEE_SENTENCE } from "../data/site";
 ---
 
 <Layout title="Terms of Service | Morium" description="The terms for using Morium's booking, CRM, and website add-on.">
 	<div class="mx-auto max-w-3xl px-6 py-20 lg:px-8">
 		<a href="/" class="text-sm font-semibold text-accent-600 hover:text-accent-700">&larr; Back to Morium</a>
 		<h1 class="mt-6 font-display text-4xl font-bold tracking-tight text-ink">Terms of Service</h1>
-		<p class="mt-2 text-sm text-ink/50">Last updated October 4, 2026</p>
+		<p class="mt-2 text-sm text-ink/50">Last updated October 7, 2026</p>
 
 		<div class="mt-10 space-y-8 text-base leading-relaxed text-ink/75">
 			<section>
@@ -43,8 +43,8 @@ import { CONTACT_EMAIL } from "../data/site";
 			<section>
 				<h2 class="font-display text-lg font-bold text-ink">The website add-on</h2>
 				<p class="mt-2">
-					If you add the website add-on, the one-time setup fee is
-					non-refundable once we've started work on your site. The monthly
+					If you add the website add-on, {SETUP_FEE_SENTENCE} It is
+						non-refundable once we've started work on your site. The monthly
 					website fee bills alongside your plan and stops when you cancel the
 					add-on.
 				</p>
@@ -72,15 +72,15 @@ import { CONTACT_EMAIL } from "../data/site";
 			<section>
 				<h2 class="font-display text-lg font-bold text-ink">Cancellation</h2>
 				<p class="mt-2">
-					Cancel any time from your account settings or by emailing us. There
-					are no cancellation fees on the subscription itself. Timing matters:
-					if you cancel at least a day before your next monthly billing date,
-					you won't be charged for that upcoming month. If you cancel on or
-					after that date, that month has already been billed and isn't
-					refunded. Cancelling at that point stops future months, not the one
-					that just charged. Either way, you keep access through the end of
-					whatever period you've already paid for.
-				</p>
+					{CANCEL_SENTENCE} You can cancel from your account settings or by
+						emailing us. There are no cancellation fees on the subscription itself.
+					</p>
+					<p class="mt-2">
+						If you cancel at least a day before your next monthly billing date, you
+						won't be charged for that upcoming month. If you cancel on or after that
+						date, that month has already been billed and isn't refunded, and you keep
+						access through the end of it.
+					</p>
 			</section>
 
 			<section>

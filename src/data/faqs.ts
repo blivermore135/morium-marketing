@@ -11,7 +11,7 @@ export const faqs = [
 	},
 	{
 		q: "Can I cancel?",
-		a: "Yes, anytime, right from your dashboard: Settings → Account → Manage billing or cancel. Everything keeps working until the end of the period you've paid for, and you won't be billed again after that. Cancel at least a day before your next monthly billing date and you won't be charged for that month. Once that date arrives, the month is already billed. Cancelling then stops future months, not the one that just charged. The website add-on's setup fee is one-time and non-refundable once work has started.",
+		a: "Yes. Cancel anytime. You keep everything until the end of the month you already paid for, and you won't be charged again. You cancel yourself, right from your dashboard (Settings, Account, Manage billing or cancel). If you add the website, the $499 setup fee is a one-time payment, and it isn't refunded once we've started work on your site.",
 	},
 	{
 		q: "Do I need to be technical?",

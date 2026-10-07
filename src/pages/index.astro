@@ -3,6 +3,7 @@ import Layout from "../layouts/Layout.astro";
 import Header from "../components/Header.astro";
 import Hero from "../components/Hero.astro";
 import Problem from "../components/Problem.astro";
+import HomeHighlights from "../components/HomeHighlights.astro";
 import HowItWorks from "../components/HowItWorks.astro";
 import Features from "../components/Features.astro";
 import Industries from "../components/Industries.astro";
@@ -27,16 +28,17 @@ const faqSchema = {
 
 <Layout
 	title="Mobile Detailing Software: Booking, CRM & Invoicing | Morium"
-	description="Booking, CRM and invoicing software for solo and small mobile detailers. Online booking, card payments, review requests and rebook reminders. From $33/mo."
+	description="Booking, CRM and invoicing software for solo and small mobile detailers. Google review requests, rebook reminders, online booking and card payments. From $33/mo."
 	softwareSchema
 	jsonLd={[faqSchema]}
 >
 	<Header />
 	<Hero />
-	<WebsiteAddOn />
 	<Problem />
+	<HomeHighlights />
 	<HowItWorks />
 	<Features />
+	<WebsiteAddOn />
 	<Founder />
 	<Industries />
 	<Pricing />

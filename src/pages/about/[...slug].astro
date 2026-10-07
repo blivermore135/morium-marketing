@@ -1,0 +1,52 @@
+---
+// /about. Built, but NOT published: it waits for the founder story and photos (src/data/publish.ts). With about
+// unpublished, getStaticPaths is empty, so the page isn't built, linked, or in the sitemap.
+import Layout from "../../layouts/Layout.astro";
+import Header from "../../components/Header.astro";
+import Footer from "../../components/Footer.astro";
+import FinalCTA from "../../components/FinalCTA.astro";
+import Breadcrumb from "../../components/Breadcrumb.astro";
+import { published } from "../../data/publish";
+
+export function getStaticPaths() {
+	return published.about ? [{ params: { slug: undefined } }] : [];
+}
+
+const ORIGIN = "https://www.morium.one";
+const aboutSchema = {
+	"@context": "https://schema.org",
+	"@type": "AboutPage",
+	name: "About Morium",
+	url: `${ORIGIN}/about`,
+	about: { "@id": `${ORIGIN}/#organization` },
+};
+---
+
+<Layout
+	title="About Morium and Its Founder | Morium"
+	description="Morium was built by Brock Livermore, who ran a mobile detailing business and wanted one simple tool for bookings, reviews, and repeat customers."
+	jsonLd={[aboutSchema]}
+>
+	<Header />
+	<main class="mx-auto max-w-5xl px-6 py-16 lg:px-8">
+		<Breadcrumb items={[{ name: "Home", href: "/" }, { name: "About" }]} />
+		<h1 class="mt-6 font-display text-4xl font-bold tracking-tight text-ink sm:text-5xl">Why I built Morium</h1>
+
+		<div class="mt-12 grid items-start gap-12 lg:grid-cols-[320px_1fr]">
+			<figure>
+				<img src="/images/founder-brock.png" alt="Brock Livermore, founder of Morium" class="w-full rounded-2xl object-cover" />
+				<figcaption class="mt-3 text-sm text-ink/55">Brock Livermore, founder</figcaption>
+			</figure>
+			<div class="space-y-5 text-lg leading-relaxed text-ink/75">
+				{/* FOUNDER STORY GOES HERE: the owner will send the text. Photos go in public/images. */}
+				<p>
+					I ran Livermore Auto Detailing, a mobile detailing business, and got tired of juggling texts,
+					spreadsheets, and missed follow-ups. I built Morium to run my own business, then realized every
+					detailer deserves the same thing.
+				</p>
+			</div>
+		</div>
+	</main>
+	<FinalCTA />
+	<Footer />
+</Layout>

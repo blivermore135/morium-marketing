@@ -1,15 +1,23 @@
 ---
 import { industries } from "../data/industries";
 import { SIGNUP_URL, contactMailto, waitlistMailto } from "../data/site";
+import { published } from "../data/publish";
+import { features } from "../data/features";
 
 const columns = [
 	{
 		heading: "Product",
 		links: [
-			{ label: "Pricing", href: "#pricing" },
-			{ label: "Website add-on", href: "#website" },
-			{ label: "About", href: "#about" },
+			{ label: "Pricing", href: "/pricing" },
+			{ label: "Mobile detailing software", href: "/mobile-detailing-software" },
+			{ label: "All features", href: "/features" },
+			{ label: "Website add-on", href: "/#website" },
+			...(published.compare ? [{ label: "Compare", href: "/compare" }] : []),
 		],
+	},
+	{
+		heading: "Features",
+		links: features.map((f) => ({ label: f.name, href: `/features/${f.slug}` })),
 	},
 	{
 		heading: "Industries",
@@ -20,6 +28,7 @@ const columns = [
 	{
 		heading: "Company",
 		links: [
+				{ label: "About", href: published.about ? "/about" : "/#about" },
 			{ label: "Contact", href: contactMailto("Question about Morium") },
 			{ label: "Privacy", href: "/privacy" },
 			{ label: "Terms", href: "/terms" },
@@ -29,7 +38,7 @@ const columns = [
 ---
 
 <footer class="border-t border-line px-6 py-16 lg:px-8">
-	<div class="mx-auto grid max-w-7xl gap-12 sm:grid-cols-2 lg:grid-cols-[1fr_repeat(3,auto)]">
+	<div class="mx-auto grid max-w-7xl gap-12 sm:grid-cols-2 lg:grid-cols-[1fr_repeat(4,auto)]">
 		<div>
 			<span class="font-display text-xl font-bold text-ink">Morium</span>
 			<p class="mt-3 max-w-xs text-sm leading-relaxed text-ink/55">

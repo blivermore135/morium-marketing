@@ -28,3 +28,9 @@ export function contactMailto(subject: string): string {
 export function waitlistMailto(tradeName: string): string {
 	return contactMailto(`Waitlist: ${tradeName}`);
 }
+
+// Said word for word wherever cancelling comes up: pricing, the website add-on, the terms, the FAQ, and the app's
+// cancel screens. If you change this, change it in the app too (bobsdetailing/shared/cancellation.js).
+export const CANCEL_SENTENCE =
+	"Cancel anytime. You keep everything until the end of the month you already paid for, and you won't be charged again.";
+export const SETUP_FEE_SENTENCE = "The $499 website setup fee is a one-time payment.";

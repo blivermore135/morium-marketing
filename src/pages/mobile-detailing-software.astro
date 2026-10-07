@@ -1,0 +1,113 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import FinalCTA from "../components/FinalCTA.astro";
+import Breadcrumb from "../components/Breadcrumb.astro";
+import { features } from "../data/features";
+import { SIGNUP_URL, CANCEL_SENTENCE } from "../data/site";
+
+const ORIGIN = "https://www.morium.one";
+const faqs = [
+	{
+		q: "What is mobile detailing software?",
+		a: "It is an app that runs the paperwork side of a detailing business: taking bookings, keeping your calendar, remembering customers and their vehicles, sending invoices and taking card payments, and following up for reviews and repeat visits.",
+	},
+	{
+		q: "Do I need software if I only work alone?",
+		a: "It helps most when you work alone. Nobody else is there to answer the phone, remember who to ask for a review, or remind customers it is time to rebook. Morium does those jobs so you can keep detailing.",
+	},
+	{
+		q: "How much does it cost?",
+		a: "Morium Starter is $33 a month and Crew is $79 a month. Both start with a 14-day free trial, and online booking, invoices, review requests, and rebook reminders are in both plans.",
+	},
+	{
+		q: "Can I cancel?",
+		a: CANCEL_SENTENCE,
+	},
+];
+const faqSchema = {
+	"@context": "https://schema.org",
+	"@type": "FAQPage",
+	mainEntity: faqs.map((faq) => ({
+		"@type": "Question",
+		name: faq.q,
+		acceptedAnswer: { "@type": "Answer", text: faq.a },
+	})),
+};
+const breadcrumb = {
+	"@context": "https://schema.org",
+	"@type": "BreadcrumbList",
+	itemListElement: [
+		{ "@type": "ListItem", position: 1, name: "Morium", item: `${ORIGIN}/` },
+		{ "@type": "ListItem", position: 2, name: "Mobile detailing software", item: `${ORIGIN}/mobile-detailing-software` },
+	],
+};
+---
+
+<Layout
+	title="Mobile Detailing Software: Booking, Invoices & Reviews | Morium"
+	description="Mobile detailing software that takes bookings, sends invoices, and writes your Google review requests and rebook reminders. Built for solo and small detailers, from $33/mo."
+	softwareSchema
+	jsonLd={[breadcrumb, faqSchema]}
+>
+	<Header />
+	<main class="mx-auto max-w-4xl px-6 py-16 lg:px-8">
+		<Breadcrumb items={[{ name: "Home", href: "/" }, { name: "Mobile detailing software" }]} />
+		<h1 class="mt-6 font-display text-4xl leading-tight font-bold tracking-tight text-ink sm:text-5xl">
+			Mobile detailing software that runs the paperwork for you
+		</h1>
+		<p class="mt-5 text-lg leading-relaxed text-ink/70">
+			Morium is booking, customer, and invoicing software, built for detailers first and made for solo and small mobile detailers. Customers book on your page. Morium writes your Google review requests and rebook reminders, and you tap Send. Invoices and card payments go straight to your own Stripe account. It costs $33 a month, with a 14-day free trial.
+		</p>
+		<div class="mt-8">
+			<a href={SIGNUP_URL} class="rounded-full bg-accent-500 px-7 py-3.5 text-base font-semibold text-ink shadow-[0_8px_24px_-6px_rgba(0,194,199,0.55)] transition-transform hover:scale-[1.03]">Start free trial</a>
+		</div>
+
+		<h2 class="mt-16 font-display text-3xl font-bold tracking-tight text-ink">What a detailer needs from software</h2>
+		<p class="mt-3 text-base leading-relaxed text-ink/70">
+			A detailing business runs on a few simple things done well: answering new customers fast, getting reviews, getting repeat work, and getting paid. General-purpose field service tools can do this, but they are built for plumbers and landscapers too. Morium is built for detailers first, so vehicle sizes, rebook timing, and Google reviews are part of it from the start.
+		</p>
+
+		<h2 class="mt-14 font-display text-3xl font-bold tracking-tight text-ink">What's in Morium</h2>
+		<div class="mt-6 grid gap-5 sm:grid-cols-2">
+			{features.map((f) => (
+				<a href={`/features/${f.slug}`} class="rounded-2xl border border-line bg-mist p-6 transition-colors hover:border-accent-300">
+					<h3 class="font-body text-lg font-bold text-ink">{f.name}</h3>
+					<p class="mt-2 text-sm leading-relaxed text-ink/65">{f.summary}</p>
+				</a>
+			))}
+		</div>
+
+		<h2 class="mt-14 font-display text-3xl font-bold tracking-tight text-ink">Who it is for</h2>
+		<ul class="mt-4 space-y-3 text-base leading-relaxed text-ink/70">
+			<li>Solo mobile detailers who want one simple tool instead of texts and spreadsheets.</li>
+			<li>Small teams. Starter covers you plus up to 5 people. Crew has no limit and lets each person see only their own jobs.</li>
+			<li>Detailers who want customers to book online and come back without chasing them.</li>
+		</ul>
+		<p class="mt-4 text-base leading-relaxed text-ink/70">
+			If you run a large shop with inventory and QuickBooks, a bigger tool may fit better. Morium is for the detailer who wants it simple.
+		</p>
+
+		<h2 class="mt-14 font-display text-3xl font-bold tracking-tight text-ink">Price</h2>
+		<p class="mt-3 text-base leading-relaxed text-ink/70">
+			Starter is $33 a month and Crew is $79 a month, both with a 14-day free trial. {CANCEL_SENTENCE}
+			<a href="/pricing" class="font-semibold text-accent-600 hover:text-accent-700">See what each plan includes →</a>
+		</p>
+
+		<h2 class="mt-14 font-display text-3xl font-bold tracking-tight text-ink">Questions</h2>
+		<div class="mt-6 divide-y divide-line border-t border-b border-line">
+			{faqs.map((faq) => (
+				<details class="group py-5">
+					<summary class="flex cursor-pointer list-none items-center justify-between gap-4 font-body text-base font-bold text-ink">
+						{faq.q}
+						<span class="shrink-0 text-xl text-ink/40 transition-transform group-open:rotate-45">+</span>
+					</summary>
+					<p class="mt-3 max-w-2xl text-sm leading-relaxed text-ink/65">{faq.a}</p>
+				</details>
+			))}
+		</div>
+	</main>
+	<FinalCTA />
+	<Footer />
+</Layout>

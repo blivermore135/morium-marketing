@@ -1,0 +1,48 @@
+---
+import { getFeature } from "../data/features";
+
+// The most valuable things first: review requests and rebook reminders (they bring in money while you work),
+// then online booking, then invoices and card payments. Everything else comes after.
+const top = ["google-review-requests", "rebook-reminders", "online-booking", "invoicing-and-payments"]
+	.map((slug) => getFeature(slug)!);
+
+const rest = [
+	{ name: "Appointment reminders", body: "Customers get a reminder before the job, so fewer no-shows." },
+	{ name: "Customer history", body: "Every visit, every vehicle, and what they have spent.", href: "/features/customer-history" },
+	{ name: "Prices by vehicle size", body: "A sedan and a truck get the right price on their own.", href: "/features/vehicle-size-pricing" },
+	{ name: "Your team", body: "Add people who see only their own jobs." },
+	{ name: "Revenue reports", body: "Your best month, best service, and busiest day." },
+];
+---
+
+<section class="mx-auto max-w-7xl px-6 py-24 lg:px-8">
+	<div class="max-w-2xl">
+		<span class="text-xs font-semibold tracking-wide text-accent-600 uppercase">What Morium does</span>
+		<h2 class="mt-3 font-display text-3xl font-bold tracking-tight text-ink sm:text-4xl">
+			Get more reviews, more repeat customers, and get paid.
+		</h2>
+	</div>
+
+	<div class="mt-12 grid gap-6 md:grid-cols-2">
+		{top.map((f, i) => (
+			<a href={`/features/${f.slug}`} class="group rounded-2xl border border-line bg-mist p-8 transition-colors hover:border-accent-300">
+				<span class="font-display text-3xl font-bold text-accent-500">{String(i + 1).padStart(2, "0")}</span>
+				<h3 class="mt-3 font-body text-xl font-bold text-ink">{f.name}</h3>
+				<p class="mt-3 text-base leading-relaxed text-ink/65">{f.summary}</p>
+				<span class="mt-4 inline-block text-sm font-semibold text-accent-600 group-hover:text-accent-700">Read more →</span>
+			</a>
+		))}
+	</div>
+
+	<h3 class="mt-14 font-body text-lg font-bold text-ink">And the rest</h3>
+	<div class="mt-5 grid gap-x-8 gap-y-5 sm:grid-cols-2 lg:grid-cols-3">
+		{rest.map((r) => (
+			<div>
+				<p class="text-base font-semibold text-ink">
+					{r.href ? <a href={r.href} class="hover:text-accent-700">{r.name}</a> : r.name}
+				</p>
+				<p class="mt-1 text-sm leading-relaxed text-ink/60">{r.body}</p>
+			</div>
+		))}
+	</div>
+</section>
