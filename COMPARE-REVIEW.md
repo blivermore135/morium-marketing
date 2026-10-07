@@ -104,7 +104,7 @@ Every number below was read from the company's own page. Where third-party sites
 | Starting price (month to month) | $33/mo (Starter) | $49/mo (Core). $29/mo if billed annually. |
 | Users | Starter: you plus up to 5 people. Crew: unlimited. | Core: 1 user, extra users $29/mo each |
 | Online booking | On every plan | On Core ("Book and schedule jobs online") |
-| Invoices and card payments | On every plan. No Morium fee. | On Core. Card fee 2.9% + 30¢. |
+| Invoices and card payments | On every plan. Stripe's standard card fees apply; Morium adds no extra fee. | On Core. Card fee 2.9% + 30¢. |
 | Automated reminders and follow-ups | On every plan | From Connect ($139/mo month to month) |
 | Two-way texting | Coming soon | Grow ($299/mo month to month) |
 | Free trial | 14 days, card needed | 14 days, no card needed |

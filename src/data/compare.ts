@@ -159,7 +159,7 @@ export const competitors: Competitor[] = [
 			{ label: "Starting price (month to month)", morium: "$33/mo (Starter)", them: "$49/mo (Core). $29/mo if billed annually." },
 			{ label: "Users", morium: "Starter: you plus up to 5 people. Crew: unlimited.", them: "Core: 1 user, extra users $29/mo each" },
 			{ label: "Online booking", morium: "On every plan", them: "On Core (\"Book and schedule jobs online\")" },
-			{ label: "Invoices and card payments", morium: "On every plan. No Morium fee.", them: "On Core. Card fee 2.9% + 30¢." },
+			{ label: "Invoices and card payments", morium: "On every plan. Stripe's standard card fees apply; Morium adds no extra fee.", them: "On Core. Card fee 2.9% + 30¢." },
 			{ label: "Automated reminders and follow-ups", morium: "On every plan", them: "From Connect ($139/mo month to month)" },
 			{ label: "Two-way texting", morium: "Coming soon", them: "Grow ($299/mo month to month)" },
 			{ label: "Free trial", morium: "14 days, card needed", them: "14 days, no card needed" },

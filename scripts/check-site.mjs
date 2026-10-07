@@ -1,5 +1,5 @@
 // Runs after the build (npm run build). Fails if the built site is wrong in a way a visitor would notice:
-//  - a page that should exist is missing, or an unpublished page (compare, about) got out
+//  - a page that should exist is missing, or an unpublished page (about) got out
 //  - an internal link or image points at nothing
 //  - the prices on the pricing page don't match src/data/pricing.ts
 //  - the cancellation sentence is missing where it has to be said, or the $499 fee isn't called one-time
@@ -35,8 +35,8 @@ function walk(dir) {
 
 // Pages
 const featureSlugs = ["google-review-requests", "rebook-reminders", "online-booking", "invoicing-and-payments", "customer-history", "vehicle-size-pricing"];
-const alwaysPages = ["", "pricing", "mobile-detailing-software", "features", ...featureSlugs.map((s) => `features/${s}`), "terms", "privacy"];
-const draftPages = ["compare", "about", "compare/morium-vs-urable", "compare/morium-vs-quoteiq", "compare/morium-vs-jobber", "compare/morium-vs-mobile-tech-rx"];
+const alwaysPages = ["", "pricing", "mobile-detailing-software", "features", ...featureSlugs.map((s) => `features/${s}`), "terms", "privacy", "compare", "compare/morium-vs-urable", "compare/morium-vs-quoteiq", "compare/morium-vs-jobber", "compare/morium-vs-mobile-tech-rx"];
+const draftPages = ["about"];
 for (const route of alwaysPages) if (!htmlOf(route)) fail(`missing page: /${route}`);
 for (const route of draftPages) {
   const exists = !!htmlOf(route);
@@ -46,8 +46,8 @@ for (const route of draftPages) {
 if (!SHOW_DRAFTS) {
   for (const f of walk("dist").filter((f) => /\.(html|xml)$/.test(f))) {
     const body = read(f);
-    if (/href="\/(compare|about)(\/|")/.test(body)) fail(`${f}: links to an unpublished page`);
-    if (/<loc>[^<]*\/(compare|about)/.test(body)) fail(`${f}: sitemap lists an unpublished page`);
+    if (/href="\/about(\/|")/.test(body)) fail(`${f}: links to an unpublished page`);
+    if (/<loc>[^<]*\/about/.test(body)) fail(`${f}: sitemap lists an unpublished page`);
   }
 }
 
