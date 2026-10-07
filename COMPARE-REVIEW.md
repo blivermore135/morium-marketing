@@ -13,7 +13,7 @@ Every number below was read from the company's own page. Where third-party sites
 | Starting price (month to month) | $33/mo (Starter) | $70/mo (Express) |
 | Cheapest plan with online booking | $33/mo, included in every plan | $110/mo (Pro). Not on Express. |
 | Users | Starter: you plus up to 5 people. Crew: unlimited. | Unlimited on every plan |
-| Review requests and follow-up messages | Yes, on every plan. Morium writes them; you approve each one before it sends. | Automated messaging on every plan |
+| Review requests and follow-up messages | Yes, on every plan. Sent automatically, or after you approve them. Your choice. | Automated messaging on every plan |
 | Card payments | Your own Stripe account. Stripe's standard card fees apply; Morium adds no extra fee. | Stripe and Square integrations |
 | Inventory tracking and QuickBooks | No | Inventory on Express. QuickBooks on Pro. |
 | Contract | Month to month, 14-day free trial | "No contracts", cancel any time |

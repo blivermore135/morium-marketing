@@ -64,8 +64,8 @@ export const pricingTiers: PricingTier[] = [
 		// lives on the product tour instead). Memberships are built but stay
 		// off until they've been tested end to end.
 		features: [
-			"Google review requests, written for you (you tap Send)",
-			"Rebook reminders, written for you (you tap Send)",
+			"Google review requests, written for you (sent automatically or after you approve)",
+			"Rebook reminders, written for you (sent automatically or after you approve)",
 			"Online booking page for your customers",
 			"Invoices and card payments, paid to your own Stripe account",
 			"Appointment reminders and booking emails to your customers",

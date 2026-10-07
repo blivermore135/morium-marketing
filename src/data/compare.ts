@@ -58,7 +58,7 @@ export const competitors: Competitor[] = [
 			{ label: "Starting price (month to month)", morium: "$33/mo (Starter)", them: "$70/mo (Express)" },
 			{ label: "Cheapest plan with online booking", morium: "$33/mo, included in every plan", them: "$110/mo (Pro). Not on Express." },
 			{ label: "Users", morium: "Starter: you plus up to 5 people. Crew: unlimited.", them: "Unlimited on every plan" },
-			{ label: "Review requests and follow-up messages", morium: "Yes, on every plan. Morium writes them; you approve each one before it sends.", them: "Automated messaging on every plan" },
+			{ label: "Review requests and follow-up messages", morium: "Yes, on every plan. Sent automatically, or after you approve them. Your choice.", them: "Automated messaging on every plan" },
 			{ label: "Card payments", morium: "Your own Stripe account. Stripe's standard card fees apply; Morium adds no extra fee.", them: "Stripe and Square integrations" },
 			{ label: "Inventory tracking and QuickBooks", morium: "No", them: "Inventory on Express. QuickBooks on Pro." },
 			{ label: "Contract", morium: "Month to month, 14-day free trial", them: "\"No contracts\", cancel any time" },

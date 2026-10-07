@@ -3,8 +3,9 @@
 // app on 2026-10-07). If a feature changes in the app, change it here too.
 //
 // Accuracy notes that matter:
-//  - Review requests and rebook reminders are DRAFTED automatically; the owner approves them (one at a time or
-//    "Send all"). They are not sent without that tap. Appointment reminders do send on their own.
+//  - Review requests and rebook reminders are always written for the owner. Each business chooses, per type, between
+//    "Send automatically when due" and "Let me approve each one" (the default). Automatic sending only covers jobs
+//    that become due after the owner turns it on. Appointment reminders send on their own.
 //  - Everything is email. Texting customers from Morium is not available yet.
 //  - Online booking sends a REQUEST; the owner confirms it.
 
@@ -46,13 +47,13 @@ export const features: Feature[] = [
 	{
 		slug: "google-review-requests",
 		name: "Google review requests",
-		summary: "After each job, Morium writes the review request for you. You check it and tap Send.",
+		summary: "After each job, Morium writes the review request for you. It goes out automatically, or after you approve it. Your choice.",
 		title: "Google Review Requests for Detailers | Morium",
 		description:
-			"Morium writes a Google review request after every job. You read it, change it if you like, and send it with one tap. Built for mobile detailers, from $33/mo.",
+			"Morium writes a Google review request after every job. It is sent automatically, or after you approve it. Your choice. Built for mobile detailers, from $33/mo.",
 		h1: "Get more Google reviews without remembering to ask",
 		lead:
-			"After you finish a job, Morium writes a friendly email asking your customer for a Google review, with your review link in it. You read it, change the words if you want, and tap Send. You never have to remember who to ask or what to say.",
+			"After you finish a job, Morium writes a friendly email asking your customer for a Google review, with your review link in it. You choose: send it automatically when it is due, or read it, change the words, and tap Send yourself. You never have to remember who to ask or what to say.",
 		images: [
 			{ src: "/images/showcase-followups-google-1-dark.jpg", light: "/images/showcase-followups-google-1-light.jpg", alt: "Morium Follow-Ups tab showing review requests ready to send" },
 			{ src: "/images/showcase-followups-google-2-dark.jpg", light: "/images/showcase-followups-google-2-light.jpg", alt: "Morium review request messages, ready to read and send" },
@@ -63,7 +64,7 @@ export const features: Feature[] = [
 				items: [
 					"You mark a job complete.",
 					"Right away, or after a wait you choose (any number of days), Morium writes a review request to that customer and puts it in your Follow-Ups tab.",
-					"You read it, change anything you like, and tap Send. Or tap Send all to send everyone's at once.",
+					"If you chose to approve each one, you read it, change anything you like, and tap Send, or tap Send all. If you chose automatic, it goes out by itself when it is due.",
 					"The email has your Google review link, so the customer can leave stars in one tap.",
 				],
 			},
@@ -85,7 +86,7 @@ export const features: Feature[] = [
 		faqs: [
 			{
 				q: "Does Morium send review requests without my say-so?",
-				a: "No. Morium writes them for you automatically, but nothing goes out until you tap Send. That keeps you in charge of who gets asked and what it says.",
+				a: "Only if you choose that. Each business picks one of two settings for review requests: send automatically when due, or let me approve each one. New businesses start on approve each one, so nothing goes out until you tap Send. Automatic sending only covers jobs that become due after you turn it on, and it never emails someone who unsubscribed.",
 			},
 			{
 				q: "Where do I get my Google review link?",
@@ -105,13 +106,13 @@ export const features: Feature[] = [
 	{
 		slug: "rebook-reminders",
 		name: "Rebook reminders",
-		summary: "Morium writes a \"time for another detail\" email for past customers. You check it and send.",
+		summary: "Morium writes a \"time for another detail\" email for past customers. It goes out automatically, or after you approve it. Your choice.",
 		title: "Rebooking Reminders for Detailers | Morium",
 		description:
-			"Bring past customers back. Morium writes a rebook reminder when it's about time for their next detail. You approve it with one tap. From $33/mo.",
+			"Bring past customers back. Morium writes a rebook reminder when it's about time for their next detail. It is sent automatically, or after you approve it. Your choice. From $33/mo.",
 		h1: "Bring past customers back, without chasing them",
 		lead:
-			"Most detailing customers would book again if someone reminded them. Morium watches how long it has been since each customer's last detail and writes a short \"time for another detail\" email for you. You read it and tap Send.",
+			"Most detailing customers would book again if someone reminded them. Morium watches how long it has been since each customer's last detail and writes a short \"time for another detail\" email for you. It is sent automatically, or after you approve it. Your choice.",
 		images: [
 			{ src: "/images/showcase-followups-detail-1-dark.jpg", light: "/images/showcase-followups-detail-1-light.jpg", alt: "Morium Follow-Ups tab showing rebook reminders ready to send" },
 			{ src: "/images/showcase-followups-detail-2-dark.jpg", light: "/images/showcase-followups-detail-2-light.jpg", alt: "Morium rebook reminder messages that mention each customer's vehicle" },
@@ -122,7 +123,7 @@ export const features: Feature[] = [
 				items: [
 					"You finish a job and mark it complete.",
 					"After the wait you chose (the standard is 20 days), Morium writes a rebook reminder that mentions the service and the vehicle, like \"your 2023 Chevy Tahoe is probably about due.\"",
-					"It shows up in your Follow-Ups tab. You read it, change it if you want, and send it.",
+					"If you chose to approve each one, it shows up in your Follow-Ups tab and you read it, change it if you want, and send it. If you chose automatic, it goes out by itself when it is due.",
 				],
 			},
 			{
@@ -131,7 +132,7 @@ export const features: Feature[] = [
 			},
 			{
 				heading: "You see who it goes to",
-				body: "Every reminder shows the customer's email, and a small Edit link lets you fix a name, email, or phone number before you send. The change is saved on the customer's record.",
+				body: "When you approve each one, every reminder shows the customer's email, and a small Edit link lets you fix a name, email, or phone number before you send. The change is saved on the customer's record.",
 			},
 			{
 				heading: "What it doesn't do yet",
@@ -145,7 +146,7 @@ export const features: Feature[] = [
 			},
 			{
 				q: "Does it send automatically?",
-				a: "Morium writes the reminder automatically. You send it with one tap. Appointment reminders (for bookings already on your calendar) do send on their own.",
+				a: "Your choice. Each business picks one of two settings for rebook reminders: send automatically when due, or let me approve each one. New businesses start on approve each one. Automatic sending only covers customers who become due after you turn it on. Appointment reminders (for bookings already on your calendar) always send on their own.",
 			},
 			{
 				q: "What if a customer unsubscribes?",
