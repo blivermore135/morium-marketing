@@ -15,7 +15,7 @@ const comingSoon = industries.filter((i) => !i.live && !i.isCatchAll);
 
 <section class="mx-auto max-w-3xl px-6 py-10 text-center lg:px-8">
 	<p class="text-sm leading-relaxed text-ink/55">
-		Built for mobile service businesses — <strong class="font-semibold text-ink/80">detailing is live today.</strong>{" "}
+		Built for mobile service businesses. <strong class="font-semibold text-ink/80">detailing is live today.</strong>{" "}
 		{comingSoon.map((industry, i) => (
 			<>
 				<a href={waitlistMailto(industry.name)} class="font-semibold text-accent-700 hover:text-accent-600">
@@ -24,7 +24,7 @@ const comingSoon = industries.filter((i) => !i.live && !i.isCatchAll);
 				{i < comingSoon.length - 2 ? ", " : i === comingSoon.length - 2 ? ", and " : " "}
 			</>
 		))}
-		are next — join a waitlist above, or{" "}
+		are next. Join a waitlist above, or{" "}
 		<a href={contactMailto("Waitlist: Other")} class="font-semibold text-accent-700 hover:text-accent-600">
 			tell us what you do
 		</a>{" "}

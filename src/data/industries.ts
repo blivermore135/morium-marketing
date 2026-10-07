@@ -15,7 +15,7 @@ export const industries: Industry[] = [
 		slug: "detailing",
 		name: "Detailing",
 		live: true,
-		blurb: "Booking, reviews, and rebooking — live today.",
+		blurb: "Booking, reviews, and rebooking. Live today.",
 	},
 	{
 		slug: "lawn-care",

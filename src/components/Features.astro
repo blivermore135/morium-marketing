@@ -78,7 +78,7 @@ const features = [
 	{
 		id: "followups",
 		name: "Follow-Ups",
-		benefit: "Google reviews and rebooking nudges go out on their own — write the message once, then forget about it.",
+		benefit: "Google reviews and rebooking nudges go out on their own. Write the message once, then forget about it.",
 		admin: true,
 		states: [
 			{
@@ -100,7 +100,7 @@ const features = [
 		],
 		comingSoon: {
 			label: "🤖 AI Calling & Messaging",
-			hint: "Coming soon — the same automation, but a real call or text instead of just email.",
+			hint: "Coming soon. The same automation, but a real call or text instead of just email.",
 		},
 	},
 	{
@@ -124,7 +124,7 @@ const features = [
 	{
 		id: "customers",
 		name: "Customers",
-		benefit: "Every vehicle, every visit, every dollar — remembered for you.",
+		benefit: "Every vehicle, every visit, every dollar. Remembered for you.",
 		admin: true,
 		states: [
 			{
@@ -137,7 +137,7 @@ const features = [
 	{
 		id: "booking",
 		name: "Online Booking Form",
-		benefit: "Customers book you directly — no back-and-forth texting.",
+		benefit: "Customers book you directly. No back-and-forth texting.",
 		note: "If we build you a website, this same form lives right on it, synced to the one calendar.",
 		admin: false,
 		states: [
@@ -172,9 +172,9 @@ const navHotspots = [
 	{ label: "Calendar", featureId: "calendar", left: "38.5%", width: "5.5%" },
 	{ label: "Customers", featureId: "customers", left: "44.8%", width: "5%" },
 	{ label: "Follow-Ups", featureId: "followups", left: "49.8%", width: "5.4%" },
-	{ label: "Invoices", featureId: null, hint: "Invoices — card payments through your own Stripe account", left: "55.2%", width: "3.6%" },
-	{ label: "Memberships", featureId: null, hint: "Memberships — not available yet", left: "58.8%", width: "6%" },
-	{ label: "Settings", featureId: null, hint: "Settings — your services, prices, hours, and follow-up messages", left: "64.8%", width: "5%" },
+	{ label: "Invoices", featureId: null, hint: "Invoices. Card payments through your own Stripe account", left: "55.2%", width: "3.6%" },
+	{ label: "Memberships", featureId: null, hint: "Memberships. Not available yet", left: "58.8%", width: "6%" },
+	{ label: "Settings", featureId: null, hint: "Settings. Your services, prices, hours, and follow-up messages", left: "64.8%", width: "5%" },
 ];
 ---
 
@@ -281,7 +281,7 @@ const navHotspots = [
 								<Fragment>
 									<img
 										src={frame.image}
-										alt={`${feature.name}${state.id !== "default" ? ` — ${state.id}` : ""}${fi > 0 ? ` (scrolled ${fi})` : ""}`}
+										alt={`${feature.name}${state.id !== "default" ? `: ${state.id}` : ""}${fi > 0 ? ` (scrolled ${fi})` : ""}`}
 										data-panel={feature.id}
 										data-state={state.id}
 										data-frame={fi}
@@ -294,7 +294,7 @@ const navHotspots = [
 									{frame.imageLight && (
 										<img
 											src={frame.imageLight}
-											alt={`${feature.name}${state.id !== "default" ? ` — ${state.id}` : ""}${fi > 0 ? ` (scrolled ${fi})` : ""} (light mode)`}
+											alt={`${feature.name}${state.id !== "default" ? `: ${state.id}` : ""}${fi > 0 ? ` (scrolled ${fi})` : ""} (light mode)`}
 											data-panel={feature.id}
 											data-state={state.id}
 											data-frame={fi}

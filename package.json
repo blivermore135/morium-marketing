@@ -7,9 +7,10 @@
   },
   "scripts": {
     "dev": "astro dev",
-    "build": "astro build",
+    "build": "astro build && node scripts/check-no-em-dashes.mjs",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "check:dashes": "node scripts/check-no-em-dashes.mjs"
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.7.4",

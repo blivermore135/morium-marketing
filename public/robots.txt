@@ -1,7 +1,7 @@
 User-agent: *
 Allow: /
 
-# AI search and answer crawlers are welcome — being recommended by ChatGPT,
+# AI search and answer crawlers are welcome. Being recommended by ChatGPT,
 # Perplexity, Claude and Google's AI features is a goal, so never block these.
 User-agent: GPTBot
 Allow: /

@@ -64,13 +64,13 @@ export const pricingTiers: PricingTier[] = [
 		// lives on the product tour instead). Memberships are built but stay
 		// off until they've been tested end to end.
 		features: [
-			"You + up to 5 team members — one Manager with full access, the rest employee logins that see upcoming jobs but not your revenue or settings",
+			"You + up to 5 team members. One Manager with full access, the rest employee logins that see upcoming jobs but not your revenue or settings",
 			"A booking form you add to your own website",
 			"Bookings dashboard and calendar",
 			"Pricing by vehicle size",
 			"Customer history: every visit, vehicle, and lifetime spend",
 			"Warns you before you create a duplicate customer",
-			"Invoices with card payments — payment links that don't expire",
+			"Invoices with card payments. Payment links that don't expire",
 			"Automatic Google review requests",
 			"Rebooking reminders",
 			"Appointment reminders",
@@ -102,7 +102,7 @@ export const pricingTiers: PricingTier[] = [
 		features: [
 			"Everything in Starter",
 			"Unlimited users",
-			"Assign jobs to specific employees — each sees only their own",
+			"Assign jobs to specific employees. Each sees only their own",
 			"Calendar filtered by employee",
 			"Jobs and revenue per employee",
 			"Before/after photo documentation",
