@@ -24,7 +24,7 @@ const isHub = !competitor;
 
 const title = isHub ? "Morium Compared: Urable, QuoteIQ, Jobber, Mobile Tech RX | Morium" : competitor.title;
 const description = isHub
-	? `Honest, sourced comparisons of Morium with Urable, QuoteIQ, Jobber, and Mobile Tech RX for mobile detailers. Prices checked ${AS_OF}.`
+	? `Honest, sourced comparisons of Morium with Urable, QuoteIQ, Jobber, and Mobile Tech RX for mobile detailers. Each page shows the date its prices were checked.`
 	: competitor.description;
 
 const breadcrumb = {
@@ -50,7 +50,7 @@ const breadcrumb = {
 					Morium compared with other detailing software
 				</h1>
 				<p class="mt-5 max-w-3xl text-lg leading-relaxed text-ink/70">
-					We built Morium, so we are not neutral. We tried to be fair anyway: every price below comes from the company's own page, with the date we checked it ({AS_OF}). Each page says where the other tool is stronger, and who should pick it instead of us.
+					We built Morium, so we are not neutral. We tried to be fair anyway: every price comes from the company's own page, and each comparison shows the date we checked it. Each page says where the other tool is stronger, and who should pick it instead of us.
 				</p>
 				<div class="mt-12 grid gap-6 sm:grid-cols-2">
 					{competitors.map((c) => (
@@ -66,28 +66,29 @@ const breadcrumb = {
 			<>
 				<Breadcrumb items={[{ name: "Home", href: "/" }, { name: "Compare", href: "/compare" }, { name: `Morium vs ${competitor.name}` }]} />
 				<h1 class="mt-6 max-w-3xl font-display text-4xl leading-tight font-bold tracking-tight text-ink sm:text-5xl">{competitor.h1}</h1>
-				<p class="mt-3 text-sm text-ink/50">Prices and features checked <time datetime={AS_OF_ISO}>{AS_OF}</time>.</p>
+				<p class="mt-3 text-sm text-ink/50">Prices and features checked <time datetime={competitor.checkedISO ?? AS_OF_ISO}>{competitor.checkedOn ?? AS_OF}</time>.</p>
 				<p class="mt-5 max-w-3xl text-lg leading-relaxed text-ink/70">{competitor.lead}</p>
 				<p class="mt-4 max-w-3xl text-sm leading-relaxed text-ink/55">
-					Full disclosure: Morium is our product, and today it supports detailing businesses. {competitor.name}: {competitor.whoTheyAre}
+					{competitor.disclosure ?? `Full disclosure: Morium is our product, and today it supports detailing businesses. ${competitor.name}: ${competitor.whoTheyAre}`}
 				</p>
 
 				<h2 class="mt-14 font-display text-3xl font-bold tracking-tight text-ink">At a glance</h2>
 				<div class="mt-5 overflow-x-auto rounded-2xl border border-line">
-					<table class="w-full min-w-[34rem] text-left text-sm">
-						<thead class="bg-mist text-ink">
+					{/* On a phone each row stacks: the label, then Morium, then {competitor.name}. From 640px up it is a plain three-column table. */}
+					<table class="w-full text-left text-sm max-sm:block sm:min-w-[34rem]">
+						<thead class="bg-mist text-ink max-sm:hidden">
 							<tr>
 								<th class="px-4 py-3 font-semibold"></th>
 								<th class="px-4 py-3 font-semibold">Morium</th>
 								<th class="px-4 py-3 font-semibold">{competitor.name}</th>
 							</tr>
 						</thead>
-						<tbody class="divide-y divide-line">
+						<tbody class="divide-y divide-line max-sm:block">
 							{competitor.glance.map((row) => (
-								<tr>
-									<th scope="row" class="px-4 py-3 align-top font-semibold text-ink">{row.label}</th>
-									<td class="px-4 py-3 align-top text-ink/70">{row.morium}</td>
-									<td class="px-4 py-3 align-top text-ink/70">{row.them}</td>
+								<tr class="max-sm:block max-sm:px-4 max-sm:py-4">
+									<th scope="row" class="px-4 py-3 align-top font-semibold text-ink max-sm:block max-sm:p-0 max-sm:pb-2 max-sm:text-base">{row.label}</th>
+									<td data-label="Morium" class="px-4 py-3 align-top text-ink/70 before:hidden max-sm:block max-sm:p-0 max-sm:pb-3 max-sm:before:mb-0.5 max-sm:before:block max-sm:before:text-xs max-sm:before:font-semibold max-sm:before:uppercase max-sm:before:tracking-wide max-sm:before:text-accent-600 max-sm:before:content-[attr(data-label)]">{row.morium}</td>
+									<td data-label={competitor.name} class="px-4 py-3 align-top text-ink/70 before:hidden max-sm:block max-sm:p-0 max-sm:before:mb-0.5 max-sm:before:block max-sm:before:text-xs max-sm:before:font-semibold max-sm:before:uppercase max-sm:before:tracking-wide max-sm:before:text-ink/50 max-sm:before:content-[attr(data-label)]">{row.them}</td>
 								</tr>
 							))}
 						</tbody>
@@ -95,22 +96,28 @@ const breadcrumb = {
 				</div>
 
 				<div class="mt-14 grid gap-8 md:grid-cols-2">
-					<section>
-						<h2 class="font-display text-2xl font-bold tracking-tight text-ink">Where {competitor.name} is stronger</h2>
-						<ul class="mt-4 space-y-3">
-							{competitor.strongerThem.map((t) => (
-								<li class="flex items-start gap-3 text-base leading-relaxed text-ink/70"><span class="mt-2.5 h-1.5 w-1.5 shrink-0 rounded-full bg-ink/40"></span>{t}</li>
-							))}
-						</ul>
-					</section>
-					<section>
-						<h2 class="font-display text-2xl font-bold tracking-tight text-ink">Where Morium is stronger</h2>
-						<ul class="mt-4 space-y-3">
-							{competitor.strongerMorium.map((t) => (
-								<li class="flex items-start gap-3 text-base leading-relaxed text-ink/70"><span class="mt-2.5 h-1.5 w-1.5 shrink-0 rounded-full bg-accent-500"></span>{t}</li>
-							))}
-						</ul>
-					</section>
+					{(competitor.moriumFirst ? ["morium", "them"] : ["them", "morium"]).map((which) =>
+						which === "them" ? (
+							<section>
+								<h2 class="font-display text-2xl font-bold tracking-tight text-ink">Where {competitor.name} is stronger</h2>
+								{competitor.strongerThemIntro && <p class="mt-3 text-base leading-relaxed text-ink/60">{competitor.strongerThemIntro}</p>}
+								<ul class="mt-4 space-y-3">
+									{competitor.strongerThem.map((t) => (
+										<li class="flex items-start gap-3 text-base leading-relaxed text-ink/70"><span class="mt-2.5 h-1.5 w-1.5 shrink-0 rounded-full bg-ink/40"></span>{t}</li>
+									))}
+								</ul>
+							</section>
+						) : (
+							<section>
+								<h2 class="font-display text-2xl font-bold tracking-tight text-ink">Where Morium is stronger</h2>
+								<ul class="mt-4 space-y-3">
+									{competitor.strongerMorium.map((t) => (
+										<li class="flex items-start gap-3 text-base leading-relaxed text-ink/70"><span class="mt-2.5 h-1.5 w-1.5 shrink-0 rounded-full bg-accent-500"></span>{t}</li>
+									))}
+								</ul>
+							</section>
+						)
+					)}
 				</div>
 
 				<div class="mt-14 grid gap-8 md:grid-cols-2">
@@ -135,22 +142,22 @@ const breadcrumb = {
 
 				<section class="mt-14">
 					<h2 class="font-display text-2xl font-bold tracking-tight text-ink">Where these facts come from</h2>
-					<p class="mt-3 text-sm text-ink/55">Read from the company's own pages on {AS_OF}. Prices change, so check the page before you decide.</p>
+					<p class="mt-3 text-sm text-ink/55">{competitor.name}'s own {competitor.sourcePages ?? "pricing page"}, checked {competitor.checkedOn ?? AS_OF}. Prices change, so check with them before you decide.</p>
 					<ul class="mt-4 divide-y divide-line border-t border-b border-line text-sm">
 						{competitor.facts.map((fact) => (
 							<li class="py-3">
 								<span class="font-semibold text-ink">{fact.label}:</span>
-								<span class="text-ink/70"> {fact.value}. </span>
-								<a href={fact.source} rel="noopener noreferrer nofollow" target="_blank" class="break-all text-accent-600 hover:text-accent-700">{fact.source}</a>
+								<span class="text-ink/70"> {fact.value}.</span>
 							</li>
 						))}
 					</ul>
 					{competitor.note && <p class="mt-4 text-sm leading-relaxed text-ink/60">{competitor.note}</p>}
 					<p class="mt-4 text-sm text-ink/55">Spot something out of date? Email us and we will fix it.</p>
+					<p class="mt-8 text-xs text-ink/45">{competitor.name} is a trademark of its owner. Morium is not affiliated with or endorsed by {competitor.name}.</p>
 				</section>
 			</>
 		)}
 	</main>
-	<FinalCTA />
+	<FinalCTA label="Start free trial" />
 	<Footer />
 </Layout>

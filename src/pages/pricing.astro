@@ -76,7 +76,7 @@ const breadcrumb = {
 					The cheapest plan that includes online booking, month to month, read from each company's own page on {AS_OF}.
 				</p>
 				<div class="mt-5 overflow-x-auto rounded-2xl border border-line">
-					<table class="w-full min-w-[30rem] text-left text-sm">
+					<table class="w-full text-left text-sm sm:min-w-[30rem]">
 						<thead class="bg-mist text-ink">
 							<tr>
 								<th class="px-4 py-3 font-semibold">Software</th>
@@ -89,10 +89,7 @@ const breadcrumb = {
 								<tr class:list={[row.us && "bg-accent-50"]}>
 									<th scope="row" class="px-4 py-3 font-semibold text-ink">{row.name}</th>
 									<td class="px-4 py-3 text-ink/70">{row.price}</td>
-									<td class="px-4 py-3 text-ink/70">
-										{row.plan}
-										{" "}<a href={row.source} rel="noopener noreferrer nofollow" target="_blank" class="text-accent-600 hover:text-accent-700">source</a>
-									</td>
+									<td class="px-4 py-3 text-ink/70">{row.plan}</td>
 								</tr>
 							))}
 						</tbody>

@@ -1,5 +1,6 @@
 ---
 import { SIGNUP_URL } from "../data/site";
+const { label = "Get started" } = Astro.props;
 ---
 
 <section class="relative overflow-hidden bg-ink px-6 py-24 text-center text-paper lg:px-8">
@@ -20,7 +21,7 @@ import { SIGNUP_URL } from "../data/site";
 			href={SIGNUP_URL}
 			class="mt-8 inline-flex items-center rounded-full bg-accent-500 px-8 py-4 text-base font-semibold text-ink shadow-[0_8px_24px_-6px_rgba(0,194,199,0.55)] transition-transform hover:scale-[1.03]"
 		>
-			Get started
+			{label}
 		</a>
 	</div>
 </section>
