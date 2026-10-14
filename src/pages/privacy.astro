@@ -5,18 +5,55 @@ import { CONTACT_EMAIL } from "../data/site";
 
 <Layout title="Privacy Policy | Morium" description="How Morium collects, uses, and protects your data.">
 	<div class="mx-auto max-w-3xl px-6 py-20 lg:px-8">
-		<a href="/" class="text-sm font-semibold text-accent-600 hover:text-accent-700">&larr; Back to Morium</a>
+		<a href="/" class="text-sm font-semibold text-accent-700 hover:text-accent-800">&larr; Back to Morium</a>
 		<h1 class="mt-6 font-display text-4xl font-bold tracking-tight text-ink">Privacy Policy</h1>
-		<p class="mt-2 text-sm text-ink/50">Last updated August 17, 2026</p>
+		<p class="mt-2 text-sm text-ink/60">Last updated October 13, 2026</p>
 
 		<div class="mt-10 space-y-8 text-base leading-relaxed text-ink/75">
 			<section>
+				<h2 class="font-display text-lg font-bold text-ink">Who this covers</h2>
+				<p class="mt-2">
+					Morium is booking, customer, and invoicing software for mobile service
+					businesses. This policy covers this website, the Morium app, and the
+					booking pages and websites we run for businesses. It speaks to two
+					groups of people: the business owners and teams who use Morium, and the
+					customers of those businesses.
+				</p>
+				<p class="mt-2">
+					Morium is operated by Brock Livermore, doing business as Morium. You can reach us, and send any
+					legal notice, at <a href={`mailto:${CONTACT_EMAIL}`} class="font-semibold text-accent-700 hover:text-accent-800">{CONTACT_EMAIL}</a>.
+				</p>
+			</section>
+
+			<section>
 				<h2 class="font-display text-lg font-bold text-ink">What we collect</h2>
 				<p class="mt-2">
-					When you sign up for Morium, we collect your business name, email, and
-					password. Once you're using the product, you'll enter your own
-					customers' names, phone numbers, emails, vehicles, and booking
-					history. That data belongs to your business, not to us.
+					<strong class="text-ink">From you, as a business owner or team member:</strong>{" "}
+					your business name, email, and password (our login provider stores the
+					password only in scrambled form, never in a form anyone can read), your
+					plan and payment status, and what you enter to set up your business:
+					services, prices, hours, a logo and photos, your Google review link,
+					and the names, emails, and roles of the people on your team.
+				</p>
+				<p class="mt-3">
+					<strong class="text-ink">About your customers:</strong> what you enter,
+					and what a customer types into your booking form: name, phone number,
+					email, service address, vehicle, notes, the service and time they want,
+					how they heard about your business, and their booking and invoice
+					history. If you use before and after photos (Crew plan), those are
+					stored too. That data belongs to your business, not to us.
+				</p>
+				<p class="mt-3">
+					<strong class="text-ink">Activity log:</strong> Morium records who in
+					your business changed something important (a price, a payment, a role)
+					and when. Your owners can see it.
+				</p>
+				<p class="mt-3">
+					<strong class="text-ink">Technical information:</strong> our servers and hosting providers keep
+					standard logs (the page asked for, the time, and the IP address), and we
+					use IP addresses briefly to slow down abuse, such as a script flooding a
+					booking form. We do not use advertising or analytics trackers on
+					morium.one or in the app.
 				</p>
 			</section>
 
@@ -24,46 +61,111 @@ import { CONTACT_EMAIL } from "../data/site";
 				<h2 class="font-display text-lg font-bold text-ink">How we use it</h2>
 				<p class="mt-2">
 					We use your data to run the service you signed up for: showing your
-					bookings dashboard, sending the review-request and rebooking emails
-					you've turned on, and processing your subscription payment. We don't
-					sell your data or your customers' data to anyone, for any reason.
+					bookings dashboard, taking bookings, sending the emails you've turned
+					on, creating invoices and pay links, processing your subscription
+					payment, keeping the service secure, and contacting you about your
+					account. We don't sell your data or your customers' data to anyone, for
+					any reason.
 				</p>
 			</section>
 
 			<section>
 				<h2 class="font-display text-lg font-bold text-ink">Who we share it with</h2>
-				<p class="mt-2">A few specific companies that make Morium work, and nobody else:</p>
-				<ul class="mt-3 list-disc space-y-1.5 pl-5">
+				<p class="mt-2">The companies below make Morium work. We share data with them only for that, and with nobody else:</p>
+				<ul class="mt-3 list-disc space-y-2 pl-5">
 					<li><strong class="text-ink">Stripe</strong> handles your subscription payment. We never see or store your card number.</li>
-					<li><strong class="text-ink">Supabase</strong> hosts the database your business's data lives in.</li>
-					<li><strong class="text-ink">Resend</strong> delivers the automated emails (review requests, rebooking reminders) your business sends.</li>
+					<li><strong class="text-ink">Stripe, for card payments from your customers.</strong> To take card payments you connect a Stripe account through Morium. Your customer pays on a Stripe page, and the money goes to your own Stripe account, not to us. Stripe collects the identity and bank details it needs to verify you, under its own terms. Morium keeps the invoice amounts and Stripe's reference numbers, never card numbers.</li>
+					<li><strong class="text-ink">Supabase</strong> hosts the database, the login system, and file storage (logos, gallery photos, and vehicle photos), in the United States.</li>
+					<li><strong class="text-ink">Railway</strong> runs the Morium app, in the United States.</li>
+					<li><strong class="text-ink">Vercel</strong> hosts this marketing website.</li>
+					<li><strong class="text-ink">Resend</strong> delivers every email Morium sends: review requests, rebook reminders, booking confirmations, appointment reminders, invoices and pay links, owner alerts, team invites, and password resets. Resend sees the recipient's address and the message.</li>
+					<li><strong class="text-ink">Google.</strong> If a business turns on Google reviews, each visit to its homepage makes our server ask Google for that business's public reviews. We do not keep them. The review text, names, and photos come from Google, and reviewer photos load from Google's servers. The websites and booking pages we run also load fonts from Google Fonts, so Google receives the visitor's IP address when a page loads.</li>
+					<li><strong class="text-ink">Push notification services.</strong> If you turn on push notifications, they are delivered through your browser's or phone's push service (and Expo's, for the mobile app).</li>
+					<li><strong class="text-ink">Calendly.</strong> If you book a call with us about the website add-on, Calendly handles that booking under its own policy.</li>
 				</ul>
 			</section>
 
 			<section>
 				<h2 class="font-display text-lg font-bold text-ink">Emails and opting out</h2>
-				<p class="mt-2">
-					Every automated email your business sends through Morium includes an
-					unsubscribe link. Anyone who clicks it stops receiving marketing
-					emails from your business permanently. That's enforced at the
-					database level, not just hidden in a settings page.
+				<p class="mt-2">Morium sends two kinds of email for a business, and they are treated differently:</p>
+				<ul class="mt-3 list-disc space-y-2 pl-5">
+					<li>
+						<strong class="text-ink">Review requests and rebook reminders</strong> are marketing
+						emails. Only these carry an unsubscribe link (plus the business's
+						mailing address). Anyone who clicks it stops getting these emails from that business.
+						Our sending system checks the opt-out before every one and skips anyone who
+						unsubscribed. The business chooses whether each kind goes out automatically or only after
+						the owner approves it.
+					</li>
+					<li>
+						<strong class="text-ink">Booking confirmations, reschedule and cancellation notices, quote
+						received emails, price changes, appointment reminders, and invoices and pay links</strong> are
+						transactional emails: they are about a booking or a payment the customer made. They have no
+						unsubscribe link, and they still go to a customer who unsubscribed from marketing emails.
+					</li>
+				</ul>
+				<p class="mt-3">
+					Morium does not send text messages. The "text" buttons in the app open your own Messages
+					app with the words filled in. You press Send, and it goes from your own number.
 				</p>
 			</section>
 
 			<section>
-				<h2 class="font-display text-lg font-bold text-ink">Deleting your data</h2>
+				<h2 class="font-display text-lg font-bold text-ink">Cookies and storage</h2>
 				<p class="mt-2">
-					Cancel your subscription and email us at{" "}
-					<a href={`mailto:${CONTACT_EMAIL}`} class="font-semibold text-accent-600 hover:text-accent-700">{CONTACT_EMAIL}</a>{" "}
-					and we'll delete your business's data, including your customers'
-					records, from our systems.
+					Morium sets a cookie to keep you signed in. The websites and booking pages we run remember a
+					visitor's light or dark choice on their own device. We use no advertising or tracking cookies.
+				</p>
+			</section>
+
+			<section>
+				<h2 class="font-display text-lg font-bold text-ink">If you are a customer of a business that uses Morium</h2>
+				<p class="mt-2">
+					We hold your information on that business's behalf. To see, correct, or delete what a business
+					has about you, ask the business. You can also email us at{" "}
+					<a href={`mailto:${CONTACT_EMAIL}`} class="font-semibold text-accent-700 hover:text-accent-800">{CONTACT_EMAIL}</a>{" "}
+					and we'll pass your request on. To stop a business's review requests and rebook reminders, use the
+					unsubscribe link in the email.
+				</p>
+			</section>
+
+			<section>
+				<h2 class="font-display text-lg font-bold text-ink">How we protect it</h2>
+				<p class="mt-2">
+					Everything travels over secure connections (HTTPS). Each business can only see its own records, and
+					the database itself enforces that, not just the app. No system is perfect, so tell us right away at{" "}
+					<a href={`mailto:${CONTACT_EMAIL}`} class="font-semibold text-accent-700 hover:text-accent-800">{CONTACT_EMAIL}</a>{" "}
+					if you think someone got into your account.
+				</p>
+			</section>
+
+			<section>
+				<h2 class="font-display text-lg font-bold text-ink">Your copy, and deleting your data</h2>
+				<p class="mt-2">
+					In the app, owners can download the bookings and the customers as spreadsheets. When your
+					subscription ends, we may keep your business's data for a while, usually up to 90 days, so you can
+					come back where you left off, and we may delete it after that. To have it deleted, email us at{" "}
+					<a href={`mailto:${CONTACT_EMAIL}`} class="font-semibold text-accent-700 hover:text-accent-800">{CONTACT_EMAIL}</a>{" "}
+					at any time and we'll delete your business's data, including your customers' records, from our
+					systems. Copies in
+					our backups can take a little longer to disappear. Stripe and
+					Resend keep their own records under their own rules. For example, Stripe keeps payment records it is
+					required to keep.
+				</p>
+			</section>
+
+			<section>
+				<h2 class="font-display text-lg font-bold text-ink">Changes to this policy</h2>
+				<p class="mt-2">
+					When we change this policy, we update the date at the top. If the change is a meaningful one, we
+					plan to email the account owners as well.
 				</p>
 			</section>
 
 			<section>
 				<h2 class="font-display text-lg font-bold text-ink">Questions</h2>
 				<p class="mt-2">
-					Email <a href={`mailto:${CONTACT_EMAIL}`} class="font-semibold text-accent-600 hover:text-accent-700">{CONTACT_EMAIL}</a> and a real person will answer.
+					Email <a href={`mailto:${CONTACT_EMAIL}`} class="font-semibold text-accent-700 hover:text-accent-800">{CONTACT_EMAIL}</a> and a real person will answer.
 				</p>
 			</section>
 		</div>

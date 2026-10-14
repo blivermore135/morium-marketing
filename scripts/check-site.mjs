@@ -116,6 +116,16 @@ const websiteText = textOf(home);
 if (!/\$499 website setup fee is a one-time payment/.test(websiteText)) fail("home page: website add-on doesn't say the $499 fee is one-time");
 if (!/\$499 website setup fee is a one-time payment/.test(textOf(htmlOf("terms") || ""))) fail("terms: doesn't say the $499 fee is one-time");
 
+// Blanks in the legal pages ("[FILL IN: ...]") must be filled before the site goes out. A local build only warns, so the
+// pages can still be previewed; a build on Vercel (or with REQUIRE_NO_PLACEHOLDERS=1) fails, so the live site stays as it was.
+const blockPlaceholders = process.env.VERCEL === "1" || process.env.REQUIRE_NO_PLACEHOLDERS === "1";
+for (const route of ["terms", "privacy"]) {
+  const blanks = textOf(htmlOf(route) || "").match(/\[FILL IN[^\]]*\]/g);
+  if (!blanks) continue;
+  if (blockPlaceholders) fail(`/${route}: still has blanks to fill in: ${blanks.join(", ")}`);
+  else console.warn(`Warning: /${route} still has blanks to fill in: ${blanks.join(", ")}`);
+}
+
 if (problems.length) {
   console.error(`\n${problems.length} problem(s) in the built site:\n- ${problems.join("\n- ")}\n`);
   process.exit(1);
