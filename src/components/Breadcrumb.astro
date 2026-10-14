@@ -5,10 +5,10 @@ interface Props {
 const { items } = Astro.props;
 ---
 
-<nav aria-label="Breadcrumb" class="text-sm text-ink/50">
+<nav aria-label="Breadcrumb" class="text-sm text-ink/60">
 	{items.map((item, i) => (
 		<>
-			{item.href ? <a href={item.href} class="font-semibold text-accent-600 hover:text-accent-700">{item.name}</a> : <span>{item.name}</span>}
+			{item.href ? <a href={item.href} class="font-semibold text-accent-700 hover:text-accent-800">{item.name}</a> : <span>{item.name}</span>}
 			{i < items.length - 1 && <span class="mx-2">/</span>}
 		</>
 	))}

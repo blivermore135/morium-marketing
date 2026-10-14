@@ -67,7 +67,7 @@ const breadcrumb = {
 const input =
 	"w-full rounded-lg border border-line bg-paper px-3 py-2 text-base text-ink focus:border-accent-500 focus:outline-none focus:ring-2 focus:ring-accent-300";
 const label = "block text-sm font-semibold text-ink";
-const hint = "mt-1 text-xs text-ink/55";
+const hint = "mt-1 text-xs text-ink/60";
 const button =
 	"rounded-full border border-ink/15 bg-paper px-5 py-2.5 text-sm font-semibold text-ink transition-colors hover:border-accent-500";
 ---
@@ -115,7 +115,7 @@ const button =
 							</select>
 						</div>
 						<div class="flex items-start gap-3 pt-6">
-							<input id="f-fees" type="checkbox" class="mt-1 h-4 w-4 accent-[#00a3a8]" />
+							<input id="f-fees" type="checkbox" class="mt-1 h-4 w-4 accent-[#007e83]" />
 							<label for="f-fees" class="text-sm text-ink/80">
 								<span class="font-semibold text-ink">Cover card fees</span><br />
 								Adds Stripe's standard 2.9% + 30¢ so you keep the full amount.
@@ -139,7 +139,7 @@ const button =
 					</p>
 					<div id="services" class="mt-4 space-y-3"></div>
 					<button type="button" id="add-service" class={`${button} mt-4`}>+ Add a service</button>
-					<button type="button" id="reset" class="ml-3 mt-4 text-sm font-semibold text-ink/55 underline hover:text-ink">Start over</button>
+					<button type="button" id="reset" class="ml-3 mt-4 text-sm font-semibold text-ink/60 underline hover:text-ink">Start over</button>
 				</section>
 			</div>
 
@@ -153,7 +153,7 @@ const button =
 						</div>
 						<div>
 							<label class={label} for="f-color">Color</label>
-							<input id="f-color" type="color" class="mt-1 h-10 w-full cursor-pointer rounded-lg border border-line bg-paper p-1" value="#00a3a8" />
+							<input id="f-color" type="color" class="mt-1 h-10 w-full cursor-pointer rounded-lg border border-line bg-paper p-1" value="#007e83" />
 						</div>
 						<div>
 							<label class={label} for="f-logo">Logo (optional)</label>
@@ -179,7 +179,7 @@ const button =
 					<div class="mt-4 overflow-x-auto">
 						<table class="w-full min-w-[32rem] text-left text-xs" id="math"></table>
 					</div>
-					<p class="mt-3 text-xs text-ink/55">
+					<p class="mt-3 text-xs text-ink/60">
 						Price = hours x your hourly pay + product + travel, plus card fees if ticked, rounded up. "You earn" is what is left per hour after product, travel, and card fees.
 					</p>
 				</details>
@@ -214,7 +214,7 @@ const button =
 						<details class="group py-5">
 							<summary class="flex cursor-pointer list-none items-center justify-between gap-4 font-body text-base font-bold text-ink">
 								{faq.q}
-								<span class="shrink-0 text-xl text-ink/40 transition-transform group-open:rotate-45">+</span>
+								<span class="shrink-0 text-xl text-ink/60 transition-transform group-open:rotate-45">+</span>
 							</summary>
 							<p class="mt-3 max-w-2xl text-sm leading-relaxed text-ink/65">{faq.a}</p>
 						</details>
@@ -229,7 +229,7 @@ const button =
 				</p>
 				<div class="mt-5 flex flex-wrap items-center gap-4">
 					<a href={SIGNUP_URL} class="rounded-full bg-accent-500 px-6 py-3 text-sm font-semibold text-ink">Start free trial</a>
-					<a href="/features/vehicle-size-pricing" class="text-sm font-semibold text-accent-700 hover:text-accent-600">How vehicle-size pricing works →</a>
+					<a href="/features/vehicle-size-pricing" class="text-sm font-semibold text-accent-700 hover:text-accent-800">How vehicle-size pricing works →</a>
 				</div>
 			</div>
 		</section>
@@ -280,7 +280,7 @@ const button =
 	const fresh = (): State => ({
 		businessName: "",
 		tagline: "",
-		color: "#00a3a8",
+		color: "#007e83",
 		logo: null,
 		settings: { ...defaultSettings },
 		sizes: defaultSizes.map((s) => ({ ...s })),
@@ -344,7 +344,7 @@ const button =
 	function readInputs() {
 		state.businessName = fBusiness.value;
 		state.tagline = fTagline.value;
-		state.color = fColor.value || "#00a3a8";
+		state.color = fColor.value || "#007e83";
 		state.settings = {
 			hourlyRate: clampNumber(fRate.value, 0, 1000),
 			travelCost: clampNumber(fTravel.value, 0, 1000),
@@ -383,7 +383,7 @@ const button =
 				<input id="svc-hours-${s.id}" data-k="hours" type="number" min="0.25" step="0.25" inputmode="decimal" class="${field}" value="${s.hours}" /></div>
 				<div><label class="block text-xs font-semibold text-ink/70" for="svc-mat-${s.id}">Product ($)</label>
 				<input id="svc-mat-${s.id}" data-k="materials" type="number" min="0" step="1" inputmode="decimal" class="${field}" value="${s.materials}" /></div>
-				<button type="button" data-remove="${s.id}" class="mb-1 h-8 rounded-full text-lg text-ink/45 hover:text-ink" aria-label="Remove ${esc(s.name || "this service")}">×</button>
+				<button type="button" data-remove="${s.id}" class="mb-1 h-8 rounded-full text-lg text-ink/60 hover:text-ink" aria-label="Remove ${esc(s.name || "this service")}">×</button>
 			</div>`
 			)
 			.join("");
@@ -418,7 +418,7 @@ const button =
 				<thead><tr style="background:${state.color};color:#fff"><th class="px-3 py-2 text-left font-semibold">Service</th>${head}</tr></thead>
 				<tbody>${body}</tbody>
 			</table>
-			<p class="mt-4 text-xs text-ink/50">Prices by vehicle size. Ask us about extras and add-ons.</p>`;
+			<p class="mt-4 text-xs text-ink/60">Prices by vehicle size. Ask us about extras and add-ons.</p>`;
 	}
 
 	function renderMath(rows: ReturnType<typeof priceTable>) {

@@ -98,10 +98,6 @@ const features = [
 				],
 			},
 		],
-		comingSoon: {
-			label: "🤖 AI Calling & Messaging",
-			hint: "Coming soon. The same automation, but a real call or text instead of just email.",
-		},
 	},
 	{
 		id: "dashboard",
@@ -183,7 +179,7 @@ const navHotspots = [
 <section id="features" class="py-24">
 	<div class="mx-auto max-w-7xl px-6 lg:px-8">
 		<div class="max-w-2xl">
-			<span class="text-xs font-semibold tracking-wide text-accent-600 uppercase">
+			<span class="text-xs font-semibold tracking-wide text-accent-700 uppercase">
 				What you get
 			</span>
 			<h2 class="mt-3 font-display text-3xl font-bold tracking-tight text-ink sm:text-4xl">
@@ -274,7 +270,7 @@ const navHotspots = [
 					<span class="h-2.5 w-2.5 rounded-full bg-ink/15"></span>
 					<span class="h-2.5 w-2.5 rounded-full bg-ink/15"></span>
 					<span class="h-2.5 w-2.5 rounded-full bg-ink/15"></span>
-					<span class="ml-2 text-xs font-medium text-ink/35" id="feature-showcase-label">{features[0].name}</span>
+					<span class="ml-2 text-xs font-medium text-ink/60" id="feature-showcase-label">{features[0].name}</span>
 				</div>
 				<div class="feature-showcase-frame relative w-full overflow-hidden rounded-xl">
 					{features.map((feature) =>
@@ -335,9 +331,7 @@ const navHotspots = [
 					<span
 						id="feature-nav-tooltip"
 						class="pointer-events-none absolute hidden -translate-x-1/2 -translate-y-full rounded-md bg-ink px-2.5 py-1 text-[11px] font-semibold text-paper shadow-lg"
-					>
-						Coming soon
-					</span>
+					></span>
 				</div>
 			</div>
 			<span
@@ -348,27 +342,16 @@ const navHotspots = [
 			</span>
 		</div>
 
-		<div id="feature-showcase-coming-soon" class="mx-auto mt-5 hidden max-w-xl justify-center">
-			<span
-				class="coming-soon-chip relative inline-flex cursor-default items-center gap-1.5 rounded-full border border-dashed border-line px-3 py-1.5 font-body text-xs font-semibold text-ink/45"
-			>
-				<span id="feature-showcase-coming-soon-label"></span>
-				<span class="coming-soon-tooltip pointer-events-none absolute -top-9 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-md bg-ink px-2.5 py-1 text-[11px] font-semibold text-paper opacity-0 shadow-lg transition-opacity">
-					<span id="feature-showcase-coming-soon-hint"></span>
-				</span>
-			</span>
-		</div>
-
 		<p
 			id="feature-showcase-note"
-			class:list={["mx-auto mt-6 max-w-xl text-center text-sm text-ink/50", features[0].note ? "" : "hidden"]}
+			class:list={["mx-auto mt-6 max-w-xl text-center text-sm text-ink/60", features[0].note ? "" : "hidden"]}
 		>
 			{features[0].note}
 		</p>
 	</div>
 </section>
 
-<script define:vars={{ featuresData: features.map((f) => ({ id: f.id, states: f.states.map((s) => ({ id: s.id, label: s.label ?? null, frameCount: s.frames.length })), comingSoon: f.comingSoon ?? null })) }}>
+<script define:vars={{ featuresData: features.map((f) => ({ id: f.id, states: f.states.map((s) => ({ id: s.id, label: s.label ?? null, frameCount: s.frames.length })) })) }}>
 	const root = document.getElementById("feature-showcase");
 	const tabs = Array.from(root?.querySelectorAll("[data-tab]") ?? []);
 	const panels = Array.from(root?.querySelectorAll("[data-panel]") ?? []);
@@ -385,9 +368,6 @@ const navHotspots = [
 	const navHotspotLayer = document.getElementById("feature-nav-hotspots");
 	const navHotspotBtns = Array.from(root?.querySelectorAll("[data-nav-hotspot]") ?? []);
 	const navTooltip = document.getElementById("feature-nav-tooltip");
-	const comingSoonWrap = document.getElementById("feature-showcase-coming-soon");
-	const comingSoonLabel = document.getElementById("feature-showcase-coming-soon-label");
-	const comingSoonHint = document.getElementById("feature-showcase-coming-soon-hint");
 
 	const featureMap = new Map(featuresData.map((f) => [f.id, f]));
 
@@ -446,16 +426,6 @@ const navHotspots = [
 		const showScrollHint = (state?.frameCount ?? 1) > 1 && frameIndex === 0;
 		scrollHint?.classList.toggle("hidden", !showScrollHint);
 		scrollHint?.classList.toggle("flex", showScrollHint);
-
-		if (feature?.comingSoon && comingSoonWrap && comingSoonLabel && comingSoonHint) {
-			comingSoonLabel.textContent = feature.comingSoon.label;
-			comingSoonHint.textContent = feature.comingSoon.hint;
-			comingSoonWrap.classList.remove("hidden");
-			comingSoonWrap.classList.add("flex");
-		} else {
-			comingSoonWrap?.classList.add("hidden");
-			comingSoonWrap?.classList.remove("flex");
-		}
 	}
 
 	function activate(id) {
@@ -684,14 +654,5 @@ const navHotspots = [
 	@keyframes scroll-hint-fade {
 		0%, 100% { opacity: 0.55; transform: translateY(0); }
 		50% { opacity: 0.9; transform: translateY(-3px); }
-	}
-
-	.coming-soon-chip:hover .coming-soon-tooltip,
-	.coming-soon-chip:focus-visible .coming-soon-tooltip {
-		opacity: 1;
-	}
-
-	#feature-showcase-coming-soon.flex {
-		display: flex;
 	}
 </style>

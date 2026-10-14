@@ -30,10 +30,10 @@ const date = new Intl.DateTimeFormat("en-US", { dateStyle: "long", timeZone: "UT
 				<ul class="mt-10 divide-y divide-line border-t border-b border-line">
 					{posts.map((post) => (
 						<li class="py-6">
-							<a href={`/blog/${post.id}/`} class="font-display text-2xl font-bold tracking-tight text-ink hover:text-accent-700">
+							<a href={`/blog/${post.id}/`} class="font-display text-2xl font-bold tracking-tight text-ink hover:text-accent-800">
 								{post.data.title}
 							</a>
-							<p class="mt-2 text-sm text-ink/50">
+							<p class="mt-2 text-sm text-ink/60">
 								<time datetime={post.data.date.toISOString()}>{date.format(post.data.date)}</time>
 							</p>
 							<p class="mt-2 text-base leading-relaxed text-ink/70">{post.data.description}</p>

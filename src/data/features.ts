@@ -79,8 +79,8 @@ export const features: Feature[] = [
 					"Every review request includes your mailing address and an unsubscribe link, and Morium never emails a customer who unsubscribed. Review requests also wait until you have added your Google review link and a mailing address, so a customer never gets an email that goes nowhere.",
 			},
 			{
-				heading: "What it doesn't do yet",
-				body: "Review requests go out by email. Texting customers from Morium isn't available yet.",
+				heading: "How it is sent",
+				body: "Review requests go out by email.",
 			},
 		],
 		faqs: [
@@ -135,8 +135,8 @@ export const features: Feature[] = [
 				body: "When you approve each one, every reminder shows the customer's email, and a small Edit link lets you fix a name, email, or phone number before you send. The change is saved on the customer's record.",
 			},
 			{
-				heading: "What it doesn't do yet",
-				body: "Reminders go out by email. Texting customers from Morium isn't available yet.",
+				heading: "How it is sent",
+				body: "Reminders go out by email.",
 			},
 		],
 		faqs: [
