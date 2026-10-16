@@ -116,6 +116,14 @@ const websiteText = textOf(home);
 if (!/\$499 website setup fee is a one-time payment/.test(websiteText)) fail("home page: website add-on doesn't say the $499 fee is one-time");
 if (!/\$499 website setup fee is a one-time payment/.test(textOf(htmlOf("terms") || ""))) fail("terms: doesn't say the $499 fee is one-time");
 
+// Promises the legal pages must keep making (added 2026-10-14 after the pre-launch legal audit).
+const privacyText = textOf(htmlOf("privacy") || "");
+if (!/Do Not Track\. We don't track you across other websites/.test(privacyText)) fail("privacy: the Do Not Track statement is missing");
+if (!/Every page of the Morium app, including the login and signup pages and the dashboard, loads its fonts from Google Fonts/.test(privacyText)) fail("privacy: it doesn't say the app's pages load Google Fonts");
+const termsText = textOf(htmlOf("terms") || "");
+if (!/You must have the right to everything you upload/.test(termsText)) fail("terms: the 'what you upload' rights sentence is missing");
+if (!/We can remove an upload that breaks the law or these terms/.test(termsText)) fail("terms: it doesn't say uploads can be removed");
+
 // Blanks in the legal pages ("[FILL IN: ...]") must be filled before the site goes out. A local build only warns, so the
 // pages can still be previewed; a build on Vercel (or with REQUIRE_NO_PLACEHOLDERS=1) fails, so the live site stays as it was.
 const blockPlaceholders = process.env.VERCEL === "1" || process.env.REQUIRE_NO_PLACEHOLDERS === "1";

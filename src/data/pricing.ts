@@ -109,9 +109,9 @@ export const pricingTiers: PricingTier[] = [
 // (this price, no CRM/admin required) or pair it with any CRM tier above at
 // CRM_ADDON_DISCOUNT off (below), or buy CRM alone with no website at all.
 // The three are three separate purchase decisions, not one bundled ladder —
-// see WebsiteAddOn.astro's "Just get started" CTA, which deliberately does
-// NOT point at the CRM pricing/signup flow above; the website build is a
-// real hands-on conversation (Calendly), not instant self-serve checkout.
+// see WebsiteAddOn.astro's CTAs ("Join the waitlist" while sales are paused, and "Book a call" on
+// Calendly), which deliberately do NOT point at the CRM pricing/signup flow above; the website
+// build is a real hands-on conversation, not instant self-serve checkout.
 // Re-priced 2026-09-02: $299/$49 -> $499/$69, per the user's explicit call
 // after reviewing what a real build (Livermore Auto Detailing) actually
 // takes — real content gathering, branding match, photo migration, rate-card

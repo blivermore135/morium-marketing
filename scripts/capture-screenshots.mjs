@@ -1,6 +1,7 @@
-// Retakes the dashboard screenshots on the marketing site from the live Coastal Auto Detailing demo tenant
-// (read-only: it only logs in and looks; nothing is written). Needs Playwright, which lives in the bobsdetailing repo.
-//   node scripts/capture-screenshots.mjs <outDir> [revenue|hero|followups|tabs]
+// Retakes the dashboard screenshots on the marketing site from the live Morium Auto Detailing test tenant
+// (moriumcomp+morium@gmail.com; Coastal Auto Detailing was deleted 2026-10-15). Read-only: it only logs in and looks;
+// nothing is written. Needs Playwright, which lives in the bobsdetailing repo, and the login's password:
+//   SCREENSHOT_PASSWORD='...' node scripts/capture-screenshots.mjs <outDir> [revenue|hero|followups|tabs]
 // Writes 1398x772 JPEGs (the hero ones 1600x741) named like public/images/showcase-*.jpg, and prints where each
 // nav tab sits in the picture (as a percentage) so Features.astro's clickable hotspots can be set from real numbers.
 //
@@ -14,6 +15,11 @@ import path from "node:path";
 const OUT = process.argv[2];
 const ONLY = process.argv[3];
 const BASE = process.env.APP_URL || "https://app.morium.one";
+const PASSWORD = process.env.SCREENSHOT_PASSWORD;
+if (!OUT || !PASSWORD) {
+  console.error("Usage: SCREENSHOT_PASSWORD='...' node scripts/capture-screenshots.mjs <outDir> [revenue|hero|followups|tabs]");
+  process.exit(1);
+}
 fs.mkdirSync(OUT, { recursive: true });
 
 const W = 1398, H = 772;
@@ -24,8 +30,8 @@ async function session(theme, size = { width: W, height: H }) {
   await ctx.addInitScript((t) => { try { localStorage.setItem("bd-theme", t); } catch {} }, theme);
   const page = await ctx.newPage();
   await page.goto(`${BASE}/admin/login`);
-  await page.fill('input[name="email"]', "demo@morium.one");
-  await page.fill('input[name="password"]', "MoriumDemo!2026");
+  await page.fill('input[name="email"]', "moriumcomp+morium@gmail.com");
+  await page.fill('input[name="password"]', PASSWORD);
   await page.getByRole("button", { name: /log in|sign in/i }).click();
   await page.waitForURL(/\/admin\/dashboard/);
   await page.waitForLoadState("networkidle");

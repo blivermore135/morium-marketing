@@ -1,6 +1,6 @@
 ---
 import { websiteAddOn, pricingTiers, CRM_ADDON_DISCOUNT } from "../data/pricing";
-import { WEBSITE_BOOKING_URL, contactMailto, CANCEL_SENTENCE, SETUP_FEE_SENTENCE } from "../data/site";
+import { waitlistMailto, WEBSITE_BOOKING_URL, CANCEL_SENTENCE, SETUP_FEE_SENTENCE, WEBSITE_COMING_SOON } from "../data/site";
 
 const cheapestCrmDiscounted = Math.round(Math.min(...pricingTiers.map((t) => t.monthlyPrice)) * (1 - CRM_ADDON_DISCOUNT));
 ---
@@ -38,7 +38,10 @@ const cheapestCrmDiscounted = Math.round(Math.min(...pricingTiers.map((t) => t.m
 				{CRM_ADDON_DISCOUNT * 100}% off (starting at ${cheapestCrmDiscounted}/mo) since
 				it's already wired into the site we build you.
 			</p>
-			<p class="mt-6 font-body text-2xl font-bold text-ink">
+			<p class="mt-6 text-base font-semibold text-accent-700" data-website-coming-soon>
+				{WEBSITE_COMING_SOON} Websites aren't available to buy yet.
+			</p>
+			<p class="mt-2 font-body text-2xl font-bold text-ink">
 				${websiteAddOn.setupFee} setup <span class="text-ink/60 font-body font-normal text-lg">+</span> ${websiteAddOn.monthlyPrice}/mo
 			</p>
 			<p class="mt-3 max-w-xl text-sm leading-relaxed text-ink/60">
@@ -46,18 +49,23 @@ const cheapestCrmDiscounted = Math.round(Math.min(...pricingTiers.map((t) => t.m
 			</p>
 			<div class="mt-7 flex flex-wrap items-center gap-4">
 				<a
+					href={waitlistMailto("Website add-on")}
+					class="rounded-full bg-ink px-7 py-3.5 text-base font-semibold text-paper transition-transform hover:scale-[1.03]"
+				>
+					Join the waitlist →
+				</a>
+				<a
 					href={WEBSITE_BOOKING_URL}
 					target="_blank"
 					rel="noopener noreferrer"
-					class="rounded-full bg-ink px-7 py-3.5 text-base font-semibold text-paper transition-transform hover:scale-[1.03]"
+					class="rounded-full border border-ink/15 px-7 py-3.5 text-base font-semibold text-ink transition-colors hover:border-ink/30"
 				>
-					Just get started →
+					Book a call
 				</a>
 			</div>
 			<p class="mt-4 text-sm text-ink/60">
-				That books a real conversation. Every build starts with actually talking
-				through your business. Prefer email? Reach out at{" "}
-				<a href={contactMailto("Website inquiry")} class="font-semibold text-accent-700 hover:text-accent-800">moriumcomp@gmail.com</a>.
+				Join the waitlist by email and we'll write back when websites open up, or book a
+				call to talk it through. Every build starts with actually talking through your business.
 			</p>
 		</div>
 

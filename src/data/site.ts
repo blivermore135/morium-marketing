@@ -29,6 +29,10 @@ export function waitlistMailto(tradeName: string): string {
 	return contactMailto(`Waitlist: ${tradeName}`);
 }
 
+// Website add-on sales are paused (2026-10-15). The price stays up, with this said next to it. The in-app
+// version of this sentence is WEBSITE_COMING_SOON in bobsdetailing/src/lib/websiteSales.js: keep them the same.
+export const WEBSITE_COMING_SOON = "Coming soon: join the waitlist.";
+
 // Said word for word wherever cancelling comes up: pricing, the website add-on, the terms, the FAQ, and the app's
 // cancel screens. If you change this, change it in the app too (bobsdetailing/shared/cancellation.js).
 export const CANCEL_SENTENCE =
