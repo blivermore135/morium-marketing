@@ -1,5 +1,5 @@
 // Runs after the build (npm run build). Fails if the built site is wrong in a way a visitor would notice:
-//  - a page that should exist is missing, or an unpublished page (about) got out
+//  - a page that should exist is missing, or an unpublished page (none right now) got out
 //  - an internal link or image points at nothing
 //  - the prices on the pricing page don't match src/data/pricing.ts
 //  - the cancellation sentence is missing where it has to be said, or the $499 fee isn't called one-time
@@ -35,19 +35,23 @@ function walk(dir) {
 
 // Pages
 const featureSlugs = ["google-review-requests", "rebook-reminders", "online-booking", "invoicing-and-payments", "customer-history", "vehicle-size-pricing"];
-const alwaysPages = ["", "pricing", "mobile-detailing-software", "features", ...featureSlugs.map((s) => `features/${s}`), "terms", "privacy", "tools/detailing-price-calculator", "blog", "compare", "compare/morium-vs-urable", "compare/morium-vs-quoteiq", "compare/morium-vs-jobber", "compare/morium-vs-mobile-tech-rx"];
-const draftPages = ["about"];
+const alwaysPages = ["", "pricing", "mobile-detailing-software", "features", ...featureSlugs.map((s) => `features/${s}`), "terms", "privacy", "tools/detailing-price-calculator", "blog", "compare", "compare/morium-vs-urable", "compare/morium-vs-quoteiq", "compare/morium-vs-jobber", "compare/morium-vs-mobile-tech-rx", "about"];
+// Pages built but not published yet (see src/data/publish.ts). None right now: /about was published on 2026-10-15.
+// To hold a page back again, move it here: the checks below then fail if it, a link to it, or a sitemap entry gets out.
+const draftPages = [];
 for (const route of alwaysPages) if (!htmlOf(route)) fail(`missing page: /${route}`);
 for (const route of draftPages) {
   const exists = !!htmlOf(route);
   if (SHOW_DRAFTS && !exists) fail(`draft page not built with PUBLIC_SHOW_DRAFTS=1: /${route}`);
   if (!SHOW_DRAFTS && exists) fail(`unpublished page is in the build: /${route}`);
 }
-if (!SHOW_DRAFTS) {
+if (!SHOW_DRAFTS && draftPages.length) {
   for (const f of walk("dist").filter((f) => /\.(html|xml)$/.test(f))) {
     const body = read(f);
-    if (/href="\/about(\/|")/.test(body)) fail(`${f}: links to an unpublished page`);
-    if (/<loc>[^<]*\/about/.test(body)) fail(`${f}: sitemap lists an unpublished page`);
+    for (const route of draftPages) {
+      if (new RegExp(`href="/${route}(/|")`).test(body)) fail(`${f}: links to an unpublished page`);
+      if (new RegExp(`<loc>[^<]*/${route}`).test(body)) fail(`${f}: sitemap lists an unpublished page`);
+    }
   }
 }
 

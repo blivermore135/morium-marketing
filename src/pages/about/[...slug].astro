@@ -1,6 +1,7 @@
 ---
-// /about. Built, but NOT published: it waits for the founder story and photos (src/data/publish.ts). With about
-// unpublished, getStaticPaths is empty, so the page isn't built, linked, or in the sitemap.
+// /about: the founder story, in Brock's own words (do not reword it). Built, but NOT published until the owner says
+// so (src/data/publish.ts). With about unpublished, getStaticPaths is empty, so the page isn't built, linked, or in
+// the sitemap. Photos are in public/images (about-*.jpg), compressed, with the license plate blurred.
 import Layout from "../../layouts/Layout.astro";
 import Header from "../../components/Header.astro";
 import Footer from "../../components/Footer.astro";
@@ -24,27 +25,98 @@ const aboutSchema = {
 
 <Layout
 	title="About Morium and Its Founder | Morium"
-	description="Morium was built by Brock Livermore, who ran a mobile detailing business and wanted one simple tool for bookings, reviews, and repeat customers."
+	description="Morium was built by Brock Livermore, a detailer who lost track of his own day and built the tool he wished he'd had."
 	jsonLd={[aboutSchema]}
 >
 	<Header />
 	<main class="mx-auto max-w-5xl px-6 py-16 lg:px-8">
 		<Breadcrumb items={[{ name: "Home", href: "/" }, { name: "About" }]} />
-		<h1 class="mt-6 font-display text-4xl font-bold tracking-tight text-ink sm:text-5xl">Why I built Morium</h1>
+		<h1 class="mt-6 max-w-3xl font-display text-4xl leading-[1.1] font-bold tracking-tight text-ink sm:text-5xl">
+			Built by a detailer who lost track of his own day.
+		</h1>
 
-		<div class="mt-12 grid items-start gap-12 lg:grid-cols-[320px_1fr]">
-			<figure>
-				<img src="/images/founder-brock.png" alt="Brock Livermore, founder of Morium" class="w-full rounded-2xl object-cover" />
-				<figcaption class="mt-3 text-sm text-ink/60">Brock Livermore, founder</figcaption>
-			</figure>
-			<div class="space-y-5 text-lg leading-relaxed text-ink/75">
-				{/* FOUNDER STORY GOES HERE: the owner will send the text. Photos go in public/images. */}
+		<div class="mt-12 grid items-start gap-12 lg:grid-cols-[1fr_340px]">
+			<div class="max-w-2xl space-y-5 text-lg leading-relaxed text-ink/75">
 				<p>
-					I ran Livermore Auto Detailing, a mobile detailing business, and got tired of juggling texts,
-					spreadsheets, and missed follow-ups. I built Morium to run my own business, then realized every
-					detailer deserves the same thing.
+					I started detailing in 2024, picking up a few jobs here and there. By the summer of 2025 it had
+					turned into a real side business, and this past summer I did it full time.
+				</p>
+				<p>
+					I began as an independent contractor, bringing my own supplies to other people's jobs. A few weeks
+					in, I went out on my own as Livermore Auto Detailing and started running my own Google Local
+					Services ads to find customers.
+				</p>
+				<p>
+					That's when the work picked up, and the business side got messy. Some days I had three details
+					booked and no clear picture of my day. Which address was first? Was this one an interior, a full
+					detail, or a quick wash? What did the customer ask for when they booked? It all lived in texts,
+					notes and my memory, and that's how things slip.
 				</p>
 			</div>
+			<figure>
+				<img
+					src="/images/about-pressure-washing.jpg"
+					alt="Pressure washing a car in a sunny driveway on an autumn afternoon, with the spray catching the light."
+					width="1000"
+					height="1500"
+					class="aspect-[4/5] w-full rounded-2xl object-cover"
+				/>
+			</figure>
+		</div>
+
+		<div class="mt-12 max-w-2xl space-y-5 text-lg leading-relaxed text-ink/75">
+			<p class="font-display text-3xl font-bold text-ink">So I built Morium.</p>
+			<p>
+				Morium is the tool I wish I'd had that summer. Every job sits in one place, with the address, the
+				service, the price and the customer's notes. Customers can request a booking from your link at any
+				hour. Reminders go out on their own, so people are home when you pull up. When the job is done, you
+				send an invoice they can pay by card, and Morium can follow up for a review or a rebook.
+			</p>
+		</div>
+
+		<figure class="mt-12">
+			<img
+				src="/images/about-steam-interior.jpg"
+				alt="Steam rising off a car's interior door panel as it is steam cleaned, next to tan leather trim."
+				width="1100"
+				height="1100"
+				loading="lazy"
+				decoding="async"
+				class="aspect-[16/9] w-full rounded-2xl object-cover object-[center_45%]"
+			/>
+		</figure>
+
+		<div class="mt-12 grid items-start gap-12 lg:grid-cols-[1fr_340px]">
+			<div class="max-w-2xl space-y-5 text-lg leading-relaxed text-ink/75">
+				<p>
+					I kept it simple on purpose. A solo detailer gets everything on one easy plan, and a growing crew
+					can add team members and roles when they need them. Morium is built for detailers first, with
+					other service businesses coming next.
+				</p>
+				<p>
+					Today I'm an entrepreneurship student at the University of Oklahoma, building Morium for
+					detailers like me.
+				</p>
+				<p>
+					When you open Morium, I want you to feel at ease. Your day is organized, your customers are
+					reminded, and you can get back to the part of the job you actually enjoy.
+				</p>
+				<div class="pt-4">
+					<p class="font-semibold text-ink">Brock Livermore</p>
+					<p class="text-base text-ink/60">Founder, Morium</p>
+				</div>
+			</div>
+			<figure>
+				<img
+					src="/images/about-driveway.jpg"
+					alt="A person seen from behind pressure washing a light-colored car in a driveway, with a basketball hoop and autumn trees behind."
+					width="1000"
+					height="1500"
+					loading="lazy"
+					decoding="async"
+					class="aspect-[4/5] w-full rounded-2xl object-cover"
+				/>
+			</figure>
 		</div>
 	</main>
 	<FinalCTA />
