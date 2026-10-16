@@ -2,7 +2,7 @@
 import { SIGNUP_URL } from "../data/site";
 ---
 
-<section class="relative overflow-hidden px-6 pt-16 pb-24 lg:px-8 lg:pt-24 lg:pb-32">
+<section class="relative overflow-hidden px-6 pt-10 pb-24 sm:pt-16 lg:px-8 lg:pt-24 lg:pb-32">
 	<!-- vibrant background glow -->
 	<div
 		class="pointer-events-none absolute -top-32 right-[-10%] h-[36rem] w-[36rem] rounded-full bg-accent-300/40 blur-[110px]"
@@ -18,21 +18,18 @@ import { SIGNUP_URL } from "../data/site";
 	<div class="relative mx-auto grid max-w-7xl items-center gap-16 lg:grid-cols-[1fr_1.25fr]">
 		<div>
 			<span
-				class="inline-flex items-center rounded-full border border-accent-300 bg-accent-50 px-4 py-1.5 text-xs font-semibold tracking-wide text-accent-700 uppercase"
+				class="inline-flex items-center rounded-full border border-accent-300 bg-accent-50 px-4 py-1.5 text-xs font-semibold tracking-wide whitespace-nowrap text-accent-700 uppercase"
 			>
-				Booking, reviews, invoices, and payments in one place
+				<span class="sm:hidden">Booking, invoices, and reviews</span>
+				<span class="hidden sm:inline">Booking, reviews, invoices, and payments in one place</span>
 			</span>
 
-			<h1 class="mt-6 font-display text-5xl leading-[1.05] font-bold tracking-tight text-ink sm:text-6xl">
+			<!-- The teal bar is drawn under "missed text" with its own box (.headline-mark) instead of hanging
+			     off the text's line box, and the lines have room between them, so the bar can never reach the
+			     letters of the line below. The last phrase stays together so no word is left alone. -->
+			<h1 class="mt-5 font-display text-[2.5rem] leading-[1.18] font-bold tracking-tight text-balance text-ink sm:mt-6 sm:text-6xl sm:leading-[1.12]">
 				Never lose a booking to a{" "}
-				<span class="relative whitespace-nowrap">
-					<span class="relative z-10">missed text</span>
-					<span
-						class="absolute inset-x-0 -bottom-1 z-0 h-1.5 rounded-full bg-accent-400"
-						aria-hidden="true"
-					></span>
-				</span>{" "}
-				again.
+				<span class="whitespace-nowrap"><span class="headline-mark">missed text</span>{" "}again.</span>
 			</h1>
 
 			<p class="mt-6 max-w-xl text-lg leading-relaxed text-ink/70">
@@ -40,24 +37,26 @@ import { SIGNUP_URL } from "../data/site";
 				bookings online, and sends invoices. Built for mobile detailers.
 			</p>
 
-			<div class="mt-9 flex flex-wrap items-center gap-4">
+			<div class="mt-7 flex flex-col gap-3 sm:mt-9 sm:flex-row sm:flex-wrap sm:items-center sm:gap-4">
 				<a
 					href={SIGNUP_URL}
-					class="rounded-full bg-accent-500 px-7 py-3.5 text-base font-semibold text-ink shadow-[0_8px_24px_-6px_rgba(0,194,199,0.55)] transition-transform hover:scale-[1.03]"
+					class="flex h-14 w-full items-center justify-center rounded-full bg-accent-500 px-7 text-base font-semibold text-ink shadow-[0_8px_24px_-6px_rgba(0,194,199,0.55)] transition-transform hover:scale-[1.03] sm:inline-flex sm:h-auto sm:w-auto sm:py-3.5"
 				>
-					Start Free Trial
+					Start free trial
 				</a>
 				<a
 					href="/features"
-					class="rounded-full border border-ink/15 px-7 py-3.5 text-base font-semibold text-ink transition-colors hover:border-ink/30"
+					class="flex h-14 w-full items-center justify-center rounded-full border border-ink/15 px-7 text-base font-semibold text-ink transition-colors hover:border-ink/30 sm:inline-flex sm:h-auto sm:w-auto sm:py-3.5"
 				>
 					See how it works →
 				</a>
 			</div>
-			<p class="mt-4 text-sm text-ink/60">
-				14-day free trial
-				<span class="mx-1.5">·</span>
-				<a href="#website" class="font-semibold text-accent-700 hover:text-accent-800">
+			<!-- On a phone each line stands alone, with room under the last one so Safari's bottom bar
+			     never sits on top of the waitlist link. -->
+			<p class="mt-4 pb-6 text-center text-sm text-ink/60 sm:pb-0 sm:text-left">
+				<span class="block sm:inline">14-day free trial</span>
+				<span class="mx-1.5 hidden sm:inline">·</span>
+				<a href="#website" class="mt-1 block font-semibold text-accent-700 hover:text-accent-800 sm:mt-0 sm:inline">
 					Websites are coming soon: join the waitlist →
 				</a>
 			</p>
@@ -256,6 +255,24 @@ import { SIGNUP_URL } from "../data/site";
 </script>
 
 <style>
+	/* "missed text" with its teal underline. The bar has its own box: a hair under the letters, thin, and
+	   behind them. The headline's line height leaves more than the bar's depth before the next line starts. */
+	.headline-mark {
+		position: relative;
+		display: inline-block;
+		line-height: 1;
+	}
+	.headline-mark::after {
+		content: "";
+		position: absolute;
+		left: 0;
+		right: 0;
+		bottom: -0.06em;
+		height: 0.09em;
+		border-radius: 9999px;
+		background: var(--color-accent-400);
+		z-index: -1;
+	}
 	.hero-scroll-hint-badge {
 		animation: hero-scroll-hint-fade 2.4s ease-in-out infinite;
 	}

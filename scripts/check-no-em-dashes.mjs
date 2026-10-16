@@ -1,10 +1,12 @@
-// Runs after the build (npm run build). Fails if an em dash (the long dash) is in anything a visitor can read:
+// Runs after the build (npm run build). Fails if an em dash (the long dash) or an en dash (the medium one, as in
+// "14–day") is in anything a visitor can read:
 // the built pages and files in dist/ (words, titles, descriptions, structured data), and the source text.
 // Code comments may use them. Use a period, a comma, a colon or "to" instead.
 import fs from "node:fs";
 import path from "node:path";
 
-const DASH = String.fromCharCode(0x2014);
+// Both long dashes (written as character codes so this file has none in it). A plain hyphen is fine.
+const DASH = new RegExp(`[${String.fromCharCode(0x2013)}${String.fromCharCode(0x2014)}]`);
 const problems = [];
 
 function walk(dir, skip = []) {
@@ -20,7 +22,7 @@ for (const file of walk("dist", ["_astro"]).filter((f) => /\.(html|xml|txt)$/.te
   const html = fs.readFileSync(file, "utf8")
     .replace(/<!--[\s\S]*?-->/g, " ")
     .replace(/<(script|style)[\s\S]*?<\/\1>/gi, (block) => (/ld\+json/.test(block) ? block : " "));
-  const at = html.indexOf(DASH);
+  const at = html.search(DASH);
   if (at >= 0) problems.push(`${file}: ...${html.slice(Math.max(0, at - 50), at + 50).replace(/\s+/g, " ")}...`);
 }
 
@@ -51,12 +53,12 @@ for (const file of walk("src").filter((f) => /\.(astro|ts|js|mjs)$/.test(f))) {
       out += rest;
       break;
     }
-    if (out.includes(DASH)) problems.push(`${file}:${i + 1}: ${raw.trim().slice(0, 120)}`);
+    if (DASH.test(out)) problems.push(`${file}:${i + 1}: ${raw.trim().slice(0, 120)}`);
   });
 }
 
 if (problems.length) {
-  console.error(`\nEm dash found (${problems.length}). Rewrite without it (period, comma, colon or "to"):\n` + problems.join("\n"));
+  console.error(`\nEm dash or en dash found (${problems.length}). Rewrite without it (period, comma, colon or "to"):\n` + problems.join("\n"));
   process.exit(1);
 }
-console.log("No em dashes in readable text.");
+console.log("No em dashes or en dashes in readable text.");

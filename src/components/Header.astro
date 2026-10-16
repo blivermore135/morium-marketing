@@ -13,9 +13,11 @@ const navLinks = [
 ---
 
 <header class="sticky top-0 z-50 border-b border-line bg-paper/90 backdrop-blur">
-	<div class="mx-auto flex max-w-7xl items-center justify-between px-6 py-4 lg:px-8">
-		<a href="/" class="flex items-center gap-2 font-display text-xl font-bold tracking-tight text-ink">
-			<img src="/images/morium-icon.png" alt="" class="h-8 w-auto" />
+	<div class="mx-auto flex max-w-7xl items-center justify-between gap-2 px-4 py-3 sm:px-6 sm:py-4 lg:px-8">
+		<a href="/" class="flex shrink-0 items-center font-display text-lg font-bold tracking-tight text-ink sm:text-xl">
+			<!-- The wings file has empty glow space on both sides, so it is pulled in next to the name. A faint
+			     shadow and a taller size keep the pale wings easy to see on a phone. -->
+			<img src="/images/morium-icon.png" alt="" class="-mr-2.5 h-9 w-auto drop-shadow-[0_1px_1.5px_rgba(10,70,140,0.4)] max-[349px]:h-8 sm:-mr-1" />
 			Morium
 		</a>
 
@@ -30,7 +32,7 @@ const navLinks = [
 			))}
 		</nav>
 
-		<div class="flex items-center gap-3 sm:gap-4">
+		<div class="flex items-center gap-2 sm:gap-4">
 			<a
 				href={LOGIN_URL}
 				class="text-sm font-semibold whitespace-nowrap text-ink/80 hover:text-ink"
@@ -39,9 +41,9 @@ const navLinks = [
 			</a>
 			<a
 				href={SIGNUP_URL}
-				class="rounded-full bg-ink px-4 py-2.5 text-sm font-semibold whitespace-nowrap text-paper transition-transform hover:scale-[1.03] sm:px-5"
+				class="rounded-full bg-ink px-3 py-2.5 text-[13px] font-semibold whitespace-nowrap text-paper transition-transform hover:scale-[1.03] max-[349px]:px-2.5 max-[349px]:text-xs sm:px-5 sm:text-sm"
 			>
-				Get started
+				Start free trial
 			</a>
 		</div>
 	</div>
