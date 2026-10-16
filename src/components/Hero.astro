@@ -2,7 +2,7 @@
 import { SIGNUP_URL } from "../data/site";
 ---
 
-<section class="relative overflow-hidden px-6 pt-10 pb-24 sm:pt-16 lg:px-8 lg:pt-24 lg:pb-32">
+<section class="relative overflow-hidden px-6 pt-6 pb-24 sm:pt-16 lg:px-8 lg:pt-24 lg:pb-32">
 	<!-- vibrant background glow -->
 	<div
 		class="pointer-events-none absolute -top-32 right-[-10%] h-[36rem] w-[36rem] rounded-full bg-accent-300/40 blur-[110px]"
@@ -16,7 +16,7 @@ import { SIGNUP_URL } from "../data/site";
 	</div>
 
 	<div class="relative mx-auto grid max-w-7xl items-center gap-16 lg:grid-cols-[1fr_1.25fr]">
-		<div>
+		<div class="hero-copy">
 			<span
 				class="inline-flex items-center rounded-full border border-accent-300 bg-accent-50 px-4 py-1.5 text-xs font-semibold tracking-wide whitespace-nowrap text-accent-700 uppercase"
 			>
@@ -24,42 +24,57 @@ import { SIGNUP_URL } from "../data/site";
 				<span class="hidden sm:inline">Booking, reviews, invoices, and payments in one place</span>
 			</span>
 
-			<!-- The teal bar is drawn under "missed text" with its own box (.headline-mark) instead of hanging
-			     off the text's line box, and the lines have room between them, so the bar can never reach the
-			     letters of the line below. The last phrase stays together so no word is left alone. -->
-			<h1 class="mt-5 font-display text-[2.5rem] leading-[1.18] font-bold tracking-tight text-balance text-ink sm:mt-6 sm:text-6xl sm:leading-[1.12]">
-				Never lose a booking to a{" "}
-				<span class="whitespace-nowrap"><span class="headline-mark">missed text</span>{" "}again.</span>
+			<!-- The teal bar is drawn under "book online" with its own box (.headline-mark) instead of hanging off the
+			     text's line box, and the lines have room between them, so the bar can never reach the letters of the
+			     line below. The last words stay together so no word is left alone. -->
+			<h1 class="headline mt-5 font-display leading-[1.22] font-bold tracking-tight text-balance text-ink sm:mt-6 sm:leading-[1.15]">
+				<span class="block whitespace-nowrap">Customers <span class="headline-mark">book online</span>.</span>
+				<span class="block">You get paid <span class="whitespace-nowrap">and get reviewed.</span></span>
 			</h1>
 
-			<p class="mt-6 max-w-xl text-lg leading-relaxed text-ink/70">
+			<p class="mt-4 max-w-xl text-base leading-relaxed text-ink/70 sm:mt-6 sm:text-lg">
 				Morium writes your Google review requests and rebook reminders, takes
 				bookings online, and sends invoices. Built for mobile detailers.
 			</p>
 
-			<div class="mt-7 flex flex-col gap-3 sm:mt-9 sm:flex-row sm:flex-wrap sm:items-center sm:gap-4">
+			<div class="mt-5 flex flex-col gap-2.5 sm:mt-9 sm:flex-row sm:flex-wrap sm:items-center sm:gap-4">
 				<a
 					href={SIGNUP_URL}
-					class="flex h-14 w-full items-center justify-center rounded-full bg-accent-500 px-7 text-base font-semibold text-ink shadow-[0_8px_24px_-6px_rgba(0,194,199,0.55)] transition-transform hover:scale-[1.03] sm:inline-flex sm:h-auto sm:w-auto sm:py-3.5"
+					class="flex h-11 w-full items-center justify-center rounded-full bg-accent-500 px-7 text-base font-semibold text-ink shadow-[0_8px_24px_-6px_rgba(0,194,199,0.55)] transition-transform hover:scale-[1.03] sm:inline-flex sm:h-auto sm:w-auto sm:py-3.5"
 				>
 					Start free trial
 				</a>
 				<a
 					href="/features"
-					class="flex h-14 w-full items-center justify-center rounded-full border border-ink/15 px-7 text-base font-semibold text-ink transition-colors hover:border-ink/30 sm:inline-flex sm:h-auto sm:w-auto sm:py-3.5"
+					class="flex h-11 w-full items-center justify-center rounded-full border border-ink/15 px-7 text-base font-semibold text-ink transition-colors hover:border-ink/30 sm:inline-flex sm:h-auto sm:w-auto sm:py-3.5"
 				>
 					See how it works →
 				</a>
 			</div>
-			<!-- On a phone each line stands alone, with room under the last one so Safari's bottom bar
-			     never sits on top of the waitlist link. -->
-			<p class="mt-4 pb-6 text-center text-sm text-ink/60 sm:pb-0 sm:text-left">
+			<!-- On a phone each line stands alone, high enough on the screen that Safari's bottom bar never covers the
+			     waitlist link. -->
+			<p class="mt-3 text-center text-sm text-ink/60 sm:mt-4 sm:text-left">
 				<span class="block sm:inline">14-day free trial</span>
 				<span class="mx-1.5 hidden sm:inline">·</span>
 				<a href="#website" class="mt-1 block font-semibold text-accent-700 hover:text-accent-800 sm:mt-0 sm:inline">
 					Websites are coming soon: join the waitlist →
 				</a>
 			</p>
+
+			<!-- Phones only (the wide dashboard picture below is for bigger screens). A real capture of the Follow-ups tab
+			     from the Coastal Auto Detailing demo business: made-up customers, nothing that isn't built. -->
+			<figure class="mt-8 flex flex-col items-center sm:hidden">
+				<div class="w-[72%] max-w-[17rem] overflow-hidden rounded-[2rem] border-[7px] border-ink bg-ink shadow-[0_30px_60px_-20px_rgba(0,40,45,0.35)]">
+					<img
+						src="/images/app-followups-phone.jpg"
+						width="780"
+						height="1520"
+						alt="The Follow-ups tab in the Morium app on a phone: a ready-to-send review request for a customer, with a Send by choice of email or text"
+						class="block aspect-[390/600] w-full object-cover object-top"
+					/>
+				</div>
+				<figcaption class="mt-3 text-center text-xs text-ink/60">The Follow-ups tab, shown with a demo business.</figcaption>
+			</figure>
 		</div>
 
 		<div class="relative">
@@ -255,11 +270,21 @@ import { SIGNUP_URL } from "../data/site";
 </script>
 
 <style>
-	/* "missed text" with its teal underline. The bar has its own box: a hair under the letters, thin, and
+	/* The text column is a size container, and the headline is sized from its width, so the first sentence
+	   ("Customers book online.") always fills exactly one line and never leaves "Customers" alone. The number is how
+	   many font-sizes wide that sentence is (7.75, measured), with a little to spare. */
+	.hero-copy {
+		container-type: inline-size;
+	}
+	.headline {
+		font-size: min(3.75rem, calc(100cqw / 8.3));
+	}
+	/* "book online" with its teal underline. The bar has its own box: a hair under the letters, thin, and
 	   behind them. The headline's line height leaves more than the bar's depth before the next line starts. */
 	.headline-mark {
 		position: relative;
 		display: inline-block;
+		white-space: nowrap;
 		line-height: 1;
 	}
 	.headline-mark::after {
