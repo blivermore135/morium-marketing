@@ -7,12 +7,12 @@
   },
   "scripts": {
     "dev": "astro dev",
-    "build": "node --test scripts/test-price-calculator.mjs && astro build && node scripts/check-no-em-dashes.mjs && node scripts/check-site.mjs && node scripts/check-sentence-spacing.mjs",
+    "build": "node --test scripts/test-price-calculator.mjs scripts/test-waitlist-form.mjs && astro build && node scripts/check-no-em-dashes.mjs && node scripts/check-site.mjs && node scripts/check-sentence-spacing.mjs",
     "preview": "astro preview",
     "astro": "astro",
     "check:dashes": "node scripts/check-no-em-dashes.mjs",
     "check:site": "node scripts/check-site.mjs",
-    "test": "node --test scripts/test-price-calculator.mjs"
+    "test": "node --test scripts/test-price-calculator.mjs scripts/test-waitlist-form.mjs"
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.7.4",

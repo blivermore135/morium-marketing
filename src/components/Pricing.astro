@@ -1,6 +1,6 @@
 ---
 import { pricingTiers, websiteAddOn } from "../data/pricing";
-import { SIGNUP_URL, CANCEL_SENTENCE, waitlistMailto } from "../data/site";
+import { SIGNUP_URL, CANCEL_SENTENCE, WAITLIST_URL } from "../data/site";
 
 interface Props {
 	/** The /pricing page has its own H1, so the section heading is skipped there. */
@@ -88,7 +88,7 @@ const listedTiers = pricingTiers.filter((tier) => tier.listed !== false);
 			<p>Planned price: ${websiteAddOn.setupFee} one-time setup, then ${websiteAddOn.monthlyPrice}/mo.</p>
 		</div>
 		<a
-			href={waitlistMailto("Website add-on")}
+			href={WAITLIST_URL}
 			class="inline-block rounded-full border border-ink/15 px-6 py-3 text-sm font-semibold text-accent-700 transition-colors hover:border-ink/30 hover:text-accent-800"
 		>
 			Join the waitlist →

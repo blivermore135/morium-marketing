@@ -22,7 +22,15 @@ export function contactMailto(subject: string): string {
 	return `mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent(subject)}`;
 }
 
-// Used for "coming soon" trades that don't have a real waitlist system yet
+// The website add-on waitlist is a real form (2026-10-19): every website "Join the waitlist" button goes to WAITLIST_URL.
+// The form posts to the app, which saves the sign-up on the same list as the Settings button (shown on /admin/platform).
+// The site key is public by design (it is also printed on the app's own sign-up page); the secret stays in the app.
+// The Turnstile widget in Cloudflare must list morium.one and www.morium.one, or every answer fails.
+export const WAITLIST_URL = "/waitlist";
+export const WAITLIST_ENDPOINT = `${APP_URL}/api/public/website-waitlist`;
+export const TURNSTILE_SITE_KEY = "0x4AAAAAAFXwWZTGF7r4w_GC";
+
+// Used only for the "coming soon" trades (lawn care and so on), which don't have a waitlist form yet
 // — a mailto is the honest option here (no fake page, no fabricated form)
 // until there's an actual backend to capture interest.
 export function waitlistMailto(tradeName: string): string {

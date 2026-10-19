@@ -9,7 +9,7 @@ import { faqs } from "../data/faqs";
 import { websiteAddOn } from "../data/pricing";
 import { bookingCostRows, AS_OF } from "../data/compare";
 import { published } from "../data/publish";
-import { CANCEL_SENTENCE, SETUP_FEE_SENTENCE, WEBSITE_COMING_SOON, waitlistMailto } from "../data/site";
+import { CANCEL_SENTENCE, SETUP_FEE_SENTENCE, WEBSITE_COMING_SOON, WAITLIST_URL } from "../data/site";
 
 const ORIGIN = "https://www.morium.one";
 const pricingFaqs = faqs.filter((f) => ["Do I need a card to get started?", "Can I cancel?"].includes(f.q));
@@ -66,7 +66,7 @@ const breadcrumb = {
 			<p class="mt-4 text-base leading-relaxed text-ink/70">
 				<strong class="text-ink" data-website-coming-soon>{WEBSITE_COMING_SOON}</strong> Websites aren't available to buy yet. We'll build you a real website with a gallery, your service areas, and your booking form. The planned price is ${websiteAddOn.setupFee} to set up, then ${websiteAddOn.monthlyPrice} a month. {SETUP_FEE_SENTENCE} {CANCEL_SENTENCE}
 			</p>
-			<a href={waitlistMailto("Website add-on")} class="mt-4 inline-block text-sm font-semibold text-accent-700 hover:text-accent-800">Join the waitlist →</a>
+			<a href={WAITLIST_URL} class="mt-4 inline-block text-sm font-semibold text-accent-700 hover:text-accent-800">Join the waitlist →</a>
 		</section>
 
 		{published.compare && (

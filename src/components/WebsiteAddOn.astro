@@ -1,6 +1,6 @@
 ---
 import { websiteAddOn, pricingTiers, CRM_ADDON_DISCOUNT } from "../data/pricing";
-import { waitlistMailto, WEBSITE_BOOKING_URL, CANCEL_SENTENCE, SETUP_FEE_SENTENCE, WEBSITE_COMING_SOON } from "../data/site";
+import { WAITLIST_URL, WEBSITE_BOOKING_URL, CANCEL_SENTENCE, SETUP_FEE_SENTENCE, WEBSITE_COMING_SOON } from "../data/site";
 
 const cheapestCrmDiscounted = Math.round(Math.min(...pricingTiers.map((t) => t.monthlyPrice)) * (1 - CRM_ADDON_DISCOUNT));
 ---
@@ -49,7 +49,7 @@ const cheapestCrmDiscounted = Math.round(Math.min(...pricingTiers.map((t) => t.m
 			</p>
 			<div class="mt-7 flex flex-wrap items-center gap-4">
 				<a
-					href={waitlistMailto("Website add-on")}
+					href={WAITLIST_URL}
 					class="rounded-full bg-ink px-7 py-3.5 text-base font-semibold text-paper transition-transform hover:scale-[1.03]"
 				>
 					Join the waitlist →
@@ -64,7 +64,7 @@ const cheapestCrmDiscounted = Math.round(Math.min(...pricingTiers.map((t) => t.m
 				</a>
 			</div>
 			<p class="mt-4 text-sm text-ink/60">
-				Join the waitlist by email and we'll write back when websites open up, or book a
+				Join the waitlist and we'll write back when websites open up, or book a
 				call to talk it through. Every build starts with actually talking through your business.
 			</p>
 		</div>

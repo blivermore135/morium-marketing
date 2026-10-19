@@ -35,7 +35,7 @@ function walk(dir) {
 
 // Pages
 const featureSlugs = ["google-review-requests", "rebook-reminders", "online-booking", "invoicing-and-payments", "customer-history", "vehicle-size-pricing"];
-const alwaysPages = ["", "pricing", "mobile-detailing-software", "features", ...featureSlugs.map((s) => `features/${s}`), "terms", "privacy", "tools/detailing-price-calculator", "blog", "compare", "compare/morium-vs-urable", "compare/morium-vs-quoteiq", "compare/morium-vs-jobber", "compare/morium-vs-mobile-tech-rx", "about"];
+const alwaysPages = ["", "pricing", "mobile-detailing-software", "features", ...featureSlugs.map((s) => `features/${s}`), "terms", "privacy", "tools/detailing-price-calculator", "blog", "compare", "compare/morium-vs-urable", "compare/morium-vs-quoteiq", "compare/morium-vs-jobber", "compare/morium-vs-mobile-tech-rx", "about", "waitlist"];
 // Pages built but not published yet (see src/data/publish.ts). None right now: /about was published on 2026-10-15.
 // To hold a page back again, move it here: the checks below then fail if it, a link to it, or a sitemap entry gets out.
 const draftPages = [];
@@ -127,6 +127,50 @@ if (!/Every page of the Morium app, including the login and signup pages and the
 const termsText = textOf(htmlOf("terms") || "");
 if (!/You must have the right to everything you upload/.test(termsText)) fail("terms: the 'what you upload' rights sentence is missing");
 if (!/We can remove an upload that breaks the law or these terms/.test(termsText)) fail("terms: it doesn't say uploads can be removed");
+
+// The public website waitlist form (/waitlist) and every button that leads to it (added 2026-10-19).
+const waitlistHtml = htmlOf("waitlist") || "";
+const siteKey = /TURNSTILE_SITE_KEY = "([^"]+)"/.exec(read("src/data/site.ts"))?.[1];
+if (!siteKey) fail("src/data/site.ts has no TURNSTILE_SITE_KEY");
+if (!waitlistHtml.includes(`data-site-key="${siteKey}"`)) fail("/waitlist: the Turnstile site key is missing from the page");
+if (!waitlistHtml.includes('data-endpoint="https://app.morium.one/api/public/website-waitlist"')) fail("/waitlist: the form does not post to the app's waitlist endpoint");
+for (const [name, type, autocomplete] of [["name", "text", "name"], ["businessName", "text", "organization"], ["email", "email", "email"], ["phone", "tel", "tel"]]) {
+  const tag = new RegExp(`<input[^>]*name="${name}"[^>]*>`).exec(waitlistHtml)?.[0] || "";
+  if (!tag) {
+    fail(`/waitlist: no ${name} box`);
+    continue;
+  }
+  if (!tag.includes(`type="${type}"`)) fail(`/waitlist: the ${name} box is not type="${type}"`);
+  if (!tag.includes(`autocomplete="${autocomplete}"`)) fail(`/waitlist: the ${name} box has no autocomplete="${autocomplete}"`);
+  const required = /\brequired\b/.test(tag);
+  if (name === "phone" && required) fail("/waitlist: the phone box must be optional");
+  if (name !== "phone" && !required) fail(`/waitlist: the ${name} box must be required`);
+}
+// The bot trap: present, empty, off the screen, out of the tab order, hidden from screen readers.
+const trapTag = /<input[^>]*name="company_website"[^>]*>/.exec(waitlistHtml)?.[0] || "";
+const trapBox = /<div[^>]*data-waitlist-trap[^>]*>/.exec(waitlistHtml)?.[0] || "";
+if (!trapTag) fail("/waitlist: the hidden bot-trap box (company_website) is missing");
+else if (/\bvalue=/.test(trapTag) || !/tabindex="-1"/.test(trapTag) || !/autocomplete="off"/.test(trapTag)) fail("/waitlist: the bot-trap box must be empty, out of the tab order, and not autofilled");
+if (!/aria-hidden="true"/.test(trapBox) || !/-left-\[10000px\]/.test(trapBox)) fail("/waitlist: the bot-trap box must be hidden from people and screen readers");
+for (const must of ["data-waitlist-thanks", "data-waitlist-error", "data-waitlist-turnstile"]) if (!waitlistHtml.includes(must)) fail(`/waitlist: missing ${must}`);
+
+// Every website "Join the waitlist" button and the hero link go to the form. Only the trade links (lawn care and so on) stay email.
+for (const route of ["", "pricing"]) {
+  const html = htmlOf(route) || "";
+  const links = [...html.matchAll(/<a\b[^>]*href="([^"]*)"[^>]*>([\s\S]*?)<\/a>/g)].map((m) => ({ href: m[1], text: m[2].replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").trim() }));
+  const joins = links.filter((l) => /join the waitlist/i.test(l.text));
+  if (!joins.length) fail(`/${route}: no "Join the waitlist" link found`);
+  for (const l of joins) if (l.href !== "/waitlist") fail(`/${route}: the link "${l.text}" goes to ${l.href}, not /waitlist`);
+}
+if (!home.includes('href="/waitlist"')) fail("home page: nothing links to /waitlist");
+for (const f of walk("dist").filter((f) => f.endsWith(".html") && !f.endsWith(path.join("waitlist", "index.html")))) {
+  if (/mailto:[^"]*subject=Waitlist%3A%20Website%20add-on/.test(read(f))) fail(`${f}: a website waitlist link is still an email link`);
+}
+// The trade links stay as email for now.
+if (!/mailto:[^"]*subject=Waitlist%3A%20(Lawn|Pressure|Pool|Mobile)/i.test(home)) fail("home page: the trade waitlist links (lawn care and so on) should still be email links");
+
+// The privacy policy says what the waitlist form collects.
+if (!/If you join our website waitlist on morium\.one, we collect the name, business name, email address, and optional phone number you enter, only to contact you when websites open up, and we use Cloudflare Turnstile on that form to block bots\./.test(privacyText)) fail("privacy: the website waitlist sentence is missing");
 
 // Blanks in the legal pages ("[FILL IN: ...]") must be filled before the site goes out. A local build only warns, so the
 // pages can still be previewed; a build on Vercel (or with REQUIRE_NO_PLACEHOLDERS=1) fails, so the live site stays as it was.
