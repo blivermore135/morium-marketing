@@ -1,16 +1,13 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import { CONTACT_EMAIL, CANCEL_SENTENCE, SETUP_FEE_SENTENCE } from "../data/site";
-import { websiteAddOn, CRM_ADDON_DISCOUNT } from "../data/pricing";
-
-const addonDiscount = Math.round(CRM_ADDON_DISCOUNT * 100);
+import { CONTACT_EMAIL, CANCEL_SENTENCE } from "../data/site";
 ---
 
-<Layout title="Terms of Service | Morium" description="The terms for using Morium's booking, CRM, and website add-on.">
+<Layout title="Terms of Service | Morium" description="The terms for using Morium's booking, CRM, and invoicing.">
 	<div class="mx-auto max-w-3xl px-6 py-20 lg:px-8">
 		<a href="/" class="text-sm font-semibold text-accent-700 hover:text-accent-800">&larr; Back to Morium</a>
 		<h1 class="mt-6 font-display text-4xl font-bold tracking-tight text-ink">Terms of Service</h1>
-		<p class="mt-2 text-sm text-ink/60">Last updated October 15, 2026</p>
+		<p class="mt-2 text-sm text-ink/60">Last updated October 27, 2026</p>
 
 		<div class="mt-10 space-y-8 text-base leading-relaxed text-ink/75">
 			<section>
@@ -33,7 +30,7 @@ const addonDiscount = Math.round(CRM_ADDON_DISCOUNT * 100);
 					service businesses. Signing up gets you a booking page, a dashboard,
 					invoices and card payments, your team's logins, and (if you have it
 					turned on) automatic review-request and rebooking emails for your
-					customers. The website add-on is optional.
+					customers.
 				</p>
 				<p class="mt-2">
 					To stop scripts from using a booking form to send email to strangers,
@@ -58,8 +55,7 @@ const addonDiscount = Math.round(CRM_ADDON_DISCOUNT * 100);
 				<h2 class="font-display text-lg font-bold text-ink">The "Powered by Morium" link</h2>
 				<p class="mt-2">
 					Your booking page and embedded booking form show a small "Powered by
-					Morium" link to morium.one. Businesses on the Crew plan, and businesses
-					with the website add-on, can turn it off in Settings.
+					Morium" link to morium.one. Businesses on the Crew plan can turn it off in Settings.
 				</p>
 			</section>
 
@@ -129,55 +125,15 @@ const addonDiscount = Math.round(CRM_ADDON_DISCOUNT * 100);
 				<p class="mt-2">
 					A promo code lowers what you pay for Morium. It cannot be exchanged for
 					money. Each business can use one promo code, ever, and a code states how
-					long its discount lasts. Discounts do not add together: if you have a
-					promo code and the website add-on's {addonDiscount}% discount, the bigger
-					one applies, and the {addonDiscount}% comes back if the promo ends.
+					long its discount lasts.
 				</p>
 			</section>
 
 			<section>
-				<h2 class="font-display text-lg font-bold text-ink">The website add-on</h2>
+				<h2 class="font-display text-lg font-bold text-ink">Your content</h2>
 				<p class="mt-2">
-					When available, the website add-on costs ${websiteAddOn.setupFee} to set up and then
-					${websiteAddOn.monthlyPrice} a month. It is its own subscription: your
-					first payment is the setup fee plus the first month, and after that the
-					monthly fee is charged on the same day each month, separately from your
-					plan. {SETUP_FEE_SENTENCE} It is non-refundable once we've started work
-					on your site.
-				</p>
-				<p class="mt-2">
-					After you pay, we build your site (about 3 to 5 business days) and
-					email you when it is live. Until then, your link keeps showing your
-					booking page. If you also have a Morium plan, it costs {addonDiscount}%
-					less while you have the add-on.
-				</p>
-				<p class="mt-2">
-					If you cancel the add-on, your site stays up until the end of the month
-					you already paid for. After that, your website pages show your booking
-					page instead, and the {addonDiscount}% plan discount ends. Buying the add-on
-					again later is a new purchase: the setup fee is charged again and your
-					site is built again.
-				</p>
-			</section>
-
-			<section>
-				<h2 class="font-display text-lg font-bold text-ink">Your website and who owns it</h2>
-				<p class="mt-2">
-					Your content is yours. That means the text, photos, logo, and business details you give us or
-					put into Morium. You give us permission to store, copy, and show your content as needed to run
-					your website and booking page for you.
-				</p>
-				<p class="mt-2">
-					The website we build is a service we run for you. Morium owns the design, templates, code, and
-					software behind it, and the address that ends in morium.one. While you have the website
-					add-on, we host the site and you may use it as your business's website. Paying for the add-on
-					does not transfer the design, the code, or the address to you.
-				</p>
-				<p class="mt-2">
-					If you cancel the add-on, or it ends, your site stays up until the end of the period you
-					already paid for. After that it is taken down, and your website pages show your booking page
-					instead. You keep your own content. If you email us and ask, we will send you a copy of the
-					text and photos you gave us.
+					Your content is yours. That means the text, photos, logo, and business details you put into Morium. You give us
+					permission to store, copy, and show your content as needed to run Morium and your booking page for you.
 				</p>
 			</section>
 

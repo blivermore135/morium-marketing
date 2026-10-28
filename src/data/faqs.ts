@@ -11,7 +11,7 @@ export const faqs = [
 	},
 	{
 		q: "Can I cancel?",
-		a: "Yes. Cancel anytime. You keep everything until the end of the month you already paid for, and you won't be charged again. You cancel yourself, right from your dashboard (Settings, Account, Manage billing or cancel). When websites open and you add one, the $499 setup fee is a one-time payment, and it isn't refunded once we've started work on your site.",
+		a: "Yes. Cancel anytime. You keep everything until the end of the month you already paid for, and you won't be charged again. You cancel yourself, right from your dashboard (Settings, Account, Manage billing or cancel).",
 	},
 	{
 		q: "Do I need to be technical?",
@@ -19,10 +19,10 @@ export const faqs = [
 	},
 	{
 		q: "What if I already have a website?",
-		a: "You can use Morium's booking and CRM tools on their own. The website add-on is optional, and it's coming soon: join the waitlist.",
+		a: "Keep it. You can add Morium booking to your own website two ways, both included on every plan: link your \"Book now\" button to your booking link, or paste the booking form onto your page. Requests land in your dashboard like any other booking.",
 	},
 	{
 		q: "When are other industries coming?",
-		a: "Detailing is live today. Lawn care, pressure washing, pool service, and mobile mechanics are next. Join the waitlist on that trade's page and we'll reach out when it's ready.",
+		a: "Detailing is live today. Lawn care, pressure washing, pool service, and mobile mechanics are next. Email us which one you do and we'll reach out when it's ready.",
 	},
 ];

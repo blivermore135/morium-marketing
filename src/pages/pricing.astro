@@ -6,10 +6,9 @@ import FinalCTA from "../components/FinalCTA.astro";
 import Pricing from "../components/Pricing.astro";
 import Breadcrumb from "../components/Breadcrumb.astro";
 import { faqs } from "../data/faqs";
-import { websiteAddOn } from "../data/pricing";
 import { bookingCostRows, AS_OF } from "../data/compare";
 import { published } from "../data/publish";
-import { CANCEL_SENTENCE, SETUP_FEE_SENTENCE, WEBSITE_COMING_SOON, WAITLIST_URL } from "../data/site";
+import { CANCEL_SENTENCE } from "../data/site";
 
 const ORIGIN = "https://www.morium.one";
 const pricingFaqs = faqs.filter((f) => ["Do I need a card to get started?", "Can I cancel?"].includes(f.q));
@@ -62,11 +61,11 @@ const breadcrumb = {
 		</section>
 
 		<section class="mx-auto max-w-3xl px-6 py-12 lg:px-8">
-			<h2 class="font-display text-3xl font-bold tracking-tight text-ink">Want a website, too?</h2>
+			<h2 class="font-display text-3xl font-bold tracking-tight text-ink">Already have a website?</h2>
 			<p class="mt-4 text-base leading-relaxed text-ink/70">
-				<strong class="text-ink" data-website-coming-soon>{WEBSITE_COMING_SOON}</strong> Websites aren't available to buy yet. We'll build you a real website with a gallery, your service areas, and your booking form. The planned price is ${websiteAddOn.setupFee} to set up, then ${websiteAddOn.monthlyPrice} a month. {SETUP_FEE_SENTENCE} {CANCEL_SENTENCE}
+				Add Morium booking to it. Every plan includes your booking link, for a "Book now" button, and an embed, so customers can ask to book right on your own page.
 			</p>
-			<a href={WAITLIST_URL} class="mt-4 inline-block text-sm font-semibold text-accent-700 hover:text-accent-800">Join the waitlist →</a>
+			<a href="/features/online-booking" class="mt-4 inline-block text-sm font-semibold text-accent-700 hover:text-accent-800">How the booking form works →</a>
 		</section>
 
 		{published.compare && (

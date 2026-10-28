@@ -192,7 +192,6 @@ export const features: Feature[] = [
 				items: [
 					"As a link: Instagram, Google Business Profile, text messages, business cards.",
 					"As a form on your own website: paste a small snippet and the form appears on your page.",
-					"On a Morium-built website (coming soon): the same form, on a site we make for you.",
 				],
 			},
 			{

@@ -124,7 +124,6 @@ export const competitors: Competitor[] = [
 			"Online booking costs $77 a month less. It is $33 a month with Morium. Urable's cheapest plan with online booking is $110. That is $924 less a year ($396 versus $1,320).",
 			MORIUM_DETAILER_STRENGTH,
 			"A booking link and an embed for a website you already have, on every plan.",
-			"Coming soon: join the waitlist. An optional website we build for you, planned at a $499 setup fee and $69 a month.",
 			"Card payments go straight to your own Stripe account. Stripe's standard card fees apply, and Morium adds no extra fee.",
 			"Google review requests and rebook reminders, written for you. Approve each one first, or let them send automatically when they are due. Both go out by email.",
 			"Appointment reminders go out by email on their own, on every plan.",

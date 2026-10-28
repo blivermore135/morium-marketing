@@ -14,6 +14,8 @@ export default defineConfig({
   // absolute origin to resolve against — without `site`, Astro.site is
   // undefined and Astro.url falls back to a placeholder at build time.
   site: 'https://www.morium.one',
+  // The website waitlist is gone (Morium does not build websites). Old links to it land on the home page.
+  redirects: { '/waitlist': '/' },
   // Sitemap is generated at build time (sitemap-index.xml + sitemap-0.xml)
   // so every new page is listed automatically — no hand-edited XML.
   integrations: [
