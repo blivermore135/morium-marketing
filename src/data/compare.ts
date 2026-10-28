@@ -76,19 +76,19 @@ export const competitors: Competitor[] = [
 		whoTheyAre: "All-in-one shop software with online booking, inventory, QuickBooks, route planning, and phone apps.",
 		title: "Morium vs Urable for Mobile Detailers | Morium",
 		description:
-			"Morium vs Urable for solo and small mobile detailers: online booking from $33 a month versus $110. Prices checked October 12, 2026.",
+			"Morium vs Urable for solo and small mobile detailers: online booking from $39 a month versus $110. Prices checked October 12, 2026.",
 		h1: "Morium vs Urable: which is right for a mobile detailer?",
 		lead:
-			"For $33 a month, Morium gives a solo mobile detailer online booking, invoices, card payments, and Google review requests. Morium was started by a working mobile detailer and is built around how detailers work. Urable's online booking starts at $110 a month. Urable is a bigger system for shops with teams, inventory, and QuickBooks.",
+			"For $39 a month, Morium gives a solo mobile detailer online booking, invoices, card payments, and Google review requests. Morium was started by a working mobile detailer and is built around how detailers work. Urable's online booking starts at $110 a month. Urable is a bigger system for shops with teams, inventory, and QuickBooks.",
 		moriumFirst: true,
 		disclosure: disclosure("Urable"),
 		strongerThemIntro: "Urable is built for bigger shops. It is stronger on:",
 		sourcePages: "pricing and messaging pages",
 		glance: [
 			{ label: "Made for", morium: "Solo and small mobile detailers. Today Morium supports detailing businesses.", them: "Shops and teams that want one system for jobs, inventory, and QuickBooks" },
-			{ label: "Starting price (month to month)", morium: "$33/mo (Starter)", them: "$70/mo (Express)" },
-			{ label: "Cheapest plan with online booking", morium: "$33/mo, included in every plan", them: "$110/mo (Pro). Not on Express." },
-			{ label: "Yearly cost with online booking", morium: "$396 ($33 a month)", them: "$1,320 ($110 a month)" },
+			{ label: "Starting price (month to month)", morium: "$39/mo (Starter)", them: "$70/mo (Express)" },
+			{ label: "Cheapest plan with online booking", morium: "$39/mo, included in every plan", them: "$110/mo (Pro). Not on Express." },
+			{ label: "Yearly cost with online booking", morium: "$468 ($39 a month)", them: "$1,320 ($110 a month)" },
 			{ label: "Users", morium: "Starter: you plus up to 5 people. Crew: unlimited.", them: "Unlimited on every plan" },
 			{
 				label: "Messages to customers",
@@ -121,7 +121,7 @@ export const competitors: Competitor[] = [
 			"Unlimited users on every plan.",
 		],
 		strongerMorium: [
-			"Online booking costs $77 a month less. It is $33 a month with Morium. Urable's cheapest plan with online booking is $110. That is $924 less a year ($396 versus $1,320).",
+			"Online booking costs $71 a month less. It is $39 a month with Morium. Urable's cheapest plan with online booking is $110. That is $852 less a year ($468 versus $1,320).",
 			MORIUM_DETAILER_STRENGTH,
 			"A booking link and an embed for a website you already have, on every plan.",
 			"Card payments go straight to your own Stripe account. Stripe's standard card fees apply, and Morium adds no extra fee.",
@@ -140,7 +140,7 @@ export const competitors: Competitor[] = [
 			"are a solo or small mobile detailer who wants online booking without paying $110 a month.",
 			"want review requests and rebook reminders written for you, and a choice to approve each one or send them automatically.",
 			"want to text a booking link or an invoice to a customer from your own phone, with the message already written for you.",
-			"would rather keep it simple and pay $33 a month.",
+			"would rather keep it simple and pay $39 a month.",
 		],
 		checkedOn: "October 12, 2026",
 		checkedISO: "2026-10-12",
@@ -151,17 +151,17 @@ export const competitors: Competitor[] = [
 		whoTheyAre: "Software for many kinds of service businesses, with AI tools and a plan for each team size.",
 		title: "Morium vs QuoteIQ for Mobile Detailers | Morium",
 		description:
-			"Morium vs QuoteIQ for solo and small mobile detailers: online booking from $33 a month versus $299.99. Prices checked October 12, 2026.",
+			"Morium vs QuoteIQ for solo and small mobile detailers: online booking from $39 a month versus $299.99. Prices checked October 12, 2026.",
 		h1: "Morium vs QuoteIQ: which is right for a mobile detailer?",
 		lead:
-			"For $33 a month, Morium gives a solo or small mobile detailer online booking, invoices, card payments, and Google review requests. Morium was started by a working mobile detailer. QuoteIQ fits businesses that want built-in AI tools and a business phone number for two-way texting, and its customer booking link comes with its $299.99 Elite plan.",
+			"For $39 a month, Morium gives a solo or small mobile detailer online booking, invoices, card payments, and Google review requests. Morium was started by a working mobile detailer. QuoteIQ fits businesses that want built-in AI tools and a business phone number for two-way texting, and its customer booking link comes with its $299.99 Elite plan.",
 		moriumFirst: true,
 		disclosure: disclosure("QuoteIQ"),
 		sourcePages: "pricing page and help center",
 		glance: [
-			{ label: "Starting price (month to month)", morium: "$33/mo (Starter)", them: "$29.99/mo (Essentials, 1 user)" },
-			{ label: "Cheapest plan with online self-booking", morium: "$33/mo, included in every plan", them: "$299.99/mo (Elite)" },
-			{ label: "Yearly cost with online booking", morium: "$396 ($33 a month)", them: "$3,599.88 month to month ($2,999.99 if you pay for the year up front)" },
+			{ label: "Starting price (month to month)", morium: "$39/mo (Starter)", them: "$29.99/mo (Essentials, 1 user)" },
+			{ label: "Cheapest plan with online self-booking", morium: "$39/mo, included in every plan", them: "$299.99/mo (Elite)" },
+			{ label: "Yearly cost with online booking", morium: "$468 ($39 a month)", them: "$3,599.88 month to month ($2,999.99 if you pay for the year up front)" },
 			{
 				label: "Automatic review requests",
 				morium: "On every plan. Sent automatically, or after you approve them.",
@@ -197,7 +197,7 @@ export const competitors: Competitor[] = [
 			"A lower starting price, $29.99 a month, for one person.",
 		],
 		strongerMorium: [
-			"Online booking costs $266.99 a month less. It is $33 a month with Morium. QuoteIQ's customer booking link starts on Elite at $299.99. That is $3,203.88 less a year ($396 versus $3,599.88).",
+			"Online booking costs $260.99 a month less. It is $39 a month with Morium. QuoteIQ's customer booking link starts on Elite at $299.99. That is $3,131.88 less a year ($468 versus $3,599.88).",
 			"Review requests and rebook reminders come with every plan, written for you. Approve each one first, or let them send automatically.",
 			"Appointment reminders go out by email on their own, on every plan.",
 			MORIUM_DETAILER_STRENGTH,
@@ -212,7 +212,7 @@ export const competitors: Competitor[] = [
 		chooseMorium: [
 			"want customers to book online without paying for a $299.99 plan.",
 			"work alone or with a few people and want a simple tool built around how detailers work.",
-			"want reminders and review requests included for $33 a month.",
+			"want reminders and review requests included for $39 a month.",
 		],
 	},
 	{
@@ -221,16 +221,16 @@ export const competitors: Competitor[] = [
 		whoTheyAre: "Well-known software for home and field service businesses of many kinds.",
 		title: "Morium vs Jobber for Mobile Detailers | Morium",
 		description:
-			"Morium vs Jobber for solo and small mobile detailers: $33 a month versus Jobber from $49, with a team cost example. Prices checked October 12, 2026.",
+			"Morium vs Jobber for solo and small mobile detailers: $39 a month versus Jobber from $49, with a team cost example. Prices checked October 12, 2026.",
 		h1: "Morium vs Jobber: which is right for a mobile detailer?",
 		lead:
-			"For $33 a month, Morium gives a solo or small mobile detailer online booking, invoices, card payments, and Google review requests. Morium was started by a working mobile detailer. Jobber is a bigger, well-known system for many kinds of service businesses, with more integrations and two-way texting on its higher plans.",
+			"For $39 a month, Morium gives a solo or small mobile detailer online booking, invoices, card payments, and Google review requests. Morium was started by a working mobile detailer. Jobber is a bigger, well-known system for many kinds of service businesses, with more integrations and two-way texting on its higher plans.",
 		moriumFirst: true,
 		disclosure: disclosure("Jobber"),
 		glance: [
-			{ label: "Starting price (month to month)", morium: "$33/mo (Starter)", them: "$49/mo (Core). $29/mo if billed annually." },
+			{ label: "Starting price (month to month)", morium: "$39/mo (Starter)", them: "$49/mo (Core). $29/mo if billed annually." },
 			{ label: "Users", morium: "Starter: you plus up to 5 people. Crew: unlimited.", them: "Core: 1 user, extra users $29/mo each" },
-			{ label: "Cost for a team of 3 (month to month)", morium: "$33/mo. Starter covers up to 6 people.", them: "$107/mo ($49 for Core plus 2 extra users at $29 each)" },
+			{ label: "Cost for a team of 3 (month to month)", morium: "$39/mo. Starter covers up to 6 people.", them: "$107/mo ($49 for Core plus 2 extra users at $29 each)" },
 			{ label: "Online booking", morium: "On every plan", them: "On Core (\"Book and schedule jobs online\")" },
 			{ label: "Invoices and card payments", morium: "On every plan. Stripe's standard card fees apply; Morium adds no extra fee.", them: "On Core. Card fee 2.9% + 30¢." },
 			{
@@ -257,8 +257,8 @@ export const competitors: Competitor[] = [
 			"A free trial with no credit card needed.",
 		],
 		strongerMorium: [
-			"Costs less for a team. Three people on Jobber Core is $107 a month ($49 plus 2 extra users at $29). Morium Starter covers up to 6 people for $33.",
-			"Appointment reminders are included at $33 a month and go out by email on their own. Jobber's automated client reminders start on Connect at $139 a month.",
+			"Costs less for a team. Three people on Jobber Core is $107 a month ($49 plus 2 extra users at $29). Morium Starter covers up to 6 people for $39.",
+			"Appointment reminders are included at $39 a month and go out by email on their own. Jobber's automated client reminders start on Connect at $139 a month.",
 			"Review requests and rebook reminders come with every plan, written for you. Approve each one first, or let them send automatically.",
 			MORIUM_DETAILER_STRENGTH,
 			MORIUM_TEXTING_STRENGTH,
@@ -269,7 +269,7 @@ export const competitors: Competitor[] = [
 			"want a big, established company behind your software.",
 		],
 		chooseMorium: [
-			"are a mobile detailer who wants something built around how detailers work, at $33 a month.",
+			"are a mobile detailer who wants something built around how detailers work, at $39 a month.",
 			"want reminders, review requests and rebook reminders included without paying for a higher plan.",
 			"have a small team and would rather pay one flat price.",
 		],
@@ -281,16 +281,16 @@ export const competitors: Competitor[] = [
 		whoTheyAre: "Business software for auto reconditioning shops: paintless dent repair, detailing, glass, wheels, tint, and more.",
 		title: "Morium vs Mobile Tech RX for Mobile Detailers | Morium",
 		description:
-			"Morium vs Mobile Tech RX for solo and small mobile detailers: a flat $33 a month versus $39 per admin plus $15 per user. Prices checked October 12, 2026.",
+			"Morium vs Mobile Tech RX for solo and small mobile detailers: both start at $39 a month, but Morium stays flat for up to 6 people. Prices checked October 12, 2026.",
 		h1: "Morium vs Mobile Tech RX: which is right for a mobile detailer?",
 		lead:
-			"For $33 a month, Morium gives a solo or small mobile detailer online booking, invoices, card payments, and Google review requests. Morium was started by a working mobile detailer. Mobile Tech RX fits auto reconditioning shops, such as paintless dent repair, that need estimating and shop tools.",
+			"For $39 a month, Morium gives a solo or small mobile detailer online booking, invoices, card payments, and Google review requests. Morium was started by a working mobile detailer. Mobile Tech RX fits auto reconditioning shops, such as paintless dent repair, that need estimating and shop tools.",
 		moriumFirst: true,
 		disclosure: disclosure("Mobile Tech RX"),
 		sourcePages: "plans and home pages",
 		glance: [
-			{ label: "Starting price (month to month)", morium: "$33/mo (Starter)", them: "$39/mo per admin (Getting Started), plus $15/mo per extra user" },
-			{ label: "Cost for a team of 6 (month to month)", morium: "$33/mo. Starter covers you plus up to 5 people.", them: "$114/mo ($39 for one admin plus 5 extra users at $15 each)" },
+			{ label: "Starting price (month to month)", morium: "$39/mo (Starter)", them: "$39/mo per admin (Getting Started), plus $15/mo per extra user" },
+			{ label: "Cost for a team of 6 (month to month)", morium: "$39/mo. Starter covers you plus up to 5 people.", them: "$114/mo ($39 for one admin plus 5 extra users at $15 each)" },
 			{ label: "Made for", morium: "Solo and small mobile detailers. Today Morium supports detailing businesses.", them: "Auto reconditioning: PDR, detailing, glass, wheels, tint, PPF and more" },
 			{ label: "Customer booking page", morium: "On every plan", them: "Not listed on its plans page. Client portal for estimates and payments from $99/mo." },
 			{
@@ -318,7 +318,7 @@ export const competitors: Competitor[] = [
 			"Supports shops with many technicians, priced per user.",
 		],
 		strongerMorium: [
-			"Costs less for a team. Six people on Mobile Tech RX's cheapest plan is $114 a month ($39 plus 5 extra users at $15). Morium Starter covers up to 6 people for $33.",
+			"The same $39 a month for one person, but it costs less for a team. Six people on Mobile Tech RX's cheapest plan is $114 a month ($39 plus 5 extra users at $15). Morium Starter covers up to 6 people for $39 a month.",
 			"A customer booking link on every plan, so customers can request a time any hour.",
 			"Review requests and rebook reminders come with every plan, written for you. Approve each one first, or let them send automatically.",
 			"Appointment reminders go out by email on their own, on every plan.",
@@ -342,7 +342,7 @@ export const getCompetitor = (slug: string) => competitors.find((c) => c.slug ==
 
 /** "What online booking costs elsewhere", for /pricing (shown only when the compare pages are published). No links. */
 export const bookingCostRows = [
-	{ name: "Morium", price: "$33/mo", plan: "Starter (every plan has it)", us: true },
+	{ name: "Morium", price: "$39/mo", plan: "Starter (every plan has it)", us: true },
 	{ name: "Jobber", price: "$49/mo", plan: "Core, month to month ($29/mo billed annually)", us: false },
 	{ name: "Urable", price: "$110/mo", plan: "Pro (Express at $70/mo has none)", us: false },
 	{ name: "QuoteIQ", price: "$299.99/mo", plan: "Elite (online self-booking)", us: false },

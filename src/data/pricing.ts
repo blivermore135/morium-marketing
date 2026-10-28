@@ -1,3 +1,5 @@
+// 2026-10-28, per the user, before launch: Starter $33 -> $39 (Crew stays $79). This is the ONE place the Starter
+// price is typed: scripts/check-site.mjs fails the build if any built page shows a different Starter price.
 // These names/prices must stay in sync with bobsdetailing's
 // shared/billing.ts TIERS — that's the real billing config; this is just
 // the marketing copy for the same three tiers. Re-priced 2026-08-20: Solo
@@ -57,7 +59,7 @@ export const pricingTiers: PricingTier[] = [
 		// 2026-09-29 names (per the user): Starter / Crew. The ids stay
 		// "solo" / "team" to match bobsdetailing's internal plan codes.
 		name: "Starter",
-		monthlyPrice: 33,
+		monthlyPrice: 39,
 		// 2026-09-27: rewritten to exactly what's built and working today
 		// (verified against the app). Rule: a feature is listed only once it
 		// ships — no "coming soon" items on a plan people pay for (AI calling

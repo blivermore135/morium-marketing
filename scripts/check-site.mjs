@@ -2,6 +2,7 @@
 //  - a page that should exist is missing, or an unpublished page (none right now) got out
 //  - an internal link or image points at nothing
 //  - the prices on the pricing page don't match src/data/pricing.ts
+//  - any built page shows a Starter price (or savings math) that disagrees with src/data/pricing.ts
 //  - the cancellation sentence is missing where it has to be said, or the $499 fee isn't called one-time
 //  - a page has no title, description, canonical link, or exactly one H1
 // Build with PUBLIC_SHOW_DRAFTS=1 to check the unpublished pages too.
@@ -108,7 +109,89 @@ const crew = /monthlyPrice: (\d+)/g;
 const prices = [...pricingSrc.matchAll(crew)].map((m) => m[1]);
 const pricingPage = textOf(htmlOf("pricing") || "");
 for (const p of prices) if (!pricingPage.includes(`$${p}`)) fail(`pricing page doesn't show $${p}`);
-void starter;
+
+// The Starter price is typed in ONE place, src/data/pricing.ts. Every built page has to agree with it, so a stale number
+// (say a $33 left in a FAQ after a re-price) fails the build. Three checks on every page's text, title, description and schema:
+//  1. Every "$N a month" figure is Starter's, Crew's, or (only on /compare and /pricing) a competitor's, read from the
+//     competitors' own cells in compare.ts, never from a Morium cell. So an old Morium price can't hide as a competitor's.
+//  2. Wherever the copy speaks in Morium's voice ("from $N", "Starter is $N", ...), N is the Starter price.
+//  3. The savings math on the compare pages recomputes from the Starter price and the competitor's price.
+const starterN = Number(starter);
+const crewN = Number(prices[1]);
+const num = (t) => Number(String(t).replace(/,/g, ""));
+const same = (a, b) => Math.abs(a - b) < 0.005;
+const MONTHLY = /\$(\d[\d,]*(?:\.\d+)?)\s?(?:\/\s?mo\b|\/month\b|a month\b|per month\b)/g;
+const monthlyFigures = (text) => [...String(text).matchAll(MONTHLY)].map((m) => num(m[1]));
+const { competitors, bookingCostRows } = await import("../src/data/compare.ts");
+const competitorFigures = new Set();
+for (const c of competitors) {
+  const theirs = [...c.glance.map((g) => g.them), ...c.facts.map((f) => f.value), ...c.strongerThem, ...c.chooseThem, c.note ?? ""];
+  for (const t of theirs) for (const n of monthlyFigures(t)) competitorFigures.add(n);
+}
+for (const r of bookingCostRows) if (!r.us) for (const n of monthlyFigures(`${r.price} ${r.plan}`)) competitorFigures.add(n);
+
+// Phrases where the number is Morium's Starter price.
+const STARTER_VOICE = [
+  /(?:, |\. |[Ss]oftware )[Ff]rom \$(\d[\d,]*(?:\.\d+)?)\s?(?:\/mo\b|a month)/g,
+  /[Ss]tarting at \$(\d[\d,]*(?:\.\d+)?)/g,
+  /[Ss]tart at \$(\d[\d,]*(?:\.\d+)?)/g,
+  /Starter is \$(\d[\d,]*(?:\.\d+)?)/g,
+  /\$(\d[\d,]*(?:\.\d+)?)\/mo \(Starter\)/g,
+  /For \$(\d[\d,]*(?:\.\d+)?) a month, Morium/g,
+  /Morium costs \$(\d[\d,]*(?:\.\d+)?)/g,
+  /online booking from \$(\d[\d,]*(?:\.\d+)?)/g,
+  /\$(\d[\d,]*(?:\.\d+)?)\/mo, included in every plan/g,
+  /included (?:for|at) \$(\d[\d,]*(?:\.\d+)?) a month/g,
+  /up to 6 people for \$(\d[\d,]*(?:\.\d+)?)/g,
+  /pay \$(\d[\d,]*(?:\.\d+)?) a month\./g,
+  /detailers work, at \$(\d[\d,]*(?:\.\d+)?) a month/g,
+  /\$(\d[\d,]*(?:\.\d+)?) a month versus/g,
+];
+// "Online booking costs $71 a month less. It is $39 a month with Morium. Urable's cheapest plan ... is $110. That is $852 less a year ($468 versus $1,320)."
+const SAVINGS = /Online booking costs \$([\d,.]+) a month less\. It is \$([\d,.]+) a month with Morium\. [^$]*?\$([\d,.]+?)\. That is \$([\d,.]+) less a year \(\$([\d,.]+) versus \$([\d,.]+)\)\./;
+const YEARLY = /\$([\d,]+(?:\.\d+)?) \(\$([\d,.]+) a month\)/g;
+
+const metaOf = (html) => [...html.matchAll(/<title>([^<]*)<\/title>|<meta name="description" content="([^"]*)"/g)].map((m) => (m[1] ?? m[2]).replace(/&#39;|&apos;/g, "'").replace(/&amp;/g, "&")).join(" ");
+for (const f of walk("dist").filter((f) => f.endsWith("index.html"))) {
+  const route = path.relative("dist", path.dirname(f)).replace(/\\/g, "/") || "/";
+  const html = read(f);
+  let text = `${textOf(html)} ${metaOf(html)}`;
+  const comparing = route === "pricing" || route.startsWith("compare");
+
+  // 3. the savings math
+  const sv = SAVINGS.exec(text);
+  if (sv) {
+    const [less, morium, theirs, yearLess, yearMorium, yearTheirs] = sv.slice(1).map(num);
+    if (!same(morium, starterN)) fail(`/${route}: the savings line says Morium is $${morium} a month, but Starter is $${starterN}`);
+    if (!same(less, theirs - morium)) fail(`/${route}: "$${less} a month less" should be $${+(theirs - morium).toFixed(2)} ($${theirs} minus $${morium})`);
+    if (!same(yearMorium, morium * 12)) fail(`/${route}: Morium's year should be $${morium * 12}, the page says $${yearMorium}`);
+    if (!same(yearTheirs, theirs * 12)) fail(`/${route}: the competitor's year should be $${+(theirs * 12).toFixed(2)}, the page says $${yearTheirs}`);
+    if (!same(yearLess, yearTheirs - yearMorium)) fail(`/${route}: "$${yearLess} less a year" should be $${+(yearTheirs - yearMorium).toFixed(2)}`);
+    text = text.replace(sv[0], " ");
+  } else if (/^compare\/morium-vs-(urable|quoteiq)$/.test(route)) {
+    fail(`/${route}: the "Online booking costs $X a month less" savings line is missing or reworded (update the check in scripts/check-site.mjs too)`);
+  }
+  for (const m of text.matchAll(YEARLY)) {
+    if (!same(num(m[1]), num(m[2]) * 12)) fail(`/${route}: "${m[0]}" doesn't add up: $${m[2]} a month is $${+(num(m[2]) * 12).toFixed(2)} a year`);
+  }
+
+  // 2. Morium's voice
+  for (const re of STARTER_VOICE) {
+    for (const m of text.matchAll(re)) if (!same(num(m[1]), starterN)) fail(`/${route}: "${m[0]}" but the Starter price in src/data/pricing.ts is $${starterN}`);
+  }
+
+  // 1. every monthly figure is accounted for
+  for (const n of new Set(monthlyFigures(text))) {
+    if (same(n, starterN) || same(n, crewN)) continue;
+    if (comparing && [...competitorFigures].some((c) => same(c, n))) continue;
+    fail(`/${route}: shows $${n} a month, which isn't Starter ($${starterN}), Crew ($${crewN})${comparing ? ", or a competitor price listed in src/data/compare.ts" : ""}`);
+  }
+
+  // Schema: the offers carry the real prices
+  for (const m of html.matchAll(/"price":"(\d+\.\d\d)"/g)) {
+    if (!same(num(m[1]), starterN) && !same(num(m[1]), crewN)) fail(`/${route}: schema price ${m[1]} isn't Starter or Crew`);
+  }
+}
 
 // Cancellation sentence
 for (const route of ["", "pricing", "terms", "mobile-detailing-software"]) {

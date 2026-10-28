@@ -50,7 +50,7 @@ export const features: Feature[] = [
 		summary: "After each job, Morium writes the review request for you. It goes out automatically, or after you approve it. Your choice.",
 		title: "Google Review Requests for Detailers | Morium",
 		description:
-			"Morium writes a Google review request after every job. It is sent automatically, or after you approve it. Your choice. Built for mobile detailers, from $33/mo.",
+			"Morium writes a Google review request after every job. It is sent automatically, or after you approve it. Your choice. Built for mobile detailers, from $39/mo.",
 		h1: "Get more Google reviews without remembering to ask",
 		lead:
 			"After you finish a job, Morium writes a friendly email asking your customer for a Google review, with your review link in it. You choose: send it automatically when it is due, or read it, change the words, and tap Send yourself. You never have to remember who to ask or what to say.",
@@ -98,7 +98,7 @@ export const features: Feature[] = [
 			},
 			{
 				q: "Is it included in the price?",
-				a: "Yes. Review requests are on every plan, starting at $33 a month.",
+				a: "Yes. Review requests are on every plan, starting at $39 a month.",
 			},
 		],
 		related: ["rebook-reminders", "customer-history", "online-booking"],
@@ -109,7 +109,7 @@ export const features: Feature[] = [
 		summary: "Morium writes a \"time for another detail\" email for past customers. It goes out automatically, or after you approve it. Your choice.",
 		title: "Rebooking Reminders for Detailers | Morium",
 		description:
-			"Bring past customers back. Morium writes a rebook reminder when it's about time for their next detail. It is sent automatically, or after you approve it. Your choice. From $33/mo.",
+			"Bring past customers back. Morium writes a rebook reminder when it's about time for their next detail. It is sent automatically, or after you approve it. Your choice. From $39/mo.",
 		h1: "Bring past customers back, without chasing them",
 		lead:
 			"Most detailing customers would book again if someone reminded them. Morium watches how long it has been since each customer's last detail and writes a short \"time for another detail\" email for you. It is sent automatically, or after you approve it. Your choice.",
@@ -154,7 +154,7 @@ export const features: Feature[] = [
 			},
 			{
 				q: "Is it included in the price?",
-				a: "Yes. Rebook reminders are on every plan, starting at $33 a month.",
+				a: "Yes. Rebook reminders are on every plan, starting at $39 a month.",
 			},
 		],
 		related: ["google-review-requests", "customer-history", "online-booking"],
@@ -165,7 +165,7 @@ export const features: Feature[] = [
 		summary: "A booking link customers can use any time. Requests land in your dashboard.",
 		title: "Online Booking for Mobile Detailers | Morium",
 		description:
-			"A free-standing booking link for mobile detailers. Put it in your Instagram bio, Google profile or a text. Included in every plan, from $33/mo.",
+			"A free-standing booking link for mobile detailers. Put it in your Instagram bio, Google profile or a text. Included in every plan, from $39/mo.",
 		h1: "A booking link your customers can use any time",
 		lead:
 			"Every Morium account comes with a booking page. Put the link in your Instagram bio, your Google Business Profile, or a text. Customers choose their vehicle size, service, and day, and the request shows up in your dashboard for you to confirm.",
@@ -210,7 +210,7 @@ export const features: Feature[] = [
 			},
 			{
 				q: "How much does online booking cost with Morium?",
-				a: "It's included in every plan. Starter is $33 a month and Crew is $79 a month, each with a 14-day free trial.",
+				a: "It's included in every plan. Starter is $39 a month and Crew is $79 a month, each with a 14-day free trial.",
 			},
 			{
 				q: "Do customers pay when they book?",
@@ -229,7 +229,7 @@ export const features: Feature[] = [
 		summary: "Send a pay link by email or text. Customers pay by card, Apple Pay or Google Pay.",
 		title: "Invoicing and Card Payments for Detailers | Morium",
 		description:
-			"Draft invoices when a job is done, send a pay link, and get paid by card, Apple Pay or Google Pay straight to your own Stripe account. From $33/mo.",
+			"Draft invoices when a job is done, send a pay link, and get paid by card, Apple Pay or Google Pay straight to your own Stripe account. From $39/mo.",
 		h1: "Send an invoice and get paid before you leave the driveway",
 		lead:
 			"When you finish a job, Morium drafts the invoice for you. Send the customer a pay link by email, or copy it and text it yourself. They pay by card, Apple Pay, or Google Pay, and the money goes straight to your own Stripe account.",
@@ -275,7 +275,7 @@ export const features: Feature[] = [
 			},
 			{
 				q: "Is it included in the price?",
-				a: "Yes. Invoices and card payments are on every plan, starting at $33 a month.",
+				a: "Yes. Invoices and card payments are on every plan, starting at $39 a month.",
 			},
 		],
 		related: ["online-booking", "customer-history", "google-review-requests"],
@@ -286,7 +286,7 @@ export const features: Feature[] = [
 		summary: "Every vehicle, every visit and every dollar, remembered for you.",
 		title: "Customer History and CRM for Detailers | Morium",
 		description:
-			"A simple customer list for mobile detailers: every vehicle, every visit and lifetime spend, with a warning before you create a duplicate. From $33/mo.",
+			"A simple customer list for mobile detailers: every vehicle, every visit and lifetime spend, with a warning before you create a duplicate. From $39/mo.",
 		h1: "Know every customer and every car",
 		lead:
 			"Morium keeps a record for each customer: their vehicles, every visit, what they spent, and how they found you. Open a customer and you can see their whole history in one place, so you never have to scroll back through texts.",
@@ -334,7 +334,7 @@ export const features: Feature[] = [
 		summary: "Set a price for each vehicle size. Customers see the right price before they book.",
 		title: "Vehicle-Size Pricing for Detailers | Morium",
 		description:
-			"Charge by vehicle size without doing math on every quote. Set a price per size for each package, and customers see the exact price when they book. From $33/mo.",
+			"Charge by vehicle size without doing math on every quote. Set a price per size for each package, and customers see the exact price when they book. From $39/mo.",
 		h1: "Charge the right price for every size of vehicle",
 		lead:
 			"A sedan and a full-size truck aren't the same job. In Morium you name your vehicle sizes, set a price for each one on every package, and your customers see the exact price as soon as they pick their size.",
