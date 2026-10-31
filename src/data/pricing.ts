@@ -101,6 +101,7 @@ export const pricingTiers: PricingTier[] = [
 			"Give each person their own jobs. They see only theirs",
 			"Calendar and reports for each person",
 			"Before and after photos",
+			"Remove 'Powered by Morium' from your booking page",
 		],
 	},
 ];
