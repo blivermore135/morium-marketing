@@ -202,7 +202,9 @@ for (const route of ["", "pricing", "terms", "mobile-detailing-software"]) {
 // Promises the legal pages must keep making (added 2026-10-14 after the pre-launch legal audit).
 const privacyText = textOf(htmlOf("privacy") || "");
 if (!/Do Not Track\. We don't track you across other websites/.test(privacyText)) fail("privacy: the Do Not Track statement is missing");
-if (!/Every page of the Morium app, including the login and signup pages and the dashboard, loads its fonts from Google Fonts/.test(privacyText)) fail("privacy: it doesn't say the app's pages load Google Fonts");
+// The app serves its own fonts now (2026-11-03), so the page must say so and must not say Google Fonts is used.
+if (/Google Fonts/.test(privacyText)) fail("privacy: it still mentions Google Fonts, but the app serves its own fonts now");
+if (!/The Morium app and this website serve their own fonts from their own servers/.test(privacyText)) fail("privacy: it doesn't say the fonts are served from our own servers");
 const termsText = textOf(htmlOf("terms") || "");
 if (!/You must have the right to everything you upload/.test(termsText)) fail("terms: the 'what you upload' rights sentence is missing");
 if (!/We can remove an upload that breaks the law or these terms/.test(termsText)) fail("terms: it doesn't say uploads can be removed");
