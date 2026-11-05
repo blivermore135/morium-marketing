@@ -8,15 +8,16 @@ const navLinks = [
 	{ label: "Pricing", href: "/pricing" },
 	...(published.compare ? [{ label: "Compare", href: "/compare" }] : []),
 	{ label: "About", href: published.about ? "/about" : "/#about" },
+	{ label: "Help", href: "/help" },
 ];
 ---
 
 <header class="sticky top-0 z-50 border-b border-line bg-paper/90 backdrop-blur">
 	<div class="mx-auto flex max-w-7xl items-center justify-between gap-2 px-4 py-3 sm:px-6 sm:py-4 lg:px-8">
 		<a href="/" class="flex shrink-0 items-center font-display text-lg font-bold tracking-tight text-ink sm:text-xl">
-			<!-- The wings file has empty glow space on both sides, so it is pulled in next to the name. A faint
-			     shadow and a taller size keep the pale wings easy to see on a phone. -->
-			<img src="/images/morium-icon.png" alt="" class="-mr-2.5 h-9 w-auto drop-shadow-[0_1px_1.5px_rgba(10,70,140,0.4)] max-[349px]:h-8 sm:-mr-1" />
+			<!-- A trimmed copy of the wings, made at about 3x the size it is shown at (the big file was shrunk by 6x
+			     and looked soft on phones), with no shadow added, so the edges stay sharp. -->
+			<img src="/images/morium-icon-header.png" width="273" height="96" alt="" class="mr-1.5 h-7 w-auto max-[349px]:h-6" />
 			Morium
 		</a>
 

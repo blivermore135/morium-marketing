@@ -1,5 +1,5 @@
 ---
-import { SIGNUP_URL } from "../data/site";
+import { SIGNUP_URL, TRIAL_PROMISE } from "../data/site";
 const { label = "Start free trial" } = Astro.props;
 ---
 
@@ -23,5 +23,6 @@ const { label = "Start free trial" } = Astro.props;
 		>
 			{label}
 		</a>
+		<p class="mx-auto mt-5 max-w-md text-sm leading-relaxed text-paper/60">{TRIAL_PROMISE}</p>
 	</div>
 </section>

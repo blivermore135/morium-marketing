@@ -111,7 +111,7 @@ const features = [
 	{
 		id: "calendar",
 		name: "Calendar",
-		benefit: "Your whole week, laid out before you start it.",
+		benefit: "Look at any month, past or future, with every booking on its day.",
 		admin: true,
 		states: [
 			{ id: "default", image: "/images/showcase-calendar-dark.jpg", imageLight: "/images/showcase-calendar-light.jpg" },
@@ -159,6 +159,32 @@ for (const feature of features) {
 	}
 }
 
+// Phone pictures (390px wide captures of the real app, one screen per tab and per Follow-Ups kind, taken from a local
+// copy of the app with made-up customers). Key is "tab id/kind id". On phones the tour shows these in a phone frame
+// instead of the wide desktop pictures. Until EVERY tab has one, phones keep the desktop pictures, so the page can
+// never show a half-finished set.
+const phoneShot = (name: string) => ({
+	dark: `/images/showcase-phone-${name}-dark.jpg`,
+	light: `/images/showcase-phone-${name}-light.jpg`,
+});
+const phoneShots: Record<string, { dark: string; light: string }> = {
+	"revenue/default": phoneShot("revenue-default"),
+	"followups/detail": phoneShot("followups-detail"),
+	"followups/google": phoneShot("followups-google"),
+	"dashboard/expanded": phoneShot("dashboard-expanded"),
+	"calendar/default": phoneShot("calendar-default"),
+	"customers/default": phoneShot("customers-default"),
+	"invoices/default": phoneShot("invoices-default"),
+	"booking/default": phoneShot("booking-default"),
+};
+for (const feature of features) {
+	for (const state of feature.states) {
+		const shot = phoneShots[`${feature.id}/${state.id}`];
+		if (shot) Object.assign(state.frames[0], { phoneImage: shot.dark, phoneImageLight: shot.light });
+	}
+}
+const allPhone = features.every((f) => f.states.every((s) => phoneShots[`${f.id}/${s.id}`]));
+
 // Position of each tab in the admin nav bar baked into every admin screenshot (percent of the picture, measured
 // from the live demo tenant by scripts/capture-screenshots.mjs, which prints them when it retakes the pictures).
 // Re-measure them whenever the pictures are retaken. Tabs with a matching tile switch to it when clicked; Settings
@@ -188,7 +214,9 @@ const navHotspots = [
 	</div>
 
 	<div id="feature-showcase" class="mx-auto mt-10 max-w-[1800px] px-4 lg:px-8">
-		<div class="flex flex-wrap justify-center gap-2" role="tablist">
+		{/* One row. On phones it scrolls sideways (the page itself never does) and the chosen tab is scrolled into view; from
+		    640px up the tabs wrap and sit in the middle, as before. */}
+		<div id="feature-tabs" class="feature-tabs relative -mx-4 flex flex-nowrap gap-2 overflow-x-auto px-4 pb-1 sm:mx-0 sm:flex-wrap sm:justify-center sm:overflow-visible sm:px-0 sm:pb-0" role="tablist">
 			{features.map((feature, i) => (
 				<button
 					type="button"
@@ -198,7 +226,7 @@ const navHotspots = [
 					data-admin={feature.admin ? "true" : "false"}
 					aria-pressed={i === 0 ? "true" : "false"}
 					class:list={[
-						"feature-tab rounded-full border px-4 py-2 font-body text-sm font-semibold transition-colors",
+						"feature-tab shrink-0 whitespace-nowrap rounded-full border px-3.5 py-1.5 font-body text-[13px] font-semibold transition-colors sm:px-4 sm:py-2 sm:text-sm",
 						i === 0 ? "is-active border-accent-500 bg-accent-500 text-ink" : "border-line bg-paper text-ink/65 hover:border-accent-300 hover:text-ink",
 					]}
 				>
@@ -213,7 +241,7 @@ const navHotspots = [
 
 		<div
 			id="feature-showcase-kind-toggle"
-			class="mt-5 hidden justify-center gap-1.5"
+			class="mt-5 hidden flex-wrap justify-center gap-1.5"
 			role="tablist"
 			aria-label="Follow-up type"
 		>
@@ -226,7 +254,7 @@ const navHotspots = [
 								data-kind-state={state.id}
 								aria-pressed={si === 0 ? "true" : "false"}
 								class:list={[
-									"kind-toggle-btn rounded-full border px-3 py-1 font-body text-xs font-semibold transition-colors",
+									"kind-toggle-btn whitespace-nowrap rounded-full border px-3 py-1 font-body text-xs font-semibold transition-colors",
 									si === 0
 										? "is-active border-accent-500 bg-accent-500 text-ink"
 										: "border-line bg-paper text-ink/65 hover:border-accent-300 hover:text-ink",
@@ -263,9 +291,10 @@ const navHotspots = [
 			</button>
 		</div>
 
-		<div class="relative mt-6">
-			<div class="relative rounded-2xl border border-line bg-mist p-3 shadow-[0_40px_80px_-30px_rgba(0,40,45,0.3)]">
-				<div class="flex items-center gap-1.5 px-2 pb-3 pt-1">
+		<div class:list={["relative mt-6", allPhone && "has-phone"]}>
+			{/* On phones (when every tab has a phone picture) the grey browser card and its dots are dropped and the picture sits in a phone frame instead. */}
+			<div class="feature-card relative rounded-2xl border border-line bg-mist p-3 shadow-[0_40px_80px_-30px_rgba(0,40,45,0.3)]">
+				<div class="feature-chrome flex items-center gap-1.5 px-2 pb-3 pt-1">
 					<span class="h-2.5 w-2.5 rounded-full bg-ink/15"></span>
 					<span class="h-2.5 w-2.5 rounded-full bg-ink/15"></span>
 					<span class="h-2.5 w-2.5 rounded-full bg-ink/15"></span>
@@ -283,6 +312,7 @@ const navHotspots = [
 										data-state={state.id}
 										data-frame={fi}
 										data-mode="dark"
+										data-variant="desk"
 										class:list={[
 											"absolute inset-0 h-full w-full object-cover object-top",
 											feature.id === features[0].id && si === 0 && fi === 0 ? "block" : "hidden",
@@ -296,6 +326,33 @@ const navHotspots = [
 											data-state={state.id}
 											data-frame={fi}
 											data-mode="light"
+											data-variant="desk"
+											class="absolute inset-0 hidden h-full w-full object-cover object-top"
+										/>
+									)}
+									{allPhone && frame.phoneImage && (
+										<img
+											src={frame.phoneImage}
+											alt={`${feature.name}${state.id !== "default" ? `: ${state.id}` : ""} in the Morium app on a phone`}
+											data-panel={feature.id}
+											data-state={state.id}
+											data-frame={fi}
+											data-mode="dark"
+											data-variant="phone"
+											loading="lazy"
+											class="absolute inset-0 hidden h-full w-full object-cover object-top"
+										/>
+									)}
+									{allPhone && frame.phoneImageLight && (
+										<img
+											src={frame.phoneImageLight}
+											alt={`${feature.name}${state.id !== "default" ? `: ${state.id}` : ""} in the Morium app on a phone (light mode)`}
+											data-panel={feature.id}
+											data-state={state.id}
+											data-frame={fi}
+											data-mode="light"
+											data-variant="phone"
+											loading="lazy"
 											class="absolute inset-0 hidden h-full w-full object-cover object-top"
 										/>
 									)}
@@ -333,13 +390,13 @@ const navHotspots = [
 					></span>
 				</div>
 			</div>
-			<span
-				id="feature-showcase-hint"
-				class="pointer-events-none absolute -bottom-3 left-1/2 -translate-x-1/2 rounded-full bg-ink px-3 py-1 text-[11px] font-semibold text-paper shadow-lg transition-opacity lg:hidden"
-			>
-				Tap to explore →
-			</span>
 		</div>
+
+		{/* The only hint on phones. It sits below the picture in the normal flow, so it never covers anything. The
+		    "Scroll for more" badge inside the picture is for bigger screens only. */}
+		<p id="feature-showcase-hint" class="mt-4 text-center text-xs text-ink/60 transition-opacity sm:hidden">
+			Swipe the tabs above to see more
+		</p>
 
 		<p
 			id="feature-showcase-note"
@@ -350,7 +407,7 @@ const navHotspots = [
 	</div>
 </section>
 
-<script define:vars={{ featuresData: features.map((f) => ({ id: f.id, states: f.states.map((s) => ({ id: s.id, label: s.label ?? null, frameCount: s.frames.length })) })) }}>
+<script define:vars={{ allPhone, featuresData: features.map((f) => ({ id: f.id, states: f.states.map((s) => ({ id: s.id, label: s.label ?? null, frameCount: s.frames.length })) })) }}>
 	const root = document.getElementById("feature-showcase");
 	const tabs = Array.from(root?.querySelectorAll("[data-tab]") ?? []);
 	const panels = Array.from(root?.querySelectorAll("[data-panel]") ?? []);
@@ -370,22 +427,41 @@ const navHotspots = [
 
 	const featureMap = new Map(featuresData.map((f) => [f.id, f]));
 
-	let currentMode = "dark";
+	const tabStrip = document.getElementById("feature-tabs");
+
+	// Phones (under 640px) get the phone pictures in a phone frame, but only when every tab has one (allPhone). They also
+	// follow the phone's own light or dark setting, since the Light/Dark buttons are hidden there.
+	const phoneQuery = window.matchMedia("(max-width: 639px)");
+	const darkQuery = window.matchMedia("(prefers-color-scheme: dark)");
+	const usePhone = () => allPhone && phoneQuery.matches;
+	const variantNow = () => (usePhone() ? "phone" : "desk");
+
+	let currentMode = phoneQuery.matches && !darkQuery.matches ? "light" : "dark";
 	const currentState = new Map(featuresData.map((f) => [f.id, f.states[0]]));
 	const scrollFrame = new Map(featuresData.map((f) => [f.id, 0]));
+
+	// How many pictures a tile steps through in the current layout. Phone tiles are one picture each (no swiping inside
+	// the picture, so the page always scrolls normally); desktop Overview and Follow-Ups have two.
+	function frameCountOf(featureId, state) {
+		if (usePhone()) return 1;
+		return state?.frameCount ?? 1;
+	}
 
 	function updatePanels(featureId) {
 		const feature = featureMap.get(featureId);
 		const state = currentState.get(featureId) ?? feature?.states[0];
 		const frameIndex = scrollFrame.get(featureId) ?? 0;
+		const variant = variantNow();
 		panels.forEach((panel) => {
 			const isActivePanel =
+				panel.dataset.variant === variant &&
 				panel.dataset.panel === featureId &&
 				panel.dataset.state === state?.id &&
 				Number(panel.dataset.frame) === frameIndex;
 			const modeMatches = panel.dataset.mode === currentMode;
 			const hasLightForThisFrame = panels.some(
 				(p) =>
+					p.dataset.variant === variant &&
 					p.dataset.panel === featureId &&
 					p.dataset.state === state?.id &&
 					Number(p.dataset.frame) === frameIndex &&
@@ -397,6 +473,7 @@ const navHotspots = [
 		});
 		const hasLight = panels.some(
 			(p) =>
+				p.dataset.variant === variant &&
 				p.dataset.panel === featureId &&
 				p.dataset.state === state?.id &&
 				Number(p.dataset.frame) === frameIndex &&
@@ -422,7 +499,7 @@ const navHotspots = [
 			});
 		}
 
-		const showScrollHint = (state?.frameCount ?? 1) > 1 && frameIndex === 0;
+		const showScrollHint = frameCountOf(featureId, state) > 1 && frameIndex === 0 && !phoneQuery.matches;
 		scrollHint?.classList.toggle("hidden", !showScrollHint);
 		scrollHint?.classList.toggle("flex", showScrollHint);
 	}
@@ -447,6 +524,11 @@ const navHotspots = [
 					note.classList.toggle("hidden", noteText === "");
 				}
 				navHotspotLayer?.classList.toggle("hidden", tab.dataset.admin !== "true");
+				// Phones: slide the row sideways so the chosen tab is in view. Only the row moves, never the page.
+				if (tabStrip && tabStrip.scrollWidth > tabStrip.clientWidth) {
+					const left = tab.offsetLeft - (tabStrip.clientWidth - tab.offsetWidth) / 2;
+					tabStrip.scrollTo({ left: Math.max(0, left), behavior: "smooth" });
+				}
 			}
 		});
 		// Reset to the tile's default kind/scroll position whenever we switch into it
@@ -500,6 +582,23 @@ const navHotspots = [
 		});
 	});
 
+	// Touching the tab row to swipe it stops the slideshow too, so it can't move the row under a finger.
+	tabStrip?.addEventListener("pointerdown", stopAutoplay, { passive: true });
+	tabStrip?.addEventListener("wheel", stopAutoplay, { passive: true });
+
+	// Turning the phone sideways, or the phone switching between light and dark, changes what is shown.
+	const refreshActive = () => {
+		const activeTab = tabs.find((t) => t.classList.contains("is-active"));
+		if (activeTab?.dataset.tab) updatePanels(activeTab.dataset.tab);
+	};
+	phoneQuery.addEventListener("change", () => {
+		if (phoneQuery.matches) currentMode = darkQuery.matches ? "dark" : "light";
+		refreshActive();
+	});
+	darkQuery.addEventListener("change", () => {
+		if (phoneQuery.matches) setMode(darkQuery.matches ? "dark" : "light");
+	});
+
 	modeButtons.forEach((btn) => {
 		btn.addEventListener("click", () => {
 			stopAutoplay();
@@ -526,7 +625,7 @@ const navHotspots = [
 	function tryScroll(featureId, deltaY) {
 		const feature = featureMap.get(featureId);
 		const state = currentState.get(featureId) ?? feature?.states[0];
-		const frameCount = state?.frameCount ?? 1;
+		const frameCount = frameCountOf(featureId, state);
 		if (frameCount <= 1 || scrollLocked) return false;
 		const index = scrollFrame.get(featureId) ?? 0;
 		if (deltaY > SCROLL_THRESHOLD && index < frameCount - 1) {
@@ -604,6 +703,7 @@ const navHotspots = [
 		});
 	});
 
+	setMode(currentMode);
 	activate(tabs[0]?.dataset.tab ?? "");
 </script>
 
@@ -635,6 +735,51 @@ const navHotspots = [
 		.feature-showcase-frame {
 			height: min(78vh, 860px);
 			width: min(100%, calc(min(78vh, 860px) * 1470 / 812));
+		}
+	}
+
+	/* The tab row scrolls sideways on phones; its scroll bar is hidden (the row is clearly cut off at the edge). */
+	.feature-tabs {
+		scrollbar-width: none;
+		-webkit-overflow-scrolling: touch;
+		overscroll-behavior-x: contain;
+	}
+	.feature-tabs::-webkit-scrollbar {
+		display: none;
+	}
+
+	/* Phones (under 640px): no Light/Dark buttons. The pictures follow the phone's own light or dark setting instead. */
+	@media (max-width: 639px) {
+		#feature-showcase-mode-toggle {
+			display: none !important;
+		}
+	}
+
+	/* Phones, once every tab has a phone picture: the grey browser card and its dots go, and the picture sits in a phone
+	   frame (same look as the phone picture at the top of the page). The picture keeps its own proportions, so nothing
+	   is cut off. The clickable tab names that sit on the desktop pictures are off, since the phone pictures have none. */
+	@media (max-width: 639px) {
+		.has-phone .feature-card {
+			border: 0;
+			background: transparent;
+			box-shadow: none;
+			padding: 0;
+		}
+		.has-phone .feature-chrome,
+		.has-phone #feature-nav-hotspots,
+		.has-phone #feature-nav-tooltip {
+			display: none !important;
+		}
+		.has-phone .feature-showcase-frame {
+			/* content-box so the picture itself (not the picture plus its frame) is 390:780, and nothing is cropped */
+			box-sizing: content-box;
+			height: auto;
+			aspect-ratio: 390 / 780;
+			width: calc(min(76vw, 300px) - 14px);
+			border: 7px solid var(--color-ink);
+			border-radius: 2rem;
+			background: var(--color-ink);
+			box-shadow: 0 30px 60px -20px rgba(0, 40, 45, 0.35);
 		}
 	}
 

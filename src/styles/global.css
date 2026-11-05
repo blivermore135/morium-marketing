@@ -60,6 +60,13 @@ h1, h2, .font-display {
   font-weight: 400;
 }
 
+/* Instrument Serif's italic has a very narrow space, and the headlines also pull letters in (tracking-tight), so
+   words ran together ("Everythingyou need", "Nothingyou don't"). A little extra word spacing fixes it everywhere the
+   font is used. Em units, so it scales with the headline size. */
+h1, h2, .font-display {
+  word-spacing: 0.14em;
+}
+
 /* Astro's <ClientRouter /> (Layout.astro) crossfades between pages using the
    native View Transition API; pin the duration so it stays snappy instead of
    whatever a given browser's default happens to be. Reduced-motion is

@@ -6,6 +6,15 @@ export const APP_URL = "https://app.morium.one";
 export const SIGNUP_URL = `${APP_URL}/admin/signup`;
 export const LOGIN_URL = `${APP_URL}/admin/login`;
 
+// The free setup call with Brock (checked by the owner on 2026-11-05). Only used in the "Get started in 3 steps" section;
+// scripts/check-site.mjs fails the build if any other Calendly link shows up.
+export const SETUP_CALL_URL = "https://calendly.com/moriumcomp/30min";
+
+// Said near the free trial buttons (hero and the closing call to action). It says what a person can set up in the trial,
+// not what Morium promises will happen: bookings only come in once the owner shares the link. Only things that work today.
+export const TRIAL_PROMISE =
+	"In your 14-day free trial you can set up a booking link to share, card payments, and reminders and review requests.";
+
 // A real, already-monitored inbox (2026-08-17), used instead of an
 // @morium.one address for the same reason — no mail routing/forwarding is
 // set up for that domain yet.

@@ -36,7 +36,8 @@ function walk(dir) {
 
 // Pages
 const featureSlugs = ["google-review-requests", "rebook-reminders", "online-booking", "invoicing-and-payments", "customer-history", "vehicle-size-pricing"];
-const alwaysPages = ["", "pricing", "mobile-detailing-software", "features", ...featureSlugs.map((s) => `features/${s}`), "terms", "privacy", "tools/detailing-price-calculator", "blog", "compare", "compare/morium-vs-urable", "compare/morium-vs-quoteiq", "compare/morium-vs-jobber", "compare/morium-vs-mobile-tech-rx", "about"];
+const helpSlugs = ["add-booking-to-your-website", "add-booking-to-wix", "add-booking-to-squarespace", "add-booking-to-wordpress", "add-booking-to-godaddy"];
+const alwaysPages = ["", "pricing", "mobile-detailing-software", "features", ...featureSlugs.map((s) => `features/${s}`), "terms", "privacy", "tools/detailing-price-calculator", "blog", "compare", "compare/morium-vs-urable", "compare/morium-vs-quoteiq", "compare/morium-vs-jobber", "compare/morium-vs-mobile-tech-rx", "about", "help", ...helpSlugs.map((s) => `help/${s}`)];
 // Pages built but not published yet (see src/data/publish.ts). None right now: /about was published on 2026-10-15.
 // To hold a page back again, move it here: the checks below then fail if it, a link to it, or a sitemap entry gets out.
 const draftPages = [];
@@ -209,6 +210,23 @@ const termsText = textOf(htmlOf("terms") || "");
 if (!/You must have the right to everything you upload/.test(termsText)) fail("terms: the 'what you upload' rights sentence is missing");
 if (!/We can remove an upload that breaks the law or these terms/.test(termsText)) fail("terms: it doesn't say uploads can be removed");
 
+// Help Center (added 2026-11-05): the overview names the buttons exactly as the app does, every builder guide says when it was
+// last checked (menus change) and has a "Check your plan" note, and the index lists every article and has a search box.
+{
+  const overview = textOf(htmlOf("help/add-booking-to-your-website") || "").replace(/&quot;/g, '"');
+  for (const name of ["Add Morium booking to your own website", 'Option 1: a "Book now" button', "Copy button code", "Copy link", "Option 2: the booking form on your page", "Copy code", "Preview the form", "Booked from your website"]) {
+    if (!overview.includes(name)) fail(`help overview: the app's button or card name "${name}" is missing`);
+  }
+  for (const s of helpSlugs.filter((s) => s !== "add-booking-to-your-website")) {
+    const t = textOf(htmlOf(`help/${s}`) || "");
+    if (!/Last checked: [A-Z][a-z]+ 20\d\d/.test(t)) fail(`help/${s}: no "Last checked" line`);
+    if (!/Check your plan/.test(t)) fail(`help/${s}: no "Check your plan" note`);
+  }
+  const index = htmlOf("help") || "";
+  for (const s of helpSlugs) if (!index.includes(`href="/help/${s}"`)) fail(`/help doesn't list /help/${s}`);
+  if (!/id="help-search"/.test(index)) fail("/help has no search box");
+}
+
 // Morium does not build websites (decided 2026-10-27), so nothing may offer, price, or promise one, and the website waitlist is gone.
 // What the site does offer for an owner's own website is the booking link and the embed.
 const websiteClaims = [
@@ -218,12 +236,22 @@ const websiteClaims = [
   [/(?:join|on) the (?:website )?waitlist/i, "mentions the website waitlist"],
   [/\$499|\$69\s*(?:a month|\/mo)/i, "shows the website price"],
   [/morium-built website/i, "mentions a Morium-built website"],
-  [/calendly/i, "mentions Calendly (it was only for the website call)"],
+  // Calendly is allowed only as the free setup call link in "Get started in 3 steps" (checked below); the old website call is gone.
+  [/calendly(?!\.com\/moriumcomp\/30min)/i, "mentions Calendly other than the setup call link"],
   [/api\/public\/website-waitlist|data-waitlist/i, "still has the waitlist form"],
 ];
 for (const f of walk("dist").filter((f) => f.endsWith(".html"))) {
   const t = textOf(read(f)) + " " + read(f);
   for (const [re, what] of websiteClaims) if (re.test(t)) fail(`${f}: ${what}`);
+}
+// "Get started in 3 steps" and the trial promise (2026-11-05). The setup call link is the one the owner checked.
+{
+  const homeText = textOf(home);
+  if (!/Get started in 3 steps/.test(homeText)) fail('home page: "Get started in 3 steps" is missing');
+  if (!home.includes('href="https://calendly.com/moriumcomp/30min"')) fail("home page: the free setup call link is missing or changed");
+  if ((home.match(/calendly\.com/g) || []).length !== 1) fail("home page: there should be exactly one Calendly link");
+  if ((home.match(/In your 14-day free trial you can set up/g) || []).length < 2) fail("home page: the trial promise line should be near both free trial buttons (hero and closing)");
+  if (/text(?:ing)?\b/i.test(homeText.match(/In your 14-day free trial you can set up[^.]*\./)?.[0] || "")) fail("the trial promise line mentions texting, which is not built");
 }
 if (!/Add Morium booking to your own website/.test(textOf(home))) fail("home page: the 'Add Morium booking to your own website' section is missing");
 if (!/Already have a website\?/.test(textOf(htmlOf("pricing") || ""))) fail("pricing page: the 'Already have a website?' note is missing");
