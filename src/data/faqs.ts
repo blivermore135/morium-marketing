@@ -11,7 +11,7 @@ export const faqs = [
 	},
 	{
 		q: "Can I cancel?",
-		a: "Yes. Cancel anytime. You keep everything until the end of the month you already paid for, and you won't be charged again. You cancel yourself, right from your dashboard (Settings, Account, Manage billing or cancel).",
+		a: "Yes. Cancel anytime. You keep everything until the end of the month you already paid for, and you won't be charged again. You cancel yourself, right from your dashboard (Settings, Account, Cancel plan).",
 	},
 	{
 		q: "Do I need to be technical?",
