@@ -1,4 +1,5 @@
-// 2026-10-28, per the user, before launch: Starter $33 -> $39 (Crew stays $79). This is the ONE place the Starter
+// 2026-11-11, per the user: Starter $39 -> $59, Crew $79 -> $129 (new customers only; anyone already subscribed keeps
+// their price). Before that, 2026-10-28: Starter $33 -> $39. This is the ONE place the Starter
 // price is typed: scripts/check-site.mjs fails the build if any built page shows a different Starter price.
 // These names/prices must stay in sync with bobsdetailing's
 // shared/billing.ts TIERS — that's the real billing config; this is just
@@ -38,6 +39,9 @@ export interface PricingTier {
 	// false = defined but not for sale on the site (Pricing.astro skips it).
 	listed?: boolean;
 	features: string[];
+	// Things a buyer might expect on this plan that are NOT on it, shown under the list so nobody has to guess
+	// (Starter: before and after job photos, which are Crew only).
+	notIncluded?: string[];
 }
 
 // 2026-09-11: dropped the "1 user" / "Up to 3 users" / "Up to 10 users"
@@ -59,7 +63,7 @@ export const pricingTiers: PricingTier[] = [
 		// 2026-09-29 names (per the user): Starter / Crew. The ids stay
 		// "solo" / "team" to match bobsdetailing's internal plan codes.
 		name: "Starter",
-		monthlyPrice: 39,
+		monthlyPrice: 59,
 		// 2026-09-27: rewritten to exactly what's built and working today
 		// (verified against the app). Rule: a feature is listed only once it
 		// ships — no "coming soon" items on a plan people pay for (AI calling
@@ -75,6 +79,8 @@ export const pricingTiers: PricingTier[] = [
 			"Prices by vehicle size",
 			"You plus up to 5 people on your team",
 		],
+		// Before and after job photos are a Crew feature (photoDocumentation in bobsdetailing's shared/billing.ts).
+		notIncluded: ["Before and after job photos (Crew only)"],
 	},
 	{
 		id: "team",
@@ -94,13 +100,13 @@ export const pricingTiers: PricingTier[] = [
 		// 2026-09-30: all of it shipped and live-verified in the app (roles
 		// plan parts 1–3, enforced in the database) — for sale again.
 		listed: true,
-		monthlyPrice: 79,
+		monthlyPrice: 129,
 		features: [
 			"Everything in Starter",
 			"As many team members as you want",
 			"Give each person their own jobs. They see only theirs",
 			"Calendar and reports for each person",
-			"Before and after photos",
+			"Before and after job photos",
 			"Remove 'Powered by Morium' from your booking page",
 		],
 	},

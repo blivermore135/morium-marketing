@@ -37,7 +37,7 @@ const listedTiers = pricingTiers.filter((tier) => tier.listed !== false);
 		{listedTiers.map((tier) => (
 			<div
 				class:list={[
-					"relative rounded-2xl border p-8",
+					"relative flex flex-col rounded-2xl border p-8",
 					tier.mostPopular
 						? "border-accent-500 bg-paper shadow-[0_20px_50px_-20px_rgba(0,194,199,0.4)]"
 						: "border-line bg-paper",
@@ -64,6 +64,18 @@ const listedTiers = pricingTiers.filter((tier) => tier.listed !== false);
 					))}
 				</ul>
 
+				{tier.notIncluded && tier.notIncluded.length > 0 && (
+					<ul class="mt-4 space-y-2 border-t border-line pt-4">
+						{tier.notIncluded.map((item) => (
+							<li class="flex items-start gap-2.5 text-sm text-ink/60">
+								<span class="mt-0.5 shrink-0 font-semibold text-ink/40" aria-hidden="true">&ndash;</span>
+								<span><span class="sr-only">Not included: </span>{item}</span>
+							</li>
+						))}
+					</ul>
+				)}
+
+				<div class="flex-1"></div>
 				<a
 					href={SIGNUP_URL}
 					class:list={[
