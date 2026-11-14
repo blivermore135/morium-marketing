@@ -226,7 +226,7 @@ export const features: Feature[] = [
 	{
 		slug: "invoicing-and-payments",
 		name: "Invoices and card payments",
-		summary: "Send a pay link by email or text. Customers pay by card, Apple Pay or Google Pay.",
+		summary: "Send a pay link by email, or copy it and text it yourself. Customers pay by card, Apple Pay or Google Pay.",
 		title: "Invoicing and Card Payments for Detailers | Morium",
 		description:
 			"Draft invoices when a job is done, send a pay link, and get paid by card, Apple Pay or Google Pay straight to your own Stripe account. From $59/mo.",
