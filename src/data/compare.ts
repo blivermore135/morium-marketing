@@ -8,8 +8,8 @@
 // Never claim automatic texting, two-way texting, a business phone number or "coming soon" for any of them.
 // Morium's customer messages, as the app really works (checked in the code on 2026-10-12): see MORIUM_MESSAGES.
 
-export const AS_OF = "October 12, 2026";
-export const AS_OF_ISO = "2026-10-12";
+export const AS_OF = "November 13, 2026";
+export const AS_OF_ISO = "2026-11-13";
 
 export interface SourceFact {
 	/** What the row is about, e.g. "Cheapest plan with online booking". */
@@ -76,7 +76,7 @@ export const competitors: Competitor[] = [
 		whoTheyAre: "All-in-one shop software with online booking, inventory, QuickBooks, route planning, and phone apps.",
 		title: "Morium vs Urable for Mobile Detailers | Morium",
 		description:
-			"Morium vs Urable for solo and small mobile detailers: online booking from $59 a month versus $110. Prices checked October 12, 2026.",
+			"Morium vs Urable for solo and small mobile detailers: online booking from $59 a month versus $110. Prices checked November 13, 2026.",
 		h1: "Morium vs Urable: which is right for a mobile detailer?",
 		lead:
 			"For $59 a month, Morium gives a solo mobile detailer online booking, invoices, card payments, and Google review requests. Morium was started by a working mobile detailer and is built around how detailers work. Urable's online booking starts at $110 a month. Urable is a bigger system for shops with teams, inventory, and QuickBooks.",
@@ -142,8 +142,8 @@ export const competitors: Competitor[] = [
 			"want to text a booking link or an invoice to a customer from your own phone, with the message already written for you.",
 			"would rather keep it simple and pay $59 a month.",
 		],
-		checkedOn: "October 12, 2026",
-		checkedISO: "2026-10-12",
+		checkedOn: "November 13, 2026",
+		checkedISO: "2026-11-13",
 	},
 	{
 		slug: "quoteiq",
@@ -151,7 +151,7 @@ export const competitors: Competitor[] = [
 		whoTheyAre: "Software for many kinds of service businesses, with AI tools and a plan for each team size.",
 		title: "Morium vs QuoteIQ for Mobile Detailers | Morium",
 		description:
-			"Morium vs QuoteIQ for solo and small mobile detailers: online booking from $59 a month versus $299.99. Prices checked October 12, 2026.",
+			"Morium vs QuoteIQ for solo and small mobile detailers: online booking from $59 a month versus $299.99. Prices checked November 13, 2026.",
 		h1: "Morium vs QuoteIQ: which is right for a mobile detailer?",
 		lead:
 			"For $59 a month, Morium gives a solo or small mobile detailer online booking, invoices, card payments, and Google review requests. Morium was started by a working mobile detailer. QuoteIQ fits businesses that want built-in AI tools and a business phone number for two-way texting, and its customer booking link comes with its $299.99 Elite plan.",
@@ -221,7 +221,7 @@ export const competitors: Competitor[] = [
 		whoTheyAre: "Well-known software for home and field service businesses of many kinds.",
 		title: "Morium vs Jobber for Mobile Detailers | Morium",
 		description:
-			"Morium vs Jobber for solo and small mobile detailers: $59 a month for up to 6 people versus Jobber from $49 for one, with team cost examples. Prices checked October 12, 2026.",
+			"Morium vs Jobber for solo and small mobile detailers: $59 a month for up to 6 people versus Jobber from $49 for one, with team cost examples. Prices checked November 13, 2026.",
 		h1: "Morium vs Jobber: which is right for a mobile detailer?",
 		lead:
 			"For $59 a month, Morium gives a solo or small mobile detailer online booking, invoices, card payments, and Google review requests. Morium was started by a working mobile detailer. Jobber is a bigger, well-known system for many kinds of service businesses, with more integrations and two-way texting on its higher plans.",
@@ -283,7 +283,7 @@ export const competitors: Competitor[] = [
 		whoTheyAre: "Business software for auto reconditioning shops: paintless dent repair, detailing, glass, wheels, tint, and more.",
 		title: "Morium vs Mobile Tech RX for Mobile Detailers | Morium",
 		description:
-			"Morium vs Mobile Tech RX for solo and small mobile detailers: Mobile Tech RX is $39 a month for one admin, Morium is $59 a month flat for up to 6 people. Prices checked October 12, 2026.",
+			"Morium vs Mobile Tech RX for solo and small mobile detailers: Mobile Tech RX is $39 a month for one admin, Morium is $59 a month flat for up to 6 people. Prices checked November 13, 2026.",
 		h1: "Morium vs Mobile Tech RX: which is right for a mobile detailer?",
 		lead:
 			"For $59 a month, Morium gives a solo or small mobile detailer online booking, invoices, card payments, and Google review requests. Morium was started by a working mobile detailer. Mobile Tech RX fits auto reconditioning shops, such as paintless dent repair, that need estimating and shop tools.",
