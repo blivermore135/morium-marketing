@@ -191,13 +191,13 @@ const allPhone = features.every((f) => f.states.every((s) => phoneShots[`${f.id}
 // has no picture, so tapping it shows its plain description (`hint`). Memberships is left out: the demo tenant
 // doesn't show that tab.
 const navHotspots = [
-	{ label: "Overview", featureId: "revenue", left: "2.9%", width: "6.8%" },
-	{ label: "Follow-Ups", featureId: "followups", left: "10.2%", width: "7.8%" },
-	{ label: "Bookings", featureId: "dashboard", left: "18.6%", width: "6.9%" },
-	{ label: "Calendar", featureId: "calendar", left: "26%", width: "6.6%" },
-	{ label: "Customers", featureId: "customers", left: "33.2%", width: "7.6%" },
-	{ label: "Invoices", featureId: "invoices", left: "41.4%", width: "6.3%" },
-	{ label: "Settings", featureId: null, hint: "Settings. Your services, prices, hours, and follow-up messages", left: "48.3%", width: "6.3%" },
+	{ label: "Overview", featureId: "revenue", left: "4.6%", width: "12.7%" },
+	{ label: "Follow-Ups", featureId: "followups", left: "17.6%", width: "12.7%" },
+	{ label: "Bookings", featureId: "dashboard", left: "30.6%", width: "12.7%" },
+	{ label: "Calendar", featureId: "calendar", left: "43.6%", width: "12.7%" },
+	{ label: "Customers", featureId: "customers", left: "56.6%", width: "12.7%" },
+	{ label: "Invoices", featureId: "invoices", left: "69.6%", width: "12.7%" },
+	{ label: "Settings", featureId: null, hint: "Settings. Your services, prices, hours, and follow-up messages", left: "82.6%", width: "12.7%" },
 ];
 ---
 
@@ -379,7 +379,7 @@ const navHotspots = [
 								data-nav-label={h.label}
 								data-nav-hint={h.hint ?? ""}
 								class="nav-hotspot pointer-events-auto absolute cursor-pointer"
-								style={`top:11.2%;left:${h.left};width:${h.width};height:6%;`}
+								style={`top:var(--nav-top,12.9%);left:${h.left};width:${h.width};height:5.2%;`}
 								aria-label={`Go to ${h.label}`}
 							></button>
 						))}
@@ -481,6 +481,11 @@ const navHotspots = [
 		);
 		modeToggle?.classList.toggle("hidden", !hasLight);
 		modeToggle?.classList.toggle("flex", hasLight);
+
+		// In the pictures that are scrolled down (Overview, and the second Follow-Ups picture) the tab bar sticks to the
+		// top of the picture instead of sitting below the page header, so its click areas move up to match.
+		const navScrolled = featureId === "revenue" || (featureId === "followups" && frameIndex === 1);
+		navHotspotLayer?.style.setProperty("--nav-top", navScrolled ? "2.3%" : "12.9%");
 
 		const hasKinds = Boolean(feature) && feature.states.length > 1;
 		kindToggle?.classList.toggle("hidden", !hasKinds);
