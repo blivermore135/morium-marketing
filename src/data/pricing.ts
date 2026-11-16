@@ -39,8 +39,7 @@ export interface PricingTier {
 	// false = defined but not for sale on the site (Pricing.astro skips it).
 	listed?: boolean;
 	features: string[];
-	// Things a buyer might expect on this plan that are NOT on it, shown under the list so nobody has to guess
-	// (Starter: before and after job photos, which are Crew only).
+	// Optional "not on this plan" lines shown under the list. No tier uses it right now.
 	notIncluded?: string[];
 }
 
@@ -79,8 +78,7 @@ export const pricingTiers: PricingTier[] = [
 			"Prices by vehicle size",
 			"You plus up to 5 people on your team",
 		],
-		// Before and after job photos are a Crew feature (photoDocumentation in bobsdetailing's shared/billing.ts).
-		notIncluded: ["Before and after job photos (Crew only)"],
+		// 2026-11-16, per the user: no "Before and after job photos (Crew only)" line under Starter. Photos stay listed on Crew.
 	},
 	{
 		id: "team",
