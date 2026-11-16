@@ -304,6 +304,72 @@ export const usingMoriumArticles: HelpArticle[] = [
 	},
 
 	{
+		slug: "delete-a-customer-permanently",
+		title: "Delete a customer permanently",
+		seoTitle: "Delete a Customer Permanently in Morium: Erase Their Details, Keep Your Numbers | Morium Help",
+		description:
+			"Archive a customer, then erase them for good from Customers, Archived Customers. Their details go, your jobs and invoices stay as Deleted customer, and your totals do not change.",
+		summary: "Erase a customer's details for good and keep your numbers.",
+		keywords: ["delete customer", "erase", "remove customer", "archive", "privacy", "customer data", "delete data", "permanently"],
+		lead:
+			"When a customer asks you to delete their information, you can erase them from Morium for good. Their details go away. Your jobs and invoices stay, shown as Deleted customer, so your revenue and totals do not change.",
+		sections: [
+			{
+				heading: "Who can do it",
+				paragraphs: [
+					"Only an owner (and a second owner on Crew). Managers and employees do not see the button. It also does not work while you are previewing another role.",
+				],
+			},
+			{
+				heading: "Steps",
+				steps: [
+					"Open the **Customers** tab.",
+					"Tap **Archive** next to the customer. A customer has to be archived first.",
+					"Scroll down and open **Archived Customers**.",
+					"Tap **Delete permanently** next to the customer.",
+					"Read the box. It shows how many jobs and invoices stay and what will be erased.",
+					"Type the customer's name exactly as shown, then tap **Delete permanently**.",
+				],
+			},
+			{
+				heading: "What stays",
+				bullets: [
+					"Their jobs and invoices, shown as **Deleted customer**. Every amount and date stays the same.",
+					"Your revenue and totals. They do not change.",
+				],
+			},
+			{
+				heading: "What is erased",
+				bullets: [
+					"Their name, phone number, email and notes.",
+					"Their vehicles, their messages and the copies of emails sent to them.",
+					"Pictures of their jobs, and any draft invoices.",
+					"Their name, email and phone number where they appear in your notes and your activity log. Those become **Deleted customer**.",
+				],
+			},
+			{
+				heading: "When Morium will not do it yet",
+				paragraphs: ["Morium tells you why in the box and nothing is erased. Fix it and try again."],
+				bullets: [
+					"The customer is not archived yet. Archive them first.",
+					"They have an active membership. Cancel it first.",
+					"They have an invoice with money still owed. Collect it or void it first.",
+					"They have an open job. Finish it or cancel it first.",
+					"A message to them is being sent right now. Try again in a few minutes.",
+				],
+			},
+			{
+				heading: "Good to know",
+				paragraphs: [
+					"This can't be undone.",
+					"This also removes the details Morium holds. It can't erase payment records kept by Stripe, emails that were already delivered to inboxes, or the email service's own send logs. Backups can keep a copy for up to 7 days.",
+				],
+			},
+		],
+		related: ["your-first-10-minutes", "where-things-are-in-settings", "getting-help"],
+	},
+
+	{
 		slug: "getting-help",
 		title: "Getting help",
 		seoTitle: "Getting Help with Morium: Email Support and Quick Fixes | Morium Help",
