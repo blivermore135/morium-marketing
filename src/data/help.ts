@@ -9,6 +9,8 @@
 //  - Builder guides carry `lastChecked`. Menus change, so re-read the builder's help pages and update it.
 // Text accepts **bold** and [label](/path or https://link) (see src/lib/richText.ts).
 
+import { usingMoriumArticles } from "./help-getting-started";
+
 export interface HelpSection {
 	heading: string;
 	paragraphs?: string[];
@@ -42,7 +44,7 @@ export interface HelpArticle {
 
 export const HELP_LAST_CHECKED = "November 2026";
 
-export const helpArticles: HelpArticle[] = [
+const websiteArticles: HelpArticle[] = [
 	{
 		slug: "add-booking-to-your-website",
 		title: "Add Morium booking to your website",
@@ -369,5 +371,7 @@ export const helpArticles: HelpArticle[] = [
 		related: ["add-booking-to-your-website", "add-booking-to-wix", "add-booking-to-squarespace", "add-booking-to-wordpress"],
 	},
 ];
+
+export const helpArticles: HelpArticle[] = [...usingMoriumArticles, ...websiteArticles];
 
 export const getHelpArticle = (slug: string) => helpArticles.find((a) => a.slug === slug);

@@ -2,22 +2,34 @@
 import Layout from "../../layouts/Layout.astro";
 import Header from "../../components/Header.astro";
 import Footer from "../../components/Footer.astro";
-import { helpArticles, getHelpArticle } from "../../data/help";
+import { getHelpArticle } from "../../data/help";
+import { usingMoriumArticles } from "../../data/help-getting-started";
 import { CONTACT_EMAIL } from "../../data/site";
 
 // Topics group the articles. Add a topic here when there is more than one group of articles.
 const topics = [
 	{
+		name: "Using Morium",
+		blurb: "Set up, share your booking link, send invoices and ask for reviews.",
+		slugs: usingMoriumArticles.map((a) => a.slug),
+	},
+	{
 		name: "Your own website",
 		blurb: "Put Morium booking on the website you already have.",
-		slugs: helpArticles.map((a) => a.slug),
+		slugs: [
+			"add-booking-to-your-website",
+			"add-booking-to-wix",
+			"add-booking-to-squarespace",
+			"add-booking-to-wordpress",
+			"add-booking-to-godaddy",
+		],
 	},
 ];
 ---
 
 <Layout
 	title="Help Center | Morium"
-	description="Step-by-step help for Morium, the booking and invoicing app for mobile detailers. Start with adding booking to your own website."
+	description="Step-by-step help for Morium, the booking and invoicing app for mobile detailers. Set up, booking link, invoices, reviews, team and your own website."
 >
 	<Header />
 	<main class="mx-auto max-w-5xl px-5 py-10 sm:px-6 sm:py-16 lg:px-8">
