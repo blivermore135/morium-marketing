@@ -137,10 +137,10 @@ export const usingMoriumArticles: HelpArticle[] = [
 		seoTitle: "Google Review Requests in Morium: Turn Them On | Morium Help",
 		description:
 			"Turn on review requests in Settings, Follow-ups. You need your Google review link and your mailing address. Approve each one or send automatically.",
-		summary: "Turn on review requests, and choose approve-each-one or automatic.",
+		summary: "Turn on review requests, and choose to email it for you or send it yourself.",
 		keywords: ["google review", "reviews", "review request", "follow-up", "follow-ups", "automatic", "approve"],
 		lead:
-			"Turn them on in Settings, Follow-ups. Needs your Google review link and your mailing address. Choose approve-each-one (the default) or send automatically. One request per job.",
+			"Turn them on in Settings, Follow-ups. Needs your Google review link and your mailing address. Choose I'll send it myself (the default) or Email it for me. One request per job.",
 		sections: [
 			{
 				heading: "How it works",
@@ -154,14 +154,14 @@ export const usingMoriumArticles: HelpArticle[] = [
 				steps: [
 					"Under **Google review requests**, tick **Send review requests**.",
 					"Paste your **Google review link**. To get it: search your business name on Google while signed in to the account that manages it, tap **Share** on your Business Profile, and copy the review link. It looks like https://g.page/r/.../review. No Google Business Profile yet? Leave it blank. Review requests wait until you add one.",
-					"Choose **Days after the job**. 0 means right when you mark the job done. Each job gets one request, never repeated.",
-					"Pick how it goes out. **Let me approve each one** (the default): Morium writes it and puts it in the **Follow-Ups** tab under **Ready to send now**. You read it, change the words if you like, and send. **Send automatically when due**: Morium emails the customer by itself. Only jobs that become due after you save are sent this way. Customers who unsubscribed are never emailed.",
+					"Choose **Send it this many days after the job**. 0 means right when you mark the job done. Each job gets one request, never repeated.",
+					"Pick how it goes out. **I'll send it myself (text or email)** (the default): Morium writes it and puts it in the **Follow-Ups** tab under **Ready to send now**. You read it, change the words if you like, then tap **Email** or **Text**. Text opens your own Messages app with the words ready, and you press Send. **Email it for me**: Morium emails the customer by itself when it is time. Only jobs that become due after you save are sent this way. Customers who unsubscribed are never emailed.",
 					"Save.",
 				],
 				note: {
 					title: "Before anything is sent",
 					text:
-						"Every email shows your mailing address and an unsubscribe link. Nothing is sent until your Google review link and mailing address are saved.",
+						"Every email shows your mailing address and an unsubscribe link. Nothing is sent until your Google review link and mailing address are saved. If you pick Email it for me before they are saved, Settings tells you, and your daily reminder says how many follow-ups are paused.",
 				},
 			},
 		],
@@ -184,8 +184,8 @@ export const usingMoriumArticles: HelpArticle[] = [
 				paragraphs: ["Open **Settings**, then the **Follow-ups** section, then **Rebook reminders**."],
 				steps: [
 					"Tick **Send rebook reminders**.",
-					"Choose **Days after the job** (how long to wait before reminding).",
-					"Choose **Let me approve each one** or **Send automatically when due**, the same as for review requests.",
+					"Choose **Send it this many days after the job** (how long to wait before reminding).",
+					"Choose **I'll send it myself (text or email)** or **Email it for me**, the same as for review requests.",
 					"Save.",
 				],
 			},
@@ -200,6 +200,52 @@ export const usingMoriumArticles: HelpArticle[] = [
 			},
 		],
 		related: ["google-review-requests", "add-a-booking-yourself"],
+	},
+
+	{
+		slug: "how-follow-ups-work",
+		title: "How follow-ups work",
+		seoTitle: "How Follow-Ups Work in Morium: Email It or Send It Yourself | Morium Help",
+		description:
+			"Review requests and rebook reminders either email the customer for you or wait for you to send them. One reminder a day tells you what is waiting or paused.",
+		summary: "Email it for you, or send it yourself, plus the daily reminder.",
+		keywords: ["follow-up", "follow-ups", "text", "email", "reminder", "notification", "review request", "rebook", "send it myself", "paused", "undo"],
+		lead:
+			"Morium writes a review request or a rebook reminder after a job. For each one you choose whether Morium emails the customer for you, or whether it waits for you to send it yourself.",
+		sections: [
+			{
+				heading: "Your two choices",
+				paragraphs: ["They are in **Settings**, then **Follow-ups**, under **Google review requests** and **Rebook reminders**."],
+				bullets: [
+					"**Email it for me.** We email the customer when it is time. Only jobs that become due after you save are emailed this way. If a follow-up is more than a day late, it waits for you as a draft instead of going out late.",
+					"**I'll send it myself (text or email).** It waits in the **Follow-Ups** tab under **Ready to send now**. You tap **Email** or **Text**. Text opens your own Messages app with the words ready, and you press Send.",
+				],
+			},
+			{
+				heading: "Customers with no email",
+				paragraphs: [
+					"A customer with a phone number and no email waits as a text in the Follow-Ups tab, whichever choice you made. Nobody is emailed. You send it yourself. If you have not sent it after 14 days, it goes away.",
+				],
+			},
+			{
+				heading: "The reminder for you",
+				paragraphs: [
+					"If follow-ups are waiting, Morium reminds you once a day on your phone, at the time you pick under **Reminder for you** in Settings, Follow-ups. Turn on notifications with the bell at the top of the page. If no phone is set up for notifications, we email you instead. You never get one when nothing is waiting.",
+					"If follow-ups are paused because your mailing address or Google review link is not saved, the reminder says how many are paused and what to add.",
+				],
+			},
+			{
+				heading: "Good to know",
+				bullets: [
+					"We never send two for the same job.",
+					"Customers who opted out never get one.",
+					"To email for you, we need your mailing address. Review requests also need your Google link.",
+					"If you tapped **Text** or **Skip** by mistake, **Undo** is in the Follow-Ups tab, under **Recently sent** or **Skipped reminders**.",
+					"You can change any of this any time. It only changes what happens next.",
+				],
+			},
+		],
+		related: ["google-review-requests", "rebook-reminders", "where-things-are-in-settings"],
 	},
 
 	{

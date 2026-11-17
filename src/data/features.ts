@@ -4,7 +4,7 @@
 //
 // Accuracy notes that matter:
 //  - Review requests and rebook reminders are always written for the owner. Each business chooses, per type, between
-//    "Send automatically when due" and "Let me approve each one" (the default). Automatic sending only covers jobs
+//    "Email it for me" and "I'll send it myself (text or email)" (the default). Automatic sending only covers jobs
 //    that become due after the owner turns it on. Appointment reminders send on their own.
 //  - Everything is email. Texting customers from Morium is not available yet.
 //  - Online booking sends a REQUEST; the owner confirms it.
@@ -64,7 +64,7 @@ export const features: Feature[] = [
 				items: [
 					"You mark a job complete.",
 					"Right away, or after a wait you choose (any number of days), Morium writes a review request to that customer and puts it in your Follow-Ups tab.",
-					"If you chose to approve each one, you read it, change anything you like, and tap Send, or tap Send all. If you chose automatic, it goes out by itself when it is due.",
+					"If you chose I'll send it myself, you read it, change anything you like, and tap Email or Text, or tap Send all. If you chose Email it for me, it goes out by itself when it is due.",
 					"The email has your Google review link, so the customer can leave stars in one tap.",
 				],
 			},
@@ -86,7 +86,7 @@ export const features: Feature[] = [
 		faqs: [
 			{
 				q: "Does Morium send review requests without my say-so?",
-				a: "Only if you choose that. Each business picks one of two settings for review requests: send automatically when due, or let me approve each one. New businesses start on approve each one, so nothing goes out until you tap Send. Automatic sending only covers jobs that become due after you turn it on, and it never emails someone who unsubscribed.",
+				a: "Only if you choose that. Each business picks one of two settings for review requests: Email it for me, or I'll send it myself. New businesses start on I'll send it myself, so nothing goes out until you tap Email or Text. Automatic sending only covers jobs that become due after you turn it on, and it never emails someone who unsubscribed.",
 			},
 			{
 				q: "Where do I get my Google review link?",
@@ -123,7 +123,7 @@ export const features: Feature[] = [
 				items: [
 					"You finish a job and mark it complete.",
 					"After the wait you chose (the standard is 20 days), Morium writes a rebook reminder that mentions the service and the vehicle, like \"your 2023 Chevy Tahoe is probably about due.\"",
-					"If you chose to approve each one, it shows up in your Follow-Ups tab and you read it, change it if you want, and send it. If you chose automatic, it goes out by itself when it is due.",
+					"If you chose I'll send it myself, it shows up in your Follow-Ups tab and you read it, change it if you want, and send it. If you chose Email it for me, it goes out by itself when it is due.",
 				],
 			},
 			{
@@ -132,7 +132,7 @@ export const features: Feature[] = [
 			},
 			{
 				heading: "You see who it goes to",
-				body: "When you approve each one, every reminder shows the customer's email, and a small Edit link lets you fix a name, email, or phone number before you send. The change is saved on the customer's record.",
+				body: "When you send it yourself, every reminder shows the customer's email, and a small Edit link lets you fix a name, email, or phone number before you send. The change is saved on the customer's record.",
 			},
 			{
 				heading: "How it is sent",
@@ -146,7 +146,7 @@ export const features: Feature[] = [
 			},
 			{
 				q: "Does it send automatically?",
-				a: "Your choice. Each business picks one of two settings for rebook reminders: send automatically when due, or let me approve each one. New businesses start on approve each one. Automatic sending only covers customers who become due after you turn it on. Appointment reminders (for bookings already on your calendar) always send on their own.",
+				a: "Your choice. Each business picks one of two settings for rebook reminders: Email it for me, or I'll send it myself. New businesses start on I'll send it myself. Automatic sending only covers customers who become due after you turn it on. Appointment reminders (for bookings already on your calendar) always send on their own.",
 			},
 			{
 				q: "What if a customer unsubscribes?",
