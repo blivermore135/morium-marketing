@@ -54,6 +54,14 @@ export interface Competitor {
 	strongerThemIntro?: string;
 	/** Which of their pages the facts came from, e.g. "pricing page". */
 	sourcePages?: string;
+	/** Replaces the "Where <them> is stronger" heading. */
+	strongerThemTitle?: string;
+	/** A bold card right under the intro: a heading, a few short lines, and an optional note. */
+	callout?: { heading: string; lines: string[]; note?: string };
+	/** Two or more side-by-side bars (percent = bar length against the biggest one). */
+	bars?: { title: string; items: { label: string; amount: string; detail: string; percent: number }[] };
+	/** A short line under the "At a glance" table. */
+	glanceNote?: string;
 }
 
 /** What Morium really sends to customers, in plain words (verified in the app's code). */
@@ -221,61 +229,104 @@ export const competitors: Competitor[] = [
 		whoTheyAre: "Well-known software for home and field service businesses of many kinds.",
 		title: "Morium vs Jobber for Mobile Detailers | Morium",
 		description:
-			"Morium vs Jobber for solo and small mobile detailers: $59 a month for up to 6 people versus Jobber from $49 for one, with team cost examples. Prices checked November 13, 2026.",
+			"Morium vs Jobber for solo and small mobile detailers: $59 a month for you plus 5 people versus Jobber from $49 for one person, with the math shown. Jobber prices checked November 20, 2026.",
 		h1: "Morium vs Jobber: which is right for a mobile detailer?",
 		lead:
-			"For $59 a month, Morium gives a solo or small mobile detailer online booking, invoices, card payments, and Google review requests. Morium was started by a working mobile detailer. Jobber is a bigger, well-known system for many kinds of service businesses, with more integrations and two-way texting on its higher plans.",
+			"Jobber is made for many kinds of service businesses, like plumbers, lawn care, and cleaners. Today Morium supports detailing businesses and is built around how detailers work. Started by a mobile detailer.",
+		checkedOn: "November 20, 2026",
+		checkedISO: "2026-11-20",
+		sourcePages: "pricing page",
 		moriumFirst: true,
 		disclosure: disclosure("Jobber"),
+		callout: {
+			heading: "Your whole crew for one price.",
+			lines: [
+				"Morium Starter: you plus 5 people, $59 a month.",
+				"Jobber Core: 1 person for $49 a month. Each extra person is $29 more.",
+			],
+			note: "They are not the same product. See what each one includes below.",
+		},
+		bars: {
+			title: "Team of 6, month to month",
+			items: [
+				{ label: "Morium Starter", amount: "$59 a month", detail: "you plus 5 people", percent: 30 },
+				{ label: "Jobber Core", amount: "$194 a month", detail: "$49 + 5 extra people at $29 each", percent: 100 },
+			],
+		},
+		glanceNote:
+			"Jobber prices checked November 20, 2026 from jobber.com. These plans do not include the same things, so compare the lists below, not just the price. Jobber's page does not say which plan assigns jobs to people, so we make no price comparison for Morium Crew.",
 		glance: [
-			{ label: "Starting price (month to month)", morium: "$59/mo (Starter)", them: "$49/mo (Core). $29/mo if billed annually." },
-			{ label: "Users", morium: "Starter: you plus up to 5 people. Crew: unlimited.", them: "Core: 1 user, extra users $29/mo each" },
-			{ label: "Cost for a team of 2 (month to month)", morium: "$59/mo. Starter covers up to 6 people.", them: "$78/mo ($49 for Core plus 1 extra user at $29)" },
-			{ label: "Cost for a team of 3 (month to month)", morium: "$59/mo. Starter covers up to 6 people.", them: "$107/mo ($49 for Core plus 2 extra users at $29 each)" },
-			{ label: "Online booking", morium: "On every plan", them: "On Core (\"Book and schedule jobs online\")" },
-			{ label: "Invoices and card payments", morium: "On every plan. Stripe's standard card fees apply; Morium adds no extra fee.", them: "On Core. Card fee 2.9% + 30¢." },
+			{ label: "Starting price (month to month)", morium: "$59/mo (Starter)", them: "$49/mo (Core)" },
+			{ label: "If you pay yearly", morium: "Month to month only", them: "Core is $29/mo billed annually, or $39/mo with a 1-year commitment" },
+			{ label: "People included", morium: "Starter: you plus 5 people. Crew: unlimited.", them: "Core: 1 person. Extra people $29/mo each." },
+			{ label: "Team of 2 (month to month)", morium: "$59/mo (Starter)", them: "$78/mo ($49 for Core plus 1 extra person at $29)" },
+			{ label: "Team of 3 (month to month)", morium: "$59/mo (Starter)", them: "$107/mo ($49 for Core plus 2 extra people at $29 each)" },
+			{ label: "Team of 6 (month to month)", morium: "$59/mo (Starter)", them: "$194/mo ($49 for Core plus 5 extra people at $29 each)" },
 			{
-				label: "Reminders and messages",
-				morium: MORIUM_MESSAGES,
-				them: "Automated client reminders start on Connect ($139/mo). Two-way texting starts on Grow ($199/mo for 1 user).",
+				label: "Team of 6, cheapest Jobber plan with automatic reminders",
+				morium: "$59/mo (Starter)",
+				them: "$228/mo (Connect, 5 users $199 + 1 extra $29). Connect also includes QuickBooks sync, checklists, time and expense tracking.",
 			},
+			{ label: "Appointment reminders", morium: "Included on every plan. Sent by email, 24 hours before by default.", them: "Automatic client reminders start on Connect ($139/mo for 1 person, $199/mo for 5)." },
+			{
+				label: "What the plans include",
+				morium: "Starter: online booking, invoices, card payments, appointment reminders, review requests and rebook reminders. Crew ($129/mo) adds job assignment and before and after photos. No quotes and no website builder.",
+				them: "Core: scheduling, quotes, invoices and online payments, a website, reporting, 100+ tools through the app marketplace. Automatic reminders are not in Core.",
+			},
+			{ label: "Quotes", morium: "Not in Morium", them: "On Core (\"Send professional quotes\")" },
+			{ label: "Review requests and rebook reminders", morium: "On every plan. Approve each one, or let them send on their own.", them: "Not listed on Jobber's pricing page (checked November 20, 2026)" },
+			{ label: "Online booking, invoices, card payments", morium: "On every plan. Stripe's standard card fee applies. Morium adds no extra fee.", them: "On Core. Card fee 2.9% + 30¢." },
 			{ label: "Free trial", morium: "14 days, card needed", them: "14 days, no card needed" },
 		],
 		facts: [
-			{ label: "Core price", value: "$49 per month month-to-month, $39 per month with a 1-year commitment, $29 per month billed annually. 1 user included, extra users $29 per month each" },
-			{ label: "Connect price", value: "$139 per month month-to-month ($119 with a 1-year commitment, $99 billed annually), for 1 user" },
-			{ label: "Grow price", value: "$199 per month month-to-month for 1 user ($169 with a 1-year commitment, $149 billed annually). For 5 users it is $299 ($259, $229)" },
-			{ label: "Core includes", value: "\"Book and schedule jobs online\", send quotes, send invoices and receive online payments, create a professional website, built-in reporting, connect 100+ tools" },
-			{ label: "Connect adds", value: "Automated client reminders, automated quote and invoice follow-ups, QuickBooks Online sync" },
-			{ label: "Grow adds", value: "Two-way SMS, custom workflow automations, job costing" },
-			{ label: "Card payment fees", value: "2.9% + 30¢ for credit cards, 1% for ACH" },
+			{ label: "Core price", value: "$49 per month month-to-month, $39 per month with a 1-year commitment, $29 per month billed annually. 1 user included" },
+			{ label: "Extra users", value: "\"Add users for $29/mo each.\" It is shown on every plan. The page does not say whether the price changes with how you pay" },
+			{ label: "Connect price", value: "$139 per month month-to-month ($119 with a 1-year commitment, $99 billed annually) for 1 user. For 5 users: $199 ($169, $149)" },
+			{ label: "Grow price", value: "$199 per month month-to-month for 1 user ($169 with a 1-year commitment, $149 billed annually). For 5 users: $299 ($259, $229)" },
+			{ label: "Core includes", value: "\"Book and schedule jobs online\", \"Send professional quotes\", \"Send invoices and receive online payments\", \"Create a professional website\", \"Track performance with built-in reporting\", \"Connect 100+ tools through the app marketplace\"" },
+			{ label: "Connect adds", value: "\"Send automated client reminders\", \"Collect payments automatically\", checklists, \"Automate quote and invoice follow-ups\", \"Sync with QuickBooks Online\", \"Track time and expenses\"" },
+			{ label: "Grow adds", value: "\"Customize quotes with rich visuals and reviews\", optional line items on quotes, automatic time tracking, \"Track profitability with job costing\", \"Connect with customers through two-way SMS\", \"Build custom workflow automations\"" },
+			{ label: "On the feature list with no plan named", value: "GPS tracking, routing, a client hub, many report types, tip collection, and iOS and Android mobile apps. The page does not show which plan has them, so this page names no plan for them" },
+			{ label: "Card payment fees", value: "2.9% + 30¢ for credit cards, 2.7% + 30¢ for Tap to Pay, 1% for bank payments (ACH)" },
 			{ label: "Free trial", value: "14 days, full access to the Grow plan, no credit card required" },
+			{ label: "Review requests and rebook reminders", value: "Not listed on the pricing page. This page makes no claim about them" },
+			{ label: "Team of 6 on Core, month to month", value: "$49 for 1 person + 5 extra people at $29 each = $194 a month" },
+			{ label: "Team of 6 on Connect, month to month", value: "$199 for 5 users + 1 extra person at $29 = $228 a month" },
 			{ label: "Marketing Suite add-on", value: "$99 per month" },
 		],
+		strongerThemTitle: "What Jobber has that Morium does not",
+		strongerThemIntro: "So you can choose fairly. Plans are named only where Jobber's page names them.",
 		strongerThem: [
-			"A larger, long-established product with 100+ integrations and QuickBooks Online sync (from Connect).",
-			"Two-way texting with customers inside the app (on Grow, $199/mo for 1 user).",
+			"Quotes you send to customers to approve (Core), and automatic quote follow-ups (Connect). Morium has booking requests and invoices, not a quote document.",
+			"A website builder (Core). Morium gives you a booking link and an embed for your own site.",
+			"QuickBooks Online sync (Connect), and 100+ tools through an app marketplace.",
+			"Two-way text messages with customers inside the app (Grow).",
+			"Time tracking and expense tracking (Connect), and job costing and custom workflow automations (Grow).",
+			"On Jobber's feature list, with no plan named on the page: a client hub where customers approve quotes and pay invoices, routing and GPS tracking, many report types, and tip collection.",
+			"Phone apps for iPhone and Android. Morium works in your phone's browser, and you can save it to your home screen.",
 			"A free trial with no credit card needed.",
 			"A lower price for one person: Core is $49 a month month to month, or $29 a month billed annually, against $59 a month for Morium Starter.",
 		],
 		strongerMorium: [
-			"Costs less for a team of 2 or more. Two people on Jobber Core is $78 a month ($49 plus 1 extra user at $29), and three is $107 a month. Morium Starter covers up to 6 people for $59.",
-			"Appointment reminders are included at $59 a month and go out by email on their own. Jobber's automated client reminders start on Connect at $139 a month.",
-			"Review requests and rebook reminders come with every plan, written for you. Approve each one first, or let them send automatically.",
-			MORIUM_DETAILER_STRENGTH,
+			"Your crew fits in the price. Starter covers you plus up to 5 people for $59 a month. On Jobber Core, each person after the first is $29 a month, so a crew of 6 is $194 a month.",
+			"Appointment reminders are included on every plan. Morium emails them on its own, 24 hours before by default. On Jobber, automatic client reminders start on Connect.",
+			"Built around detailing. Set prices by vehicle size once, and customers see the right price when they book. Rebook reminders can name the customer's vehicle. Review requests and rebook reminders come with every plan: approve each one, or let them send on their own.",
+			"Card payments go straight to your own Stripe account. Stripe's standard fee applies, and Morium adds no extra fee.",
 			MORIUM_TEXTING_STRENGTH,
+			"Simple to set up for one person or a small crew: a booking link, a calendar, invoices and review requests, with fewer tools to learn.",
 		],
 		chooseThem: [
 			"need support for many kinds of service businesses.",
-			"need QuickBooks sync, or two-way texting inside the app.",
+			"need quotes, a website builder, QuickBooks sync, or two-way texting inside the app.",
+			"want phone apps from the app stores.",
 			"want a big, established company behind your software.",
 		],
 		chooseMorium: [
 			"are a mobile detailer who wants something built around how detailers work, at $59 a month.",
 			"want reminders, review requests and rebook reminders included without paying for a higher plan.",
-			"have a small team and would rather pay one flat price.",
+			"have a small team, want one flat price, and can do without quotes, a website builder, QuickBooks sync and two-way texting.",
 		],
-		note: "Jobber's price depends on how you pay. We show month to month so the numbers compare fairly.",
+		note: "Jobber shows three prices for a plan: month to month (Core is $49), month to month with a 1-year commitment ($39), and billed annually ($29). We compare month to month so the numbers match Morium, which is month to month.",
 	},
 	{
 		slug: "mobile-tech-rx",

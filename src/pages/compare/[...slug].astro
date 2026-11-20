@@ -72,6 +72,35 @@ const breadcrumb = {
 					{competitor.disclosure ?? `Full disclosure: Morium is our product, and today it supports detailing businesses. ${competitor.name}: ${competitor.whoTheyAre}`}
 				</p>
 
+				{competitor.callout && (
+					<section class="mt-8 max-w-3xl rounded-2xl border border-accent-300 bg-accent-50 p-7" data-compare-callout>
+						<p class="font-display text-2xl font-bold tracking-tight text-ink">{competitor.callout.heading}</p>
+						<ul class="mt-3 space-y-1.5 text-base leading-relaxed text-ink/80">
+							{competitor.callout.lines.map((line) => <li>{line}</li>)}
+						</ul>
+						{competitor.callout.note && <p class="mt-3 text-sm text-ink/60">{competitor.callout.note}</p>}
+					</section>
+				)}
+				{competitor.bars && (
+					<section class="mt-6 max-w-3xl rounded-2xl border border-line p-6" data-compare-bars>
+						<h2 class="font-body text-base font-bold text-ink">{competitor.bars.title}</h2>
+						<ul class="mt-4 space-y-4">
+							{competitor.bars.items.map((item, index) => (
+								<li>
+									<div class="flex flex-wrap items-baseline justify-between gap-x-4 text-sm">
+										<span class="font-semibold text-ink">{item.label}</span>
+										<span class="font-semibold text-ink">{item.amount}</span>
+									</div>
+									<div class="mt-1.5 h-3 w-full rounded-full bg-mist" role="img" aria-label={`${item.label}: ${item.amount}`}>
+										<div class:list={["h-3 rounded-full", index === 0 ? "bg-accent-500" : "bg-ink/40"]} style={`width: ${item.percent}%`}></div>
+									</div>
+									<p class="mt-1 text-xs text-ink/60">{item.detail}</p>
+								</li>
+							))}
+						</ul>
+					</section>
+				)}
+
 				<h2 class="mt-14 font-display text-3xl font-bold tracking-tight text-ink">At a glance</h2>
 				<div class="mt-5 overflow-x-auto rounded-2xl border border-line">
 					{/* On a phone each row stacks: the label, then Morium, then {competitor.name}. From 640px up it is a plain three-column table. */}
@@ -94,12 +123,13 @@ const breadcrumb = {
 						</tbody>
 					</table>
 				</div>
+				{competitor.glanceNote && <p class="mt-3 max-w-3xl text-sm leading-relaxed text-ink/60" data-compare-glance-note>{competitor.glanceNote}</p>}
 
 				<div class="mt-14 grid gap-8 md:grid-cols-2">
 					{(competitor.moriumFirst ? ["morium", "them"] : ["them", "morium"]).map((which) =>
 						which === "them" ? (
 							<section>
-								<h2 class="font-display text-2xl font-bold tracking-tight text-ink">Where {competitor.name} is stronger</h2>
+								<h2 class="font-display text-2xl font-bold tracking-tight text-ink">{competitor.strongerThemTitle ?? `Where ${competitor.name} is stronger`}</h2>
 								{competitor.strongerThemIntro && <p class="mt-3 text-base leading-relaxed text-ink/60">{competitor.strongerThemIntro}</p>}
 								<ul class="mt-4 space-y-3">
 									{competitor.strongerThem.map((t) => (
