@@ -24,7 +24,7 @@ const columns = [
 		heading: "Industries",
 		links: industries
 			.filter((i) => !i.isCatchAll)
-			.map((i) => ({ label: i.name, href: i.live ? SIGNUP_URL : waitlistMailto(i.name) })),
+			.map((i) => ({ label: i.live ? i.name : `${i.name} (coming soon)`, href: i.live ? SIGNUP_URL : waitlistMailto(i.name) })),
 	},
 	{
 		heading: "Company",

@@ -232,12 +232,12 @@ export const competitors: Competitor[] = [
 			"Morium vs Jobber for solo and small mobile detailers: $59 a month for you plus 5 people versus Jobber from $49 for one person, with the math shown. Jobber prices checked November 20, 2026.",
 		h1: "Morium vs Jobber: which is right for a mobile detailer?",
 		lead:
-			"Jobber is made for many kinds of service businesses, like plumbers, lawn care, and cleaners. Today Morium supports detailing businesses and is built around how detailers work. Started by a mobile detailer.",
+			"Jobber is made for many kinds of home service businesses. Today Morium supports detailing businesses and is built around how detailers work. Started by a mobile detailer.",
 		checkedOn: "November 20, 2026",
 		checkedISO: "2026-11-20",
 		sourcePages: "pricing page",
 		moriumFirst: true,
-		disclosure: disclosure("Jobber"),
+		disclosure: "Full disclosure: we make Morium, so we are not neutral. Every Jobber price and feature on this page comes from Jobber's own website.",
 		callout: {
 			heading: "Your whole crew for one price.",
 			lines: [
