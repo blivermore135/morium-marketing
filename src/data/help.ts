@@ -48,7 +48,7 @@ const websiteArticles: HelpArticle[] = [
 	{
 		slug: "add-booking-to-your-website",
 		title: "Add Morium booking to your website",
-		seoTitle: "Add Morium Booking to Your Website: Book Now Button or Booking Form | Morium Help",
+		seoTitle: "Add Morium Booking to Your Website | Morium Help",
 		description:
 			"Two ways to put Morium booking on the website you already have: a Book now button or the booking form on your page. How they differ and how to pick.",
 		summary: "The Book now button or the booking form on your page, and how to pick.",

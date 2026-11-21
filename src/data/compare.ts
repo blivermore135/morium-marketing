@@ -229,7 +229,7 @@ export const competitors: Competitor[] = [
 		whoTheyAre: "Well-known software for home and field service businesses of many kinds.",
 		title: "Morium vs Jobber for Mobile Detailers | Morium",
 		description:
-			"Morium vs Jobber for solo and small mobile detailers: $59 a month for you plus 5 people versus Jobber from $49 for one person, with the math shown. Jobber prices checked November 20, 2026.",
+			"Morium vs Jobber for mobile detailers: $59 a month for you plus 5 people versus Jobber from $49 for one person. Jobber prices checked November 20, 2026.",
 		h1: "Morium vs Jobber: which is right for a mobile detailer?",
 		lead:
 			"Jobber is made for many kinds of home service businesses. Today Morium supports detailing businesses and is built around how detailers work. Started by a mobile detailer.",
@@ -334,7 +334,7 @@ export const competitors: Competitor[] = [
 		whoTheyAre: "Business software for auto reconditioning shops: paintless dent repair, detailing, glass, wheels, tint, and more.",
 		title: "Morium vs Mobile Tech RX for Mobile Detailers | Morium",
 		description:
-			"Morium vs Mobile Tech RX for solo and small mobile detailers: Mobile Tech RX is $39 a month for one admin, Morium is $59 a month flat for up to 6 people. Prices checked November 13, 2026.",
+			"Morium vs Mobile Tech RX for mobile detailers: $39 a month for one admin versus Morium at $59 flat for up to 6 people. Prices checked November 13, 2026.",
 		h1: "Morium vs Mobile Tech RX: which is right for a mobile detailer?",
 		lead:
 			"For $59 a month, Morium gives a solo or small mobile detailer online booking, invoices, card payments, and Google review requests. Morium was started by a working mobile detailer. Mobile Tech RX fits auto reconditioning shops, such as paintless dent repair, that need estimating and shop tools.",

@@ -109,7 +109,7 @@ export const features: Feature[] = [
 		summary: "Morium writes a \"time for another detail\" email for past customers. It goes out automatically, or after you approve it. Your choice.",
 		title: "Rebooking Reminders for Detailers | Morium",
 		description:
-			"Bring past customers back. Morium writes a rebook reminder when it's about time for their next detail. It is sent automatically, or after you approve it. Your choice. From $59/mo.",
+			"Bring past customers back. Morium writes a rebook reminder when it's about time for their next detail. Sent automatically or after you approve it. From $59/mo.",
 		h1: "Bring past customers back, without chasing them",
 		lead:
 			"Most detailing customers would book again if someone reminded them. Morium watches how long it has been since each customer's last detail and writes a short \"time for another detail\" email for you. It is sent automatically, or after you approve it. Your choice.",

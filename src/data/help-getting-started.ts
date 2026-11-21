@@ -9,7 +9,7 @@ export const usingMoriumArticles: HelpArticle[] = [
 	{
 		slug: "your-first-10-minutes",
 		title: "Your first 10 minutes in Morium",
-		seoTitle: "Your First 10 Minutes in Morium: Set Up Your Business and Booking Link | Morium Help",
+		seoTitle: "Your First 10 Minutes in Morium | Morium Help",
 		description:
 			"Add your business details and services, then copy your booking link. About 10 minutes, and you do not need to set up everything today.",
 		summary: "Business details, services and prices, then your booking link.",
@@ -42,7 +42,7 @@ export const usingMoriumArticles: HelpArticle[] = [
 	{
 		slug: "put-morium-on-your-home-screen",
 		title: "Put Morium on your phone's home screen",
-		seoTitle: "Put Morium on Your Phone's Home Screen (iPhone and Android) | Morium Help",
+		seoTitle: "Add Morium to Your Phone's Home Screen | Morium Help",
 		description: "Add Morium to your home screen so it opens like an app. iPhone: Safari, Share, Add to Home Screen. Android: Chrome, Install.",
 		summary: "Open Morium like an app from your home screen, iPhone or Android.",
 		keywords: ["home screen", "app", "install", "iphone", "android", "phone", "shortcut", "icon"],
@@ -69,7 +69,7 @@ export const usingMoriumArticles: HelpArticle[] = [
 	{
 		slug: "share-your-booking-link",
 		title: "Share your booking link",
-		seoTitle: "Share Your Morium Booking Link: Instagram, Google, Texts and Email | Morium Help",
+		seoTitle: "Share Your Morium Booking Link | Morium Help",
 		description:
 			"Your booking link is one web address on the Overview. Put it in your Instagram bio, Google profile, texts, emails and on cards.",
 		summary: "Where to find your booking link and where to put it.",
@@ -105,7 +105,7 @@ export const usingMoriumArticles: HelpArticle[] = [
 	{
 		slug: "add-a-booking-yourself",
 		title: "Add a booking yourself",
-		seoTitle: "Add a Booking Yourself in Morium: Phone and In-Person Customers | Morium Help",
+		seoTitle: "Add a Booking Yourself in Morium | Morium Help",
 		description: "For a customer who booked by phone or in person: Bookings tab, Add a Booking Manually. Only the name and the date are required.",
 		summary: "Put a phone or in-person booking on your calendar.",
 		keywords: ["add booking", "manual", "phone", "in person", "calendar", "new booking", "bookings"],
@@ -171,7 +171,7 @@ export const usingMoriumArticles: HelpArticle[] = [
 	{
 		slug: "rebook-reminders",
 		title: "Rebook reminders",
-		seoTitle: "Rebook Reminders in Morium: Bring Customers Back | Morium Help",
+		seoTitle: "Rebook Reminders in Morium | Morium Help",
 		description:
 			"A time for another detail email a set number of days after a job. Same settings and choices as review requests, once per job.",
 		summary: "A time for another detail email, a set number of days after a job.",
@@ -205,7 +205,7 @@ export const usingMoriumArticles: HelpArticle[] = [
 	{
 		slug: "how-follow-ups-work",
 		title: "How follow-ups work",
-		seoTitle: "How Follow-Ups Work in Morium: Email It or Send It Yourself | Morium Help",
+		seoTitle: "How Follow-Ups Work in Morium | Morium Help",
 		description:
 			"Review requests and rebook reminders either email the customer for you or wait for you to send them. One reminder a day tells you what is waiting or paused.",
 		summary: "Email it for you, or send it yourself, plus the daily reminder.",
@@ -288,7 +288,7 @@ export const usingMoriumArticles: HelpArticle[] = [
 	{
 		slug: "add-people-to-your-team",
 		title: "Add people to your team",
-		seoTitle: "Add People to Your Team in Morium: Manager and Employee Roles | Morium Help",
+		seoTitle: "Add People to Your Team in Morium | Morium Help",
 		description:
 			"Settings, Account, Team: enter name, email and role, then Send Invite. Manager runs the business, Employee sees only their jobs.",
 		summary: "Invite a manager or an employee and choose what they see.",
@@ -328,7 +328,7 @@ export const usingMoriumArticles: HelpArticle[] = [
 	{
 		slug: "where-things-are-in-settings",
 		title: "Where things are in Settings",
-		seoTitle: "Where Things Are in Morium Settings: A One-Screen Map | Morium Help",
+		seoTitle: "Where Things Are in Morium Settings | Morium Help",
 		description: "A short map of the six Settings sections: Business, Services, Booking form, Follow-ups, Website and Account.",
 		summary: "A one-screen map of the six Settings sections.",
 		keywords: ["settings", "where", "find", "map", "business", "services", "account", "brand", "logo", "payment methods"],
@@ -352,9 +352,9 @@ export const usingMoriumArticles: HelpArticle[] = [
 	{
 		slug: "delete-a-customer-permanently",
 		title: "Delete a customer permanently",
-		seoTitle: "Delete a Customer Permanently in Morium: Erase Their Details, Keep Your Numbers | Morium Help",
+		seoTitle: "Delete a Customer Permanently | Morium Help",
 		description:
-			"Archive a customer, then erase them for good from Customers, Archived Customers. Their details go, your jobs and invoices stay as Deleted customer, and your totals do not change.",
+			"Archive a customer, then erase them for good. Their details go, your jobs and invoices stay as Deleted customer, and your totals do not change.",
 		summary: "Erase a customer's details for good and keep your numbers.",
 		keywords: ["delete customer", "erase", "remove customer", "archive", "privacy", "customer data", "delete data", "permanently"],
 		lead:
@@ -418,7 +418,7 @@ export const usingMoriumArticles: HelpArticle[] = [
 	{
 		slug: "getting-help",
 		title: "Getting help",
-		seoTitle: "Getting Help with Morium: Email Support and Quick Fixes | Morium Help",
+		seoTitle: "Getting Help with Morium | Morium Help",
 		description:
 			"How to email us, what to check when a customer did not get an email, where a missing booking is, and what to do if you forgot your password.",
 		summary: "Email us, plus quick fixes for the most common questions.",
