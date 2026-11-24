@@ -757,8 +757,7 @@ export const usingMoriumArticles: HelpArticle[] = [
 						"On a sent or paid invoice, tap **Print or save as PDF**.",
 						"A paid invoice is titled **Receipt**. An invoice that is not paid yet is titled **Invoice**.",
 					],
-					note: { title: "Drafts", text: "Drafts do not have this button. Send the invoice first." },
-				},
+									},
 				{
 					heading: "A summary of a date range",
 					steps: [
@@ -775,6 +774,7 @@ export const usingMoriumArticles: HelpArticle[] = [
 					heading: "Good to know",
 					bullets: [
 						"Employees whose role has Invoices set to **Their own jobs** can print their own invoices from their Jobs page.",
+						"Drafts do not have the print button. Send the invoice first.",
 						"Pay links, Stripe ids, and the customer's email and phone number do not show on the printed page.",
 					],
 				},
