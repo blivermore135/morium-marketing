@@ -711,10 +711,10 @@ export const usingMoriumArticles: HelpArticle[] = [
 				"Anyone on a team can leave the business from Settings, Account. You lose access right away, and your login stays so you can be invited again.",
 			summary: "Step away from a team yourself.",
 			keywords: ["leave", "quit", "remove myself", "team", "employee", "access", "account", "invited again"],
-			lead: "If you are on someone's team and you want out, you can leave it yourself. You do not need to ask the owner.",
+			lead: "If you are on someone's team and you want out, you can leave it yourself. You do not need to ask the owner. If you are an Employee, open your Jobs page and tap Leave this business. If you are an owner or Manager, go to Settings, then Account, at the bottom.",
 			sections: [
 				{
-					heading: "How to leave",
+					heading: "If you are an owner or Manager",
 					steps: [
 						"Open **Settings**, then **Account**.",
 						"Find the card **Leave this business**.",
@@ -723,7 +723,16 @@ export const usingMoriumArticles: HelpArticle[] = [
 					],
 				},
 				{
-					heading: "What happens",
+					heading: "If you are an Employee",
+						steps: [
+							"Open your **Jobs** page. Employees do not have Settings.",
+							"Tap the card **Leave this business** to open it.",
+							"Check the box that says you understand you will lose access.",
+							"Tap **Leave this business**.",
+						],
+					},
+					{
+						heading: "What happens",
 					bullets: [
 						"You lose access to the business right away.",
 						"Your jobs are given back to the business.",
