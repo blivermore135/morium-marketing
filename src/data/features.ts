@@ -177,7 +177,7 @@ export const features: Feature[] = [
 				heading: "How it works",
 				items: [
 					"A customer opens your link and picks their vehicle size, a package, add-ons, and a day.",
-					"You get an email about the new request, and it appears as Pending in your dashboard.",
+					"You get an alert about the new request, by email, on your phone, or both. It appears as Pending in your dashboard.",
 					"You confirm it (or change the price or time), and the customer gets a confirmation email.",
 					"Reminders before the appointment go out on their own.",
 				],
@@ -242,7 +242,7 @@ export const features: Feature[] = [
 				items: [
 					"Mark the job complete and the invoice is drafted with the service, price, and add-ons.",
 					"Check the lines, add tax if you charge it, and send the pay link by email. Or copy the link and text it.",
-					"The customer pays by card, Apple Pay, or Google Pay on a secure Stripe page.",
+					"The customer pays by card, Apple Pay, or Google Pay on a secure Stripe page, and you get an alert when they do.",
 					"Paid in cash, Zelle, or by check? Tap Mark Paid. Part payments and deposits work too.",
 				],
 			},
@@ -256,7 +256,11 @@ export const features: Feature[] = [
 				body: "Use New invoice for a job that came by phone or word of mouth. It's saved as a finished job, so it shows in the customer's history and your revenue.",
 			},
 			{
-				heading: "What you'll need",
+				heading: "Export for your books",
+					body: "On the Invoices tab, pick a date range and download your invoices as a spreadsheet (CSV). You also see the totals for that range: invoiced, paid, refunded, and still owed.",
+				},
+				{
+					heading: "What you'll need",
 				body: "A free Stripe account to take card payments. Setup takes a few minutes inside Morium. Cash, Zelle, and check payments work without Stripe.",
 			},
 		],
@@ -276,6 +280,10 @@ export const features: Feature[] = [
 			{
 				q: "Is it included in the price?",
 				a: "Yes. Invoices and card payments are on every plan, starting at $59 a month.",
+				},
+				{
+					q: "Can I export my invoices?",
+					a: "Yes. Pick a date range on the Invoices tab and download a CSV spreadsheet, with totals for invoiced, paid, refunded, and still owed.",
 			},
 		],
 		related: ["online-booking", "customer-history", "google-review-requests"],
@@ -300,6 +308,7 @@ export const features: Feature[] = [
 					"Name, phone, and email, which you can edit any time.",
 					"Their vehicles and every visit, with the service and price.",
 					"Total spent, and when they were last here.",
+						"Upcoming and Past lists, with a search box to find anyone by name.",
 					"How they found you, so you can see which channels bring in customers.",
 				],
 			},

@@ -103,6 +103,8 @@ export const pricingTiers: PricingTier[] = [
 			"Everything in Starter",
 			"As many team members as you want",
 			"Give each person their own jobs. They see only theirs",
+			"Assign any booking to a teammate",
+			"Let a teammate send invoices for their own jobs",
 			"Calendar and reports for each person",
 			"Before and after job photos",
 			"Remove 'Powered by Morium' from your booking page",
