@@ -342,7 +342,7 @@ export const usingMoriumArticles: HelpArticle[] = [
 					"**Booking form**: which optional questions your booking form asks.",
 					"**Follow-ups**: appointment reminders, **Google review requests**, **Rebook reminders** and how they go out.",
 					"**Website**: the Book now button and the booking form to put on your own website.",
-					"**Account**: your plan and the free trial (**Cancel plan** is here), your **Team** and roles, the activity log, and **Appearance**.",
+					"**Account**: your plan and the free trial (**Cancel plan** is here), your **Team** and roles, the activity log, and **Appearance**. The **Dark mode** switch in Appearance picks light or dark. Pages like login and your Jobs page also have a small button for it: a moon on a light page, a sun on a dark page. Tap it to switch. Its label says what a tap does, like Switch to dark mode.",
 				],
 			},
 		],
@@ -520,12 +520,12 @@ export const usingMoriumArticles: HelpArticle[] = [
 				heading: "Upcoming and Past",
 				paragraphs: [
 					"A customer is under **Upcoming** when they still have a booking ahead. Everyone else is under **Past**. Each customer is in only one list. The number next to each name is how many people are in it.",
-					"Each list shows a few customers first. Tap **Show more** to see more. Tap the list's name to fold it up.",
+					"Each list shows 50 customers at a time. Tap **Show 50 more** to see the next 50. Tap the list's name to fold it up.",
 				],
 			},
 			{
 				heading: "Find someone",
-				paragraphs: ["Type in **Search customers**. It filters both lists as you type."],
+				paragraphs: ["Type in **Search customers**. The rows you can see filter as you type. If someone is not in the first 50, press Enter. Morium then looks through all of your customers."],
 			},
 			{
 				heading: "What you see for each customer",
@@ -620,7 +620,10 @@ export const usingMoriumArticles: HelpArticle[] = [
 			},
 			{
 				heading: "Good to know",
-				bullets: ["The range is based on the date each invoice was made, not the date it was paid."],
+				bullets: [
+						"The range is based on the date each invoice was made, not the date it was paid.",
+						"You can also print the same summary. Tap **Print summary** next to **Download CSV**. See [Print or save an invoice, receipt or summary](/help/print-invoices-and-receipts).",
+					],
 			},
 		],
 		related: ["send-an-invoice-and-get-paid", "the-customers-tab", "where-things-are-in-settings"],
@@ -655,7 +658,7 @@ export const usingMoriumArticles: HelpArticle[] = [
 				heading: "If it does not work",
 				bullets: [
 					"**That person is already on your team.** They were never removed, or they are in the list already.",
-					"**That email is already on another Morium business.** One email can be on one business at a time. They need to be removed from that one first.",
+					"**That email is already on another Morium business.** One email can be on one business at a time. They need to be removed from that one first, or leave it themselves (see [Leave a business](/help/leave-a-business)).",
 					"They count toward your team size, like anyone else. Your plan sets how many people you can have.",
 				],
 			},
@@ -664,7 +667,123 @@ export const usingMoriumArticles: HelpArticle[] = [
 	},
 
 	{
-		slug: "getting-help",
+		slug: "get-started-list",
+			title: "The Get started list",
+			seoTitle: "The Get Started List in Morium | Morium Help",
+			description:
+				"A short list on your Overview with three steps: share your booking link, connect Stripe, and get your first booking request.",
+			summary: "Three steps on your Overview to get set up.",
+			keywords: ["get started", "checklist", "first steps", "overview", "setup", "progress", "new", "stripe", "booking link"],
+			lead:
+				"The Overview has a card called **Get started**. It shows three steps and how many you have done, like 1 of 3 done.",
+			sections: [
+				{
+					heading: "The three steps",
+					steps: [
+						"**Share your booking link.** This is done once you copy, text or email your link. Tap **Copy link** to do it.",
+						"**Connect Stripe to take card payments.** This is done when card payments are on. Tap **Connect Stripe** to set it up.",
+						"**Get your first booking request.** This is done when a customer sends a request through your link, your website or the booking form. When it is done, tap **Open it** to see it.",
+					],
+				},
+				{
+					heading: "What counts as a booking request",
+					paragraphs: [
+						"A booking you type in yourself does not count. A test from you or a teammate does not count either. It has to be a real customer.",
+					],
+				},
+				{
+					heading: "Good to know",
+					bullets: [
+						"Only owners and co-owners see the list.",
+						"Tap **Hide this** to hide it. Tap **Show the Get started list again** to bring it back.",
+						"The list goes away by itself when all three steps are done.",
+					],
+				},
+			],
+			related: ["your-first-10-minutes", "share-your-booking-link", "send-an-invoice-and-get-paid"],
+		},
+
+		{
+			slug: "leave-a-business",
+			title: "Leave a business",
+			seoTitle: "Leave a Business in Morium | Morium Help",
+			description:
+				"Anyone on a team can leave the business from Settings, Account. You lose access right away, and your login stays so you can be invited again.",
+			summary: "Step away from a team yourself.",
+			keywords: ["leave", "quit", "remove myself", "team", "employee", "access", "account", "invited again"],
+			lead: "If you are on someone's team and you want out, you can leave it yourself. You do not need to ask the owner.",
+			sections: [
+				{
+					heading: "How to leave",
+					steps: [
+						"Open **Settings**, then **Account**.",
+						"Find the card **Leave this business**.",
+						"Check **I understand I will lose access to** your business name.",
+						"Tap **Leave this business**.",
+					],
+				},
+				{
+					heading: "What happens",
+					bullets: [
+						"You lose access to the business right away.",
+						"Your jobs are given back to the business.",
+						"Your login stays, so the business can invite you again later with the same email.",
+					],
+				},
+				{
+					heading: "If you are the only owner",
+					paragraphs: [
+						"You see this instead: You are the only owner. Make someone else an owner first (Crew plan), or delete the business.",
+					],
+				},
+			],
+			related: ["add-back-a-removed-teammate", "add-people-to-your-team", "where-things-are-in-settings"],
+		},
+
+		{
+			slug: "print-invoices-and-receipts",
+			title: "Print or save an invoice, receipt or summary",
+			seoTitle: "Print or Save an Invoice or Receipt in Morium | Morium Help",
+			description:
+				"Print or save as a PDF any sent or paid invoice, or a summary of a date range. A paid invoice prints as a Receipt.",
+			summary: "Print or save a PDF of an invoice, a receipt, or a summary.",
+			keywords: ["print", "pdf", "save", "receipt", "invoice", "summary", "records", "taxes", "accountant"],
+			lead: "Get a clean page of an invoice, a receipt or a summary for your own files.",
+			sections: [
+				{
+					heading: "One invoice",
+					steps: [
+						"Open the **Invoices** tab.",
+						"On a sent or paid invoice, tap **Print or save as PDF**.",
+						"A paid invoice is titled **Receipt**. An invoice that is not paid yet is titled **Invoice**.",
+					],
+					note: { title: "Drafts", text: "Drafts do not have this button. Send the invoice first." },
+				},
+				{
+					heading: "A summary of a date range",
+					steps: [
+						"Open the **Invoices** tab and find the card **Export invoices**.",
+						"Pick a **Date range**.",
+						"Tap **Print summary**. It shows the same rows and totals as the CSV file.",
+					],
+				},
+				{
+					heading: "Save a file instead of printing",
+					paragraphs: ["In the print window, choose **Save as PDF** as the printer. That keeps a file instead of a paper copy."],
+				},
+				{
+					heading: "Good to know",
+					bullets: [
+						"Employees whose role has Invoices set to **Their own jobs** can print their own invoices from their Jobs page.",
+						"Pay links, Stripe ids, and the customer's email and phone number do not show on the printed page.",
+					],
+				},
+			],
+			related: ["export-your-invoices", "send-an-invoice-and-get-paid", "let-employees-send-their-own-invoices"],
+		},
+
+		{
+			slug: "getting-help",
 		title: "Getting help",
 		seoTitle: "Getting Help with Morium | Morium Help",
 		description:

@@ -257,7 +257,7 @@ export const features: Feature[] = [
 			},
 			{
 				heading: "Export for your books",
-					body: "On the Invoices tab, pick a date range and download your invoices as a spreadsheet (CSV). You also see the totals for that range: invoiced, paid, refunded, and still owed.",
+					body: "On the Invoices tab, pick a date range and download your invoices as a spreadsheet (CSV). You also see the totals for that range: invoiced, paid, refunded, and still owed. Need a paper copy? Print or save as a PDF any sent or paid invoice (a paid one prints as a receipt), or the whole summary.",
 				},
 				{
 					heading: "What you'll need",
@@ -283,7 +283,7 @@ export const features: Feature[] = [
 				},
 				{
 					q: "Can I export my invoices?",
-					a: "Yes. Pick a date range on the Invoices tab and download a CSV spreadsheet, with totals for invoiced, paid, refunded, and still owed.",
+					a: "Yes. Pick a date range on the Invoices tab and download a CSV spreadsheet, with totals for invoiced, paid, refunded, and still owed. You can also print or save a PDF of any sent or paid invoice, or of the summary.",
 			},
 		],
 		related: ["online-booking", "customer-history", "google-review-requests"],
@@ -308,7 +308,7 @@ export const features: Feature[] = [
 					"Name, phone, and email, which you can edit any time.",
 					"Their vehicles and every visit, with the service and price.",
 					"Total spent, and when they were last here.",
-						"Upcoming and Past lists, with a search box to find anyone by name.",
+						"Upcoming and Past lists, 50 at a time, with a search box that looks through every customer.",
 					"How they found you, so you can see which channels bring in customers.",
 				],
 			},
