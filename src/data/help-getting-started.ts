@@ -416,6 +416,254 @@ export const usingMoriumArticles: HelpArticle[] = [
 	},
 
 	{
+		slug: "assign-a-job-to-a-teammate",
+		title: "Assign a job to a teammate",
+		seoTitle: "Assign a Job to a Teammate in Morium | Morium Help",
+		description:
+			"Pick who does a job from the booking details or from the Customers tab. Giving a job to a person is part of the Crew plan.",
+		summary: "Give a job to someone on your team, or take it back.",
+		keywords: ["assign", "assigned to", "teammate", "employee", "job", "crew", "who does the job", "unassigned"],
+		lead:
+			"You can give any job to someone on your team. They will see it on their Jobs page. Giving a job to a person is part of the Crew plan.",
+		sections: [
+			{
+				heading: "Who can do it",
+				paragraphs: [
+					"The owner, and anyone whose role is allowed to change jobs, like a Manager. You need the Crew plan and at least one teammate. The **Assigned to** line and the **Assign to** button only show up once you have both. If you have no teammate yet, add one under **Settings**, then **Account**, then **Team**.",
+				],
+			},
+			{
+				heading: "From a booking",
+				steps: [
+					"Open the booking to see its details.",
+					"Tap the **Assigned to** line.",
+					"Pick a person. The one who has the job now says **Assigned now**.",
+				],
+			},
+			{
+				heading: "From the Customers tab",
+				steps: [
+					"Open the **Customers** tab and find the customer under **Upcoming**.",
+					"Tap **Assign to**.",
+					"If they have more than one upcoming job, pick the job first. Then pick the person.",
+				],
+			},
+			{
+				heading: "Good to know",
+				bullets: [
+					"The list shows everyone on your team, you included, with their role under their name.",
+					"Someone who has not signed in yet shows **Hasn't joined yet** and cannot be picked.",
+					"Pick **No one** to take a job back. That works on every plan.",
+					"A job nobody has shows **Unassigned**. You can also filter the calendar to unassigned jobs.",
+					"On Crew, an Employee sees only the jobs given to them.",
+					"Every change is written to the activity log.",
+				],
+			},
+		],
+		related: ["add-people-to-your-team", "let-employees-send-their-own-invoices", "the-customers-tab"],
+	},
+
+	{
+		slug: "let-employees-send-their-own-invoices",
+		title: "Let employees send invoices for their own jobs",
+		seoTitle: "Let Employees Send Their Own Invoices | Morium Help",
+		description:
+			"Make a role with the Invoices box Their own jobs. That person sees and sends invoices only for jobs given to them, and cannot change prices.",
+		summary: "A role that sees and sends invoices only for their own jobs.",
+		keywords: ["employee", "invoice", "invoices", "role", "custom role", "their own jobs", "permission", "crew"],
+		lead:
+			"You can let someone invoice the jobs they did, without seeing the rest of your invoices. You do it with a role that has the box **Their own jobs** turned on.",
+		sections: [
+			{
+				heading: "Make the role",
+				steps: [
+					"Open **Settings**, then **Account**, then **Roles**.",
+					"Make a new role and give it a name.",
+					"Set **Jobs** to **Only jobs assigned to them**.",
+					"Under **Invoices**, check **Their own jobs**.",
+					"Tap **Create role**. Then pick that role when you invite someone, or change it on a person already on your team.",
+				],
+			},
+			{
+				heading: "What that person can do",
+				bullets: [
+					"See and send invoices for jobs assigned to them.",
+					"They cannot change prices.",
+					"They do not see anyone else's invoices.",
+				],
+			},
+			{
+				heading: "Good to know",
+				bullets: [
+					"The box only works when **Jobs** is set to **Only jobs assigned to them**. Morium tells you this next to the box.",
+					"Custom roles are part of the Crew plan.",
+					"Give them a job first, so they have something to invoice. See Assign a job to a teammate.",
+					"Use **View as this role** to see the app the way they see it. It is only a preview.",
+				],
+			},
+		],
+		related: ["add-people-to-your-team", "assign-a-job-to-a-teammate", "send-an-invoice-and-get-paid"],
+	},
+
+	{
+		slug: "the-customers-tab",
+		title: "The Customers tab",
+		seoTitle: "The Customers Tab in Morium | Morium Help",
+		description:
+			"Customers are split into Upcoming and Past. Search by name, see visits and spend, archive a customer, or export a file.",
+		summary: "Upcoming and Past customers, search, archive and export.",
+		keywords: ["customers", "customer history", "upcoming", "past", "search", "archive", "archived", "export", "lifetime spend", "visits"],
+		lead:
+			"Everyone who has booked with you shows up here after their first booking. Morium keeps track of repeat visits and how much each customer has spent.",
+		sections: [
+			{
+				heading: "Upcoming and Past",
+				paragraphs: [
+					"A customer is under **Upcoming** when they still have a booking ahead. Everyone else is under **Past**. Each customer is in only one list. The number next to each name is how many people are in it.",
+					"Each list shows a few customers first. Tap **Show more** to see more. Tap the list's name to fold it up.",
+				],
+			},
+			{
+				heading: "Find someone",
+				paragraphs: ["Type in **Search customers**. It filters both lists as you type."],
+			},
+			{
+				heading: "What you see for each customer",
+				bullets: [
+					"How many visits they have had.",
+					"Their vehicle.",
+					"How much they have spent in total.",
+					"A button to **Archive** them.",
+					"An **Assign to** button on Upcoming customers. It shows only on the Crew plan, and only once you have at least one teammate. Until then you see a note on how to add one. See Assign a job to a teammate.",
+				],
+			},
+			{
+				heading: "Archive",
+				paragraphs: [
+					"**Archive** moves someone to **Archived Customers**, at the bottom of the tab. They are not deleted. Their bookings, invoices and revenue stay as they are, and when they book again they come back by themselves.",
+				],
+			},
+			{
+				heading: "Export",
+				paragraphs: ["The owner sees an **Export CSV** button above the lists. It downloads your customers as a spreadsheet file."],
+			},
+		],
+		related: ["add-a-booking-yourself", "assign-a-job-to-a-teammate", "delete-a-customer-permanently"],
+	},
+
+	{
+		slug: "booking-and-payment-alerts",
+		title: "Booking and payment alerts",
+		seoTitle: "Booking and Payment Alerts in Morium | Morium Help",
+		description:
+			"Choose Email and app, or App only, for alerts about new bookings and paid invoices. It is set for each owner.",
+		summary: "Pick how you hear about new bookings and paid invoices.",
+		keywords: ["alerts", "notifications", "notice", "new booking", "paid invoice", "email", "app", "phone", "push"],
+		lead: "Morium tells you when someone books and when an invoice is paid. You pick how you hear about it.",
+		sections: [
+			{
+				heading: "Where to change it",
+				steps: [
+					"Open **Settings**, then **Account**.",
+					"Find the card **Booking and payment alerts**.",
+					"Pick one of the two choices.",
+				],
+			},
+			{
+				heading: "The two choices",
+				bullets: [
+					"**Email and app**: you get an email and a notification on your phone.",
+					"**App only**: you get the notification on your phone. We only email you if your phone cannot get it.",
+				],
+			},
+			{
+				heading: "Good to know",
+				bullets: [
+					"This covers new bookings and paid invoices.",
+					"It is each owner's own choice. A co-owner can pick differently.",
+					"To get phone notifications, turn them on with the bell at the top of the page, on the phone you want them on.",
+					"If no phone is set up yet, the card says so and we keep emailing you.",
+				],
+			},
+		],
+		related: ["put-morium-on-your-home-screen", "send-an-invoice-and-get-paid", "where-things-are-in-settings"],
+	},
+
+	{
+		slug: "export-your-invoices",
+		title: "Export your invoices",
+		seoTitle: "Export Your Invoices in Morium | Morium Help",
+		description:
+			"Download a CSV file of your invoices and payments for any date range, with the totals for Invoiced, Paid, Refunded and Still owed.",
+		summary: "Download your invoices and payments as a file.",
+		keywords: ["export", "invoices", "csv", "totals", "taxes", "records", "download", "spreadsheet", "accountant"],
+		lead: "Get a file of your invoices and payments for your own records, like for taxes or your accountant.",
+		sections: [
+			{
+				heading: "Download the file",
+				steps: [
+					"Open the **Invoices** tab.",
+					"Find the card **Export invoices**.",
+					"Pick a **Date range**: **This month**, **Last month**, **This year**, **Last year** or **All**.",
+					"Tap **Download CSV**. It opens in Excel, Numbers or Google Sheets.",
+				],
+			},
+			{
+				heading: "The four totals",
+				paragraphs: ["Above the button you see the totals for the range you picked. They come from the same numbers as the file."],
+				bullets: [
+					"**Invoiced**: what you billed.",
+					"**Paid**: what you were paid.",
+					"**Refunded**: what you gave back.",
+					"**Still owed**: what is not paid yet.",
+				],
+			},
+			{
+				heading: "Good to know",
+				bullets: ["The range is based on the date each invoice was made, not the date it was paid."],
+			},
+		],
+		related: ["send-an-invoice-and-get-paid", "the-customers-tab", "where-things-are-in-settings"],
+	},
+
+	{
+		slug: "add-back-a-removed-teammate",
+		title: "Add back a teammate you removed",
+		seoTitle: "Add Back a Removed Teammate in Morium | Morium Help",
+		description:
+			"Use the same invite form. Someone who was removed keeps their old login, so they sign in with their usual email and password.",
+		summary: "Bring a removed person back to your team.",
+		keywords: ["remove", "removed", "re-add", "add back", "team", "teammate", "employee", "invite", "returning"],
+		lead:
+			"If you removed someone and want them back, you add them the same way you added them the first time. They do not need a new password.",
+		sections: [
+			{
+				heading: "Add them back",
+				steps: [
+					"Open **Settings**, then **Account**, then **Team**.",
+					"Enter their **Name**, **Email** and **Role**. Use the same email as before.",
+					"Tap **Send Invite**.",
+				],
+			},
+			{
+				heading: "What they get",
+				paragraphs: [
+					"They already have a login, so there is no set-password link. They get an email saying they were added. They sign in with their usual email and password.",
+				],
+			},
+			{
+				heading: "If it does not work",
+				bullets: [
+					"**That person is already on your team.** They were never removed, or they are in the list already.",
+					"**That email is already on another Morium business.** One email can be on one business at a time. They need to be removed from that one first.",
+					"They count toward your team size, like anyone else. Your plan sets how many people you can have.",
+				],
+			},
+		],
+		related: ["add-people-to-your-team", "assign-a-job-to-a-teammate", "where-things-are-in-settings"],
+	},
+
+	{
 		slug: "getting-help",
 		title: "Getting help",
 		seoTitle: "Getting Help with Morium | Morium Help",
