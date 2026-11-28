@@ -7,7 +7,7 @@ import { CONTACT_EMAIL } from "../data/site";
 	<div class="mx-auto max-w-3xl px-6 py-20 lg:px-8">
 		<a href="/" class="text-sm font-semibold text-accent-700 hover:text-accent-800">&larr; Back to Morium</a>
 		<h1 class="mt-6 font-display text-4xl font-bold tracking-tight text-ink">Privacy Policy</h1>
-		<p class="mt-2 text-sm text-ink/60">Last updated October 27, 2026</p>
+		<p class="mt-2 text-sm text-ink/60">Last updated November 27, 2026</p>
 
 		<div class="mt-10 space-y-8 text-base leading-relaxed text-ink/75">
 			<section>
@@ -47,6 +47,12 @@ import { CONTACT_EMAIL } from "../data/site";
 					<strong class="text-ink">Activity log:</strong> Morium records who in
 					your business changed something important (a price, a payment, a role)
 					and when. Your owners can see it.
+				</p>
+				<p class="mt-3">
+					<strong class="text-ink">Free trial limit:</strong> To give each card one free trial, we keep a
+					short code that Stripe makes for your card. Stripe calls it a fingerprint. It is not your card
+					number, and it cannot be used to charge your card. We keep it with a link to your business. If a
+					business is deleted, we keep the code on its own, so the same card cannot start another free trial.
 				</p>
 				<p class="mt-3">
 					<strong class="text-ink">Technical information:</strong> our servers and hosting providers keep
@@ -146,13 +152,17 @@ import { CONTACT_EMAIL } from "../data/site";
 			<section>
 				<h2 class="font-display text-lg font-bold text-ink">Your copy, and deleting your data</h2>
 				<p class="mt-2">
-					In the app, owners can download the bookings and the customers as spreadsheets. When your
+					In the app, owners can download the bookings and the customers as spreadsheets, and people on your
+					team with access to Money can download the invoices. When your
 					subscription ends, we keep your business's data so you can come back where you left off. We do not
 					delete it automatically. To have it deleted, email us at{" "}
 					<a href={`mailto:${CONTACT_EMAIL}`} class="font-semibold text-accent-700 hover:text-accent-800">{CONTACT_EMAIL}</a>{" "}
 					at any time and we'll delete your business's data, including your customers' records, from our
 					systems. Copies in
-					our backups can take a little longer to disappear. Stripe and
+					our backups can take a little longer to disappear. Two things stay after a business is deleted. One is
+					the card code described above, so the same card cannot start another free trial. The other is a short
+					security record of the deletion: the business's name, its web address, how many bookings, customers and
+					invoices it had, and when it was deleted. It holds none of your customers' details. Stripe and
 					Resend keep their own records under their own rules. For example, Stripe keeps payment records it is
 					required to keep.
 				</p>
